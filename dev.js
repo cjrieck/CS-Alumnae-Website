@@ -1,11 +1,15 @@
 // may not need firebase
 var express = require('express');
 	firebase = require('firebase');
+var logfmt = require('logfmt');
 
 var app = express();
 
+//app.use(express.static(path.join(__dirname, 'public')));
+
 app.configure(function(){
 	app.use(logfmt.requestLogger());
+	app.use("/", express.static(__dirname+"/"));
 	// add other things to serve here
 });
 

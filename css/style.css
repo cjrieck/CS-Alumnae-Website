@@ -48,3 +48,10 @@ table {
 * {
 	box-sizing: boder-box;
 }
+
+    html { height: 100%;
+		background-color: red
+	}
+     body { height: 100%; margin: 0; padding: 0 }
+    #map-canvas { height: 100% }
+	#map-outer {height: 500px}

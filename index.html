@@ -2,17 +2,22 @@
 <html>
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <style type="text/css">
-      html { height: 100%;
-	background-color: yellow
-	}
-     body { height: 100%; margin: 0; padding: 0 }
-    #map-canvas { height: 100% }
-	#map-outer {height: 500px}
-    </style>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+	<script type="text/javascript" src="http://platform.linkedin.com/in.js">
+		api_key: 77lw834nbnef0f
+		authorize: true
+	</script>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWZWDTQeqpZqmNQA9m1ThJHcR6pqQbvgk&sensor=false">
     </script>
+    <script type="text/javascript">
+		function onLinkedInAuth() {
+			IN.API.Profile("me").result( function(me) {
+				var id=me.values[0].id;
+				console.log(me.values[0].lastName);
+			});
+		}
+	</script>
     <script type="text/javascript">
       function initialize() {
         var mapOptions = {
@@ -26,6 +31,7 @@
     </script>
   </head>
   <body>
+	<script type="IN/Login" data-onAuth="onLinkedInAuth"></script>
     <div id="map-outer"><div id="map-canvas"/></div>
 	<div><p>CS ALUMNI</p></div>
   </body>

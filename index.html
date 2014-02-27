@@ -11,12 +11,37 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWZWDTQeqpZqmNQA9m1ThJHcR6pqQbvgk&sensor=false">
     </script>
     <script type="text/javascript">
-		function onLinkedInAuth() {
-			IN.API.Profile("me").result( function(me) {
-				var id=me.values[0].id;
-				console.log(me.values[0].lastName);
-			});
-		}
+	function getPeople()
+	{
+		if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		  }
+		else
+		  {// code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+
+		var xmlhttp=new XMLHttpRequest();
+		xmlhttp.onreadystatechange=function()
+		  {
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		    {
+				console.log("hello");
+		  		document.getElementById("el").innerHTML=xmlhttp.responseText;
+		    }
+		  }
+		xmlhttp.open("GET","myphp.php",true);
+		xmlhttp.send();
+	}
+	function onLinkedInAuth() {
+		IN.API.Profile("me").result( function(me) {
+			var id=me.values[0].id;
+			console.log(me.values[0].lastName);
+		});
+	}
+
+
 	</script>
     <script type="text/javascript">
       function initialize() {
@@ -32,7 +57,9 @@
   </head>
   <body>
 	<script type="IN/Login" data-onAuth="onLinkedInAuth"></script>
-    <div id="map-outer"><div id="map-canvas"/></div>
+    <div id="map-outer"><div id="map-canvas"/></div></div>
 	<div><p>CS ALUMNI</p></div>
+	<div id="el"><p>stuff</p></div>
+	<script>getPeople();</script>
   </body>
 </html>

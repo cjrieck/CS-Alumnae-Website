@@ -1,7 +1,7 @@
 // may not need firebase
 var express = require('express');
 	firebase = require('firebase');
-var logfmt = require('logfmt');
+ 	logfmt = require('logfmt');
 
 var app = express();
 

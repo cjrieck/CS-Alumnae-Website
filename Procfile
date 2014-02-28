@@ -1,1 +1,1 @@
-web: node dev.js 7500
+web: node web.js

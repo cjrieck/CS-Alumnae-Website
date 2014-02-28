@@ -1,19 +1,26 @@
 {
-  "name": "CS_Alumni_Website",
-  "version": "1.0.0",
-  "description": "CS Alumni website for... alumns",
+  "name": "CS-Alumnae-Website",
+  "version": "0.0.0",
+  "description": "Website for Alumns",
   "main": "dev.js",
   "dependencies": {
+    "firebase": "~1.0.5",
     "express": "~3.4.8",
-    "firebase": "~1.0.5"
+    "logfmt": "~0.21.0"
   },
   "devDependencies": {},
-  "scripts": {},
+  "scripts": {
+    "test": "echo"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/cjrieck/CS-Alumnae-Website.git"
   },
-  "author": "The Best Sem Group",
+  "keywords": [
+    "heroku",
+    "node"
+  ],
+  "author": "FACSEM",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/cjrieck/CS-Alumnae-Website/issues"

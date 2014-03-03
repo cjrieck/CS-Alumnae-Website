@@ -2,8 +2,8 @@
 var express = require('express');
 	firebase = require('firebase');
  	logfmt = require('logfmt');
-	mongodb = require('mongodb')
- 	, MongoClient = mongodb.MongoClient;
+	mongodb = require('mongodb');
+ 	MongoClient = mongodb.MongoClient;
 
 
 var app = express();

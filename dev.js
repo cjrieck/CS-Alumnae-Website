@@ -7,7 +7,7 @@ var express = require('express');
 
 
 var app = express();
-var MONGOHQ_URL="mongodb://user:pass@server.mongohq.com:port_name/db_name"
+var MONGOHQ_URL="mongodb://FACSEM:buffalotexas@troup.mongohq.com:10006/alumni"
 
 MongoClient.connect(process.env.MONGOHQ_URL, function(err, db){
 	var collection = db.collection('alumni');

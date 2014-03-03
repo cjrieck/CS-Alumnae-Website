@@ -7,9 +7,9 @@ var express = require('express');
 
 
 var app = express();
-var MONGOHQ_URL="mongodb://fac.7500@gmail.com:buffalotexas@troup.mongohq.com:10007/app22602359"
+// var MONGOHQ_URL="mongodb://fac.7500@gmail.com:buffalotexas@troup.mongohq.com:10007/app22602359"
 
-MongoClient.connect(process.env.MONGOHQ_URL, function(err, db){
+MongoClient.connect(process.env.MONGOHQ_URL || "mongodb://fac.7500@gmail.com:buffalotexas@troup.mongohq.com:10007/app22602359", function(err, db){
 	var collection = db.collection('alumni');
 
 	console.log('removing files');

@@ -2,8 +2,42 @@
 var express = require('express');
 	firebase = require('firebase');
  	logfmt = require('logfmt');
+	mongodb = require('mongodb')
+ 	, MongoClient = mongodb.MongoClient;
+
 
 var app = express();
+var MONGOHQ_URL="mongodb://user:pass@server.mongohq.com:port_name/db_name"
+
+MongoClient.connect(process.env.MONGOHQ_URL, function(err, db){
+	var collection = db.collection('alumni');
+
+	console.log('removing files');
+	collection.remove(function(err, result){
+		if(err) {
+			return console.error(err);
+		}
+		console.log('Removed files!!');
+
+		console.log('Inserting new documents');
+		collection.insert([{name:'tester1'}, {name:'coder'}], function(err, docs){
+			if (err) {
+				return console.error(err);
+			}
+
+			console.log('just inserted ' + docs.length + ' new documents!');
+			collection.find({}).toArray(function(err, docs){
+				if (err){
+					return console.error(err);
+				}
+
+				docs.forEach(function(doc){
+					console.log('found document: ' + doc);
+				});
+			});
+		});
+	});
+});
 
 //app.use(express.static(path.join(__dirname, 'public')));
 

@@ -5,7 +5,15 @@ var express = require('express');
 	mongodb = require('mongodb');
  	MongoClient = mongodb.MongoClient;
  	linkedin_client = require('linkedin-js')('77lw834nbnef0f', '2MqLprpXwJelFpQn', 'http://facsem.herokuapp.com/');
+ 	gm=require('googlemaps');
+ 	util=require('util');
 
+
+ 	gm.reverseGeocode('41.850033,-87.6500523', function(err, data){
+  util.puts(JSON.stringify(data));
+});
+
+ 	
 var app = express();
 var MONGO_URL=process.env.MONGOHQ_URL;
 

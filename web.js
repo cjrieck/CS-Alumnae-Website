@@ -20,7 +20,7 @@ mongodb.Db.connect(MONGO_URL, function(err, db){
 		console.log('Removed files!!');
 
 		console.log('Inserting new documents');
-		collection.insert([{name:'tester1'}, {name:'coder'}], function(err, docs){
+		collection.insert([{name:'tester1'}, {name:'coder'}, {name: 'TOM', title:'Prof Sir'}], function(err, docs){
 			if (err) {
 				return console.error(err);
 			}

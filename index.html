@@ -11,29 +11,29 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWZWDTQeqpZqmNQA9m1ThJHcR6pqQbvgk&sensor=false">
     </script>
     <script type="text/javascript">
-	function getPeople()
-	{
-		if (window.XMLHttpRequest)
-		  {// code for IE7+, Firefox, Chrome, Opera, Safari
-		  xmlhttp=new XMLHttpRequest();
-		  }
-		else
-		  {// code for IE6, IE5
-		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		  }
+	// function getPeople()
+	// {
+	// 	if (window.XMLHttpRequest)
+	// 	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	// 	  xmlhttp=new XMLHttpRequest();
+	// 	  }
+	// 	else
+	// 	  {// code for IE6, IE5
+	// 	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	// 	  }
 
-		var xmlhttp=new XMLHttpRequest();
-		xmlhttp.onreadystatechange=function()
-		  {
-		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-		    {
-				console.log("hello");
-		  		document.getElementById("el").innerHTML=xmlhttp.responseText;
-		    }
-		  }
-		xmlhttp.open("GET","myphp.php",true);
-		xmlhttp.send();
-	}
+	// 	var xmlhttp=new XMLHttpRequest();
+	// 	xmlhttp.onreadystatechange=function()
+	// 	  {
+	// 	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	// 	    {
+	// 			console.log("hello");
+	// 	  		document.getElementById("el").innerHTML=xmlhttp.responseText;
+	// 	    }
+	// 	  }
+	// 	xmlhttp.open("GET","myphp.php",true);
+	// 	xmlhttp.send();
+	// }
 	// function onLinkedInAuth() {
 	// 	IN.API.Profile("me").result( function(me) {
 	// 		var id=me.values[0].id;
@@ -44,15 +44,7 @@
 
 	</script>
     <script type="text/javascript">
-      function initialize() {
-        var mapOptions = {
-          center: new google.maps.LatLng(41.96727,-71.18495),
-          zoom: 3
-        };
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
-            mapOptions);
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
+      
     </script>
   </head>
   <body>

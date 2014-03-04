@@ -63,3 +63,13 @@ app.listen(port, function() {
 			console.log(me.values[0].lastName);
 		});
 	}
+
+	function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(41.96727,-71.18495),
+          zoom: 3
+        };
+        var map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);

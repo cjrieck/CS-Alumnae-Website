@@ -4,7 +4,7 @@ var express = require('express');
  	logfmt = require('logfmt');
 	mongodb = require('mongodb');
  	MongoClient = mongodb.MongoClient;
-
+ 	linkedin_client = require('linkedin-js')('77lw834nbnef0f', '2MqLprpXwJelFpQn', 'http://facsem.herokuapp.com/');
 
 var app = express();
 var MONGO_URL=process.env.MONGOHQ_URL;
@@ -55,3 +55,11 @@ var port = Number(process.env.PORT || 5000);
 app.listen(port, function() {
   console.log("Listening on " + port);
 });
+
+
+	function onLinkedInAuth() {
+		IN.API.Profile("me").result( function(me) {
+			var id=me.values[0].id;
+			console.log(me.values[0].lastName);
+		});
+	}

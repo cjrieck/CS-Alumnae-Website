@@ -30,8 +30,8 @@
 				success: function(){
 					console.log("success");
 				},
-				error: function(){
-					console.log("bad");
+				error: function(jqXHR, textStatus, errorThrown){
+					console.log("bad: " + textStatus + ": " + errorThrown);
 				}
 			});
 		});

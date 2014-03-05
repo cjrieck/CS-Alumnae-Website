@@ -23,9 +23,8 @@
 				type: 'POST',
 				url: '/request',
 				data: JSON.stringify({"first": fName, "last": lName, "id": id}),
-				//data: {stuff: "STUFF"},
-				contentType: "application/json; charset=utf-8",
-				dataType: "json",
+				//contentType: "application/json; charset=utf-8",
+				dataType: "string",
 				complete: function(){},
 				processData: false,
 				success: function(){

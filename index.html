@@ -22,7 +22,7 @@
 			$.ajax({
 				type: 'POST',
 				url: '/request',
-				data: {"first": fName, "last": lName, "id": id},
+				data: JSON.stringify({"first": fName, "last": lName, "id": id}),
 				//data: {stuff: "STUFF"},
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",

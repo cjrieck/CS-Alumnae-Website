@@ -43,7 +43,7 @@ mongodb.Db.connect(MONGO_URL, function(err, db){
 
 app.configure(function(){
 	app.use(logfmt.requestLogger());
-	app.use(express.json);
+	app.use(express.json());
 	app.use("/", express.static(__dirname+"/"));
 	// add other things to serve here
 });

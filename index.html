@@ -21,7 +21,7 @@
 			var lName=me.values[0].lastName
 			$.ajax({
 				type: 'POST',
-				url: '/request'
+				url: '/request',
 				data: {first: fName, last: lName, id: id},
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",

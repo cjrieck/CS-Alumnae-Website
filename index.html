@@ -10,17 +10,33 @@
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWZWDTQeqpZqmNQA9m1ThJHcR6pqQbvgk&sensor=false">
     </script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+	</script>
     <script type="text/javascript">
 	function onLinkedInAuth() {
 		IN.API.Profile("me").result( function(me) {
 			var id=me.values[0].id;
 			console.log(me.values[0].lastName);
+			var fName=me.values[0].firstName
+			var lName=me.values[0].lastName
+			$.ajax({
+				type: 'POST',
+				url: '/request'
+				data: {first: fName, last: lName, id: id},
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				complete: callback,
+				processData: false,
+				success: function(){
+					console.log("success");
+				}
+				error: function(){
+					console.log("bad");
+				}
+			});
 		});
 	}
 
-
-	</script>
-    <script type="text/javascript">
       function initialize() {
         var mapOptions = {
           center: new google.maps.LatLng(41.96727,-71.18495),

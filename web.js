@@ -51,6 +51,12 @@ app.get('/', function(req, res){
 	res.render('index.html'); // first page to load
 });
 
+app.post('/request', function(req, res){
+	console.log(req.body);
+	res.header("Access-Control-Allow-Origin", "*");
+	res.send("OK");
+});
+
 var port = Number(process.env.PORT || 5000);
 app.listen(port, function() {
   console.log("Listening on " + port);

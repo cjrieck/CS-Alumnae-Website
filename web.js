@@ -74,6 +74,7 @@ app.get('/map-pins', function(req, res){
 			res.send(items);
 		});
 
+	});
 });
 
 

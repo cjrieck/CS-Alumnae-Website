@@ -46,7 +46,7 @@
 					console.log("bad: " + textStatus + ": " + errorThrown);
 				}
 			});
-			initialize();
+			// initialize();
 		});
 	};
 
@@ -74,18 +74,21 @@
 	};
 
     function getLocations(userData) {
-		geocoder.geocode( {"address": userData[0]["location"]["name"]}, function(results, status) {
-			console.log(results);
-		    if (status == google.maps.GeocoderStatus.OK) {
-		      map.setCenter(results[0].geometry.location);
-		      var marker = new google.maps.Marker({
-		          map: map,
-		          position: results[0].geometry.location
-		      });
-		    } else {
-		      alert('Geocode was not successful for the following reason: ' + status);
-		    }
-		});
+    	for (i=0; i<userData.length; i++){
+			geocoder.geocode( {"address": userData[i]["location"]["name"]}, function(results, status) {
+				console.log(results);
+			    if (status == google.maps.GeocoderStatus.OK) {
+			      //map.setCenter(results[0].geometry.location);
+			      var marker = new google.maps.Marker({
+			          map: map,
+			          position: results[i].geometry.location
+			      });
+			    } else {
+			      //alert('Geocode was not successful for the following reason: ' + status);
+			      console.log("bad: " + status);
+			    }
+			});
+		}
 	};
 	    
     </script>

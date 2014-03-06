@@ -14,7 +14,7 @@
 	</script>
     <script type="text/javascript">
 	function onLinkedInAuth() {
-		IN.API.Profile("me").result( function(me) {
+		IN.API.Profile("me").fields("id", "first-name", "location", "positions").result( function(me) {
 			var id=me.values[0].id;
 			console.log(me.values[0].lastName);
 			var fName=me.values[0].firstName

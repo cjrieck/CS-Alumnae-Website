@@ -67,8 +67,8 @@ app.post('/request', function(req, res){
 
 app.get('/map-pins', function(req, res){
 	var entry = req.body;
-	console.log("REQUEST: " + req.body);
-	console.log("RESPONSE: " + res.body);
+	// console.log("REQUEST: " + req.body);
+	// console.log("RESPONSE: " + res.body);
 	mongodb.Db.connect(MONGO_URL, function(err, db){
 		var collection = db.collection('alumni');
 

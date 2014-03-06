@@ -18,6 +18,7 @@
 		  center: new google.maps.LatLng(41.96727,-71.18495),
 		  zoom: 3
 		}
+
 	function onLinkedInAuth() {
 		IN.API.Profile("me").fields("id", "first-name", "location", "positions").result( function(me) {
 			var id=me.values[0].id;
@@ -41,14 +42,15 @@
 				}
 			});
 		});
-	}
+	};
 
     function initialize() {
     	console.log('initializing google maps');
+    	// console.log("no initialized map");
       	geocoder = new google.maps.Geocoder();
       	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
   	    var locationsArray = new Array();
-
+  	    console.log("initialized map");
   	    var userData;
 
 

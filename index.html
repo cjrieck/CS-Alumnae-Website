@@ -17,7 +17,7 @@
     $(function() {
     	initialize();
     });
-    
+
     var geocoder, map,
     	mapOptions = {
 		  center: new google.maps.LatLng(41.96727,-71.18495),
@@ -46,6 +46,7 @@
 					console.log("bad: " + textStatus + ": " + errorThrown);
 				}
 			});
+			initialize();
 		});
 	};
 

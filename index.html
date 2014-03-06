@@ -77,7 +77,7 @@
     	console.log(userData);
     	for (i=0; i<userData.length; i++){
 			geocoder.geocode( {"address": userData[i]["location"]["name"]}, function(results, status) {
-				console.log(results);
+				console.log(results[i]);
 			    if (status == google.maps.GeocoderStatus.OK) {
 			      //map.setCenter(results[0].geometry.location);
 			      var marker = new google.maps.Marker({

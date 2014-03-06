@@ -13,6 +13,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 	</script>
     <script type="text/javascript">
+
 	function onLinkedInAuth() {
 		IN.API.Profile("me").fields("id", "first-name", "location", "positions").result( function(me) {
 			var id=me.values[0].id;
@@ -38,6 +39,39 @@
 	}
 
       function initialize() {
+
+      	geocoder = new google.maps.Geocoder();
+  	    var locationsArray = new Array();
+
+  	    var userData;
+
+	    $.ajax({
+	    	type: 'GET',
+	    	url: '/map-pins',
+	    	complete: function(){},
+			success: function(data){
+				userData = JSON.parse(data);
+				console.log(data);
+				console.log("success");
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				console.log("bad: " + textStatus + ": " + errorThrown);
+			}
+	    });
+
+
+	    geocoder.geocode( data[0]["location"], function(results, status) {
+		    if (status == google.maps.GeocoderStatus.OK) {
+		      map.setCenter(results[0].geometry.location);
+		      var marker = new google.maps.Marker({
+		          map: map,
+		          position: results[0].geometry.location
+		      });
+		    } else {
+		      alert('Geocode was not successful for the following reason: ' + status);
+		    }
+		});
+
         var mapOptions = {
           center: new google.maps.LatLng(41.96727,-71.18495),
           zoom: 3

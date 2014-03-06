@@ -29,35 +29,51 @@ app.post('/request', function(req, res){
 	res.send("OK");
 	mongodb.Db.connect(MONGO_URL, function(err, db){
 		var collection = db.collection('alumni');
+		var exists = false;
 
-			console.log('Inserting new documents');
+		console.log('Inserting new documents');
 
-			collection.find({id: req.body["id"]}).toArray(function(err, items) {
-				if (err) {
-					return;
-				} 
-				if (items.length > 0) {
-					console.log(items);
-				}
-			});
+		collection.find({id: req.body["id"]}).toArray(function(err, items) {
+			if (err) {
+				db.close();
+				return;
+			} 
+			if (items.length > 0) {
+				console.log(items);
+				exists = true;
+			}
+			// db.close();
+		});
+
+		if (!exists) {
 			collection.insert([req.body], function(err, docs){
 
 				if (err) {
 					return console.error(err);
 				}
 
-			console.log('just inserted ' + docs.length + ' new documents!');
-			collection.find({}).toArray(function(err, docs){
-				if (err){
-					return console.error(err);
-				}
-
-				docs.forEach(function(doc){
-					console.log('found document: ' + doc);
-				});
+				console.log('just inserted ' + docs.length + ' new documents!');
+				
+				db.close();
 			});
-		});
+
+		} else {
+			// if already exist, upsert()
+
+			db.close();
+		}
 	});
+});
+
+app.get('/map-pins', function(req, res){
+	var entry = req.body;
+	mongodb.Db.connect(MONGO_URL, function(err, db){
+		var collection = db.collection('alumni');
+
+		collection.find({type: "location"}).toArray(function(err, items) {
+			res.send(items);
+		});
+
 });
 
 

@@ -72,7 +72,7 @@ app.get('/map-pins', function(req, res){
 	mongodb.Db.connect(MONGO_URL, function(err, db){
 		var collection = db.collection('alumni');
 
-		collection.find({type: "location"}).toArray(function(err, items) {
+		collection.find({}).toArray(function(err, items) {
 			res.send(items);
 		});
 

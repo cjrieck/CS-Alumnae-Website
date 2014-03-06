@@ -31,7 +31,17 @@ app.post('/request', function(req, res){
 		var collection = db.collection('alumni');
 
 			console.log('Inserting new documents');
+
+			collection.find({id: req.body["id"]}).toArray(function(err, items) {
+				if (err) {
+					return;
+				} 
+				if (items.length > 0) {
+					console.log(items);
+				}
+			});
 			collection.insert([req.body], function(err, docs){
+
 				if (err) {
 					return console.error(err);
 				}

@@ -74,7 +74,7 @@ app.get('/map-pins', function(req, res){
 
 		collection.find({}).toArray(function(err, items) {
 			console.log(items);
-			req.send(items);
+			res.send(items);
 		});
 
 	});

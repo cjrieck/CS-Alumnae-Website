@@ -27,14 +27,14 @@ app.post('/request', function(req, res){
 	console.log(req.body);
 	res.header("Access-Control-Allow-Origin", "*");
 	res.send("OK");
-mongodb.Db.connect(MONGO_URL, function(err, db){
-	var collection = db.collection('alumni');
+	mongodb.Db.connect(MONGO_URL, function(err, db){
+		var collection = db.collection('alumni');
 
-		console.log('Inserting new documents');
-		collection.insert([req.body], function(err, docs){
-			if (err) {
-				return console.error(err);
-			}
+			console.log('Inserting new documents');
+			collection.insert([req.body], function(err, docs){
+				if (err) {
+					return console.error(err);
+				}
 
 			console.log('just inserted ' + docs.length + ' new documents!');
 			collection.find({}).toArray(function(err, docs){

@@ -60,7 +60,7 @@
 	    });
 
 
-	    geocoder.geocode( data[0]["location"], function(results, status) {
+	    geocoder.geocode( userData[0]["location"], function(results, status) {
 		    if (status == google.maps.GeocoderStatus.OK) {
 		      map.setCenter(results[0].geometry.location);
 		      var marker = new google.maps.Marker({

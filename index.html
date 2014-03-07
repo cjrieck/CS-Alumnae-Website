@@ -26,7 +26,7 @@
 
     function getLocations(userData) {
     	// console.log(userData[0]["location"]["name"]);
-		geocoder.geocode( {"address": userData[0]["location"]["name"]}, function(results, status) {
+		geocoder.geocode( {"address": userData[userData.length-1]["location"]["name"]}, function(results, status) {
 			console.log(results);
 		    if (status == google.maps.GeocoderStatus.OK) {
 		    	console.log("STATUS OK");

@@ -14,9 +14,9 @@
 	</script>
     <script type="text/javascript">
 
-    $(function() {
-    	initialize();
-    });
+    // $(function() {
+    // 	initialize();
+    // });
 
     var geocoder, map,
     	mapOptions = {
@@ -56,7 +56,7 @@
 	    	url: '/map-pins',
 	    	complete: function(){},
 			success: function(data){
-				console.log(data);
+				console.log(data[0]);
 				getLocations(data);
 			},
 			error: function(jqXHR, textStatus, errorThrown){

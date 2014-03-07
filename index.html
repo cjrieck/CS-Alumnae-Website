@@ -28,16 +28,15 @@
     	// console.log(userData[0]["location"]["name"]);
     	for (var i = 0; i < userData.length; i++) {
 			geocoder.geocode( {"address": userData[i]["location"]["name"]}, function(results, status) {
-				console.log(results);
+				// console.log(results);
 			    if (status == google.maps.GeocoderStatus.OK) {
-			    	console.log("STATUS OK");
 			      map.setCenter(results[0].geometry.location);
 			      var marker = new google.maps.Marker({
 			          map: map,
 			          position: results[0].geometry.location
 			      });
 			    } else {
-			      alert('Geocode was not successful for the following reason: ' + status);
+			      console.log('Geocode was not successful for the following reason: ' + status);
 			    }
 			});
 		};
@@ -71,12 +70,9 @@
 
     function initialize() {
     	console.log('initializing google maps');
-    	// console.log("no initialized map");
       	geocoder = new google.maps.Geocoder();
       	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-  	    // var locationsArray = new Array();
   	    console.log("initialized map");
-  	    // var userData;
 
 	    $.ajax({
 	    	type: 'GET',

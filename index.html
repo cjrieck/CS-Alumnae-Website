@@ -46,20 +46,11 @@
 					console.log("bad: " + textStatus + ": " + errorThrown);
 				}
 			});
-			initialize();
+			// initialize();
 		});
 	};
 
     function initialize() {
-    	console.log('initializing google maps');
-    	// console.log("no initialized map");
-      	geocoder = new google.maps.Geocoder();
-      	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-  	    var locationsArray = new Array();
-  	    console.log("initialized map");
-  	    var userData;
-
-
 	    $.ajax({
 	    	type: 'GET',
 	    	url: '/map-pins',
@@ -72,6 +63,14 @@
 				console.log("bad: " + textStatus + ": " + errorThrown);
 			}
 	    });
+
+	    console.log('initializing google maps');
+    	// console.log("no initialized map");
+      	geocoder = new google.maps.Geocoder();
+      	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+  	    var locationsArray = new Array();
+  	    console.log("initialized map");
+  	    var userData;
 	};
 
     function getLocations(userData) {
@@ -88,7 +87,9 @@
 		    }
 		});
 	};
-	    
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+    
     </script>
   </head>
   <body>

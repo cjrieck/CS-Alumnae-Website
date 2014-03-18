@@ -70,8 +70,9 @@
 	function populateProfiles (userData){
 		var picture = userData[0]["picture-url"];
 		$(".profile-picture").attr("src",picture);
+		console.log("populated profiles")
 
-	}
+	};
 
     function initialize() {
     	console.log('initializing google maps');

@@ -43,11 +43,11 @@
 	};
 
 	function onLinkedInAuth() {
-		IN.API.Profile("me").fields("id", "first-name", "location", "positions").result( function(me) {
-			var id=me.values[0].id;
-			console.log(me.values[0].lastName);
-			var fName=me.values[0].firstName
-			var lName=me.values[0].lastName
+		IN.API.Profile("me").fields("id", "first-name", "location", "positions","picture-url").result( function(me) {
+			//var id=me.values[0].id;
+			//console.log(me.values[0].lastName);
+			//var fName=me.values[0].firstName
+			//var lName=me.values[0].lastName
 			$.ajax({
 				type: 'POST',
 				url: '/request',
@@ -67,6 +67,11 @@
 			// initialize();
 		});
 	};
+	function populateProfiles (userData){
+		var picture = userData[0]["picture-url"];
+		$(".profile-picture").attr("src",picture);
+
+	}
 
     function initialize() {
     	console.log('initializing google maps');
@@ -81,6 +86,7 @@
 			success: function(data){
 				// console.log(data[0]);
 				getLocations(data);
+				populateProfiles(data);
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				console.log("bad: " + textStatus + ": " + errorThrown);
@@ -96,6 +102,6 @@
 	<script type="IN/Login" data-onAuth="onLinkedInAuth"></script>
     <div id="map-outer"><div id="map-canvas"/></div></div>
 	<div><p>CS ALUMNI</p></div>
-	<div id="el"><p>stuff</p></div>
+	<div id="el"><img class = "profile-picture"></div>
   </body>
 </html>

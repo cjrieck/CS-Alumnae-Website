@@ -41,7 +41,7 @@ app.post('/request', function(req, res){
 			} 
 			if (items.length > 0) {
 				console.log("RESPONSE ITEMS: "+items);
-				that.exists = true;
+				this.exists = true;
 			}
 			// db.close();
 		});

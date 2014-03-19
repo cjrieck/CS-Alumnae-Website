@@ -32,8 +32,6 @@ app.post('/request', function(req, res){
 		var exists = false;
 		var that = this;
 
-		console.log('Inserting new documents');
-
 		console.log("REQUEST BODY ID: "+req.body["id"]);
 
 		collection.find({id: req.body["id"]}).toArray(function(err, items) {
@@ -49,6 +47,8 @@ app.post('/request', function(req, res){
 		});
 
 		if (this.exists == false) {
+			console.log('Inserting new documents');
+			
 			collection.insert([req.body], function(err, docs){
 
 				if (err) {

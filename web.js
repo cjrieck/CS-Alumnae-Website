@@ -43,31 +43,46 @@ app.post('/request', function(req, res){
 				console.log("RESPONSE ITEMS: "+items);
 				this.exists = true;
 			}
+
+			else {
+				console.log('Inserting new documents');
+
+				collection.insert([req.body], function(err, docs){
+
+					if (err) {
+						return console.error(err);
+					}
+
+					console.log('just inserted ' + docs.length + ' new documents!');
+					
+					db.close();
+				});
+			}
 			// db.close();
 		});
 
 		console.log("THIS: "+this.exists);
 		console.log("NOT THIS: "+exists);
 		
-		if (!this.exists) {
-			console.log('Inserting new documents');
+		// if (!this.exists) {
+		// 	console.log('Inserting new documents');
 
-			collection.insert([req.body], function(err, docs){
+		// 	collection.insert([req.body], function(err, docs){
 
-				if (err) {
-					return console.error(err);
-				}
+		// 		if (err) {
+		// 			return console.error(err);
+		// 		}
 
-				console.log('just inserted ' + docs.length + ' new documents!');
+		// 		console.log('just inserted ' + docs.length + ' new documents!');
 				
-				db.close();
-			});
+		// 		db.close();
+		// 	});
 
-		} else {
-			// if already exist, upsert()
+		// } else {
+		// 	// if already exist, upsert()
 
-			db.close();
-		}
+		// 	db.close();
+		// }
 	});
 });
 

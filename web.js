@@ -33,13 +33,15 @@ app.post('/request', function(req, res){
 
 		console.log('Inserting new documents');
 
+		console.log("REQUEST BODY ID: "+req.body["id"]);
+
 		collection.find({id: req.body["id"]}).toArray(function(err, items) {
 			if (err) {
 				db.close();
 				return;
 			} 
 			if (items.length > 0) {
-				console.log(items);
+				console.log("RESPONSE ITEMS: "+items);
 				exists = true;
 			}
 			// db.close();
@@ -66,7 +68,7 @@ app.post('/request', function(req, res){
 });
 
 app.get('/map-pins', function(req, res){
-	var entry = req.body;
+	// var entry = req.body;
 	// console.log("REQUEST: " + req.body);
 	// console.log("RESPONSE: " + res.body);
 	mongodb.Db.connect(MONGO_URL, function(err, db){

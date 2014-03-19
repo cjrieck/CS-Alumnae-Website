@@ -30,7 +30,7 @@ app.post('/request', function(req, res){
 	mongodb.Db.connect(MONGO_URL, function(err, db){
 		var collection = db.collection('alumni');
 		var exists = false;
-		var this = that;
+		var that = this;
 
 		console.log('Inserting new documents');
 

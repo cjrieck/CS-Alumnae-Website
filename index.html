@@ -68,10 +68,11 @@
 		});
 	};
 	function populateProfiles (userData){
-		var picture = userData[0]["picture-url"];
+		var picture = userData[0]["pictureUrl"];
 		$(".profile-picture").attr("src",picture);
+		console.log("populated profiles")
 
-	}
+	};
 
     function initialize() {
     	console.log('initializing google maps');
@@ -102,6 +103,6 @@
 	<script type="IN/Login" data-onAuth="onLinkedInAuth"></script>
     <div id="map-outer"><div id="map-canvas"/></div></div>
 	<div><p>CS ALUMNI</p></div>
-	<div id="el"><img class = "profile-picture"></div>
+	<div id="el"><img class="profile-picture" src=""/></div>
   </body>
 </html>

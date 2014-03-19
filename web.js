@@ -49,7 +49,7 @@ app.post('/request', function(req, res){
 		console.log("THIS: "+this.exists);
 		console.log("NOT THIS: "+exists);
 		
-		if (!exists) {
+		if (!this.exists) {
 			console.log('Inserting new documents');
 
 			collection.insert([req.body], function(err, docs){

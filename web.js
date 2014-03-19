@@ -30,6 +30,7 @@ app.post('/request', function(req, res){
 	mongodb.Db.connect(MONGO_URL, function(err, db){
 		var collection = db.collection('alumni');
 		var exists = false;
+		var this = that;
 
 		console.log('Inserting new documents');
 
@@ -42,7 +43,7 @@ app.post('/request', function(req, res){
 			} 
 			if (items.length > 0) {
 				console.log("RESPONSE ITEMS: "+items);
-				exists = true;
+				that.exists = true;
 			}
 			// db.close();
 		});

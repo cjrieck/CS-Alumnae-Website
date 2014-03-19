@@ -68,6 +68,7 @@
 		});
 	};
 	function populateProfiles (userData){
+		console.log(userData[0]);
 		var picture = userData[0]["pictureUrl"];
 		$(".profile-picture").attr("src",picture);
 		console.log("populated profiles")

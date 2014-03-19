@@ -46,9 +46,9 @@ app.post('/request', function(req, res){
 			// db.close();
 		});
 
-		if (this.exists == false) {
+		if (exists == false) {
 			console.log('Inserting new documents');
-			
+
 			collection.insert([req.body], function(err, docs){
 
 				if (err) {

@@ -46,6 +46,9 @@ app.post('/request', function(req, res){
 			// db.close();
 		});
 
+		console.log("THIS: "+this.exists);
+		console.log("NOT THIS: "+exists);
+		
 		if (!exists) {
 			console.log('Inserting new documents');
 

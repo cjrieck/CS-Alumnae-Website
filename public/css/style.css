@@ -45,13 +45,87 @@ table {
 
 /* ----------- Begin Website Styling ----------- */
 
+
+
 * {
 	box-sizing: boder-box;
+
 }
 
-    html { height: 100%;
-		background-color: red
-	}
-     body { height: 100%; margin: 0; padding: 0 }
-    #map-canvas { height: 100% }
-	#map-outer {height: 500px}
+html { 
+	height: 100%;
+	background-color: #ecf0f1;
+}
+ body { 
+ 	font-family: Montserrat;
+
+ 	height: 100%; 
+ 	margin: 0; 
+ 	padding: 0 
+}
+#map-canvas { height: 100% }
+#map-outer {height: 500px}
+
+.banner-wrapper {
+	height: 110px;
+	margin-bottom: 25px;
+}
+
+
+#banner {
+	font-family: 'Latin Modern';
+	font-weight: 700;
+	font-size: 100px;
+	height: 80%;
+
+	text-align: center;
+}
+
+#logo {
+	height: 100%;
+}
+
+.item {
+	height: 200px;
+	width: 400px;
+
+	border-radius: 3px;
+	box-shadow: 0 0 5px #000;
+	margin-left: 10px;
+
+	float: left;
+
+	margin-left: 20px;
+}
+
+.profile-info {
+	width: 50%;
+	height: 100%;
+	display: block;
+	padding: 5px;
+}
+
+.profile-picture, .profile-info {
+	float: left;
+}
+
+.profile-picture {
+	height: 95%;
+	width: 45%;
+
+	margin: 5px 0px;
+	margin-left: 5px;
+
+	border-radius: 5px;
+}
+
+.fName {
+	
+	font-weight: 400;
+	font-size: 40px;
+	margin-bottom: 10px;
+}
+
+.position {
+
+}

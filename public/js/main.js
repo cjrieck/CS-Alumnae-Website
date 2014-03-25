@@ -1,18 +1,3 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
-	<script type="text/javascript" src="http://platform.linkedin.com/in.js">
-		api_key: 77lw834nbnef0f
-		authorize: true
-	</script>
-    <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWZWDTQeqpZqmNQA9m1ThJHcR6pqQbvgk&sensor=false">
-    </script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-	</script>
-    <script type="text/javascript">
 
     // $(function() {
     // 	initialize();
@@ -43,7 +28,7 @@
 	};
 
 	function onLinkedInAuth() {
-		IN.API.Profile("me").fields("id", "first-name", "location", "positions","picture-url").result( function(me) {
+		IN.API.Profile("me").fields("id", "first-name", "last-name", "location", "positions","picture-url").result( function(me) {
 			//var id=me.values[0].id;
 			//console.log(me.values[0].lastName);
 			//var fName=me.values[0].firstName
@@ -97,13 +82,3 @@
 	};
 
     google.maps.event.addDomListener(window, 'load', initialize);
-    
-    </script>
-  </head>
-  <body>
-	<script type="IN/Login" data-onAuth="onLinkedInAuth"></script>
-    <div id="map-outer"><div id="map-canvas"/></div></div>
-	<div><p>CS ALUMNI</p></div>
-	<div id="el"><img class="profile-picture" src=""/></div>
-  </body>
-</html>

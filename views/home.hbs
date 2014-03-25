@@ -1,0 +1,15 @@
+ <div id="map-outer"><div id="map-canvas"/></div></div>
+<div class="banner-wrapper"><p id="banner">Wheaton College CS Alumni <img id="logo" src="/img/logo.jpg"></p></div>
+
+<div class="list">
+	{{#each people}}
+		<div class="item">
+			<img class="profile-picture" src={{pictureUrl}}/>
+			<div class="profile-info">
+				<div class="fName">{{firstName}} {{lastName}}</div>
+				<div class="position"> {{positions.values.0.company.name}} </div>
+				<div class="location"> {{location.name}} </div>
+			</div>
+		</div>
+	{{/each}}
+</div>

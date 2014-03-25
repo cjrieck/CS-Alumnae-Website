@@ -1,10 +1,23 @@
 // may not need firebase
-var express = require('express');
-	firebase = require('firebase');
- 	logfmt = require('logfmt');
-	mongodb = require('mongodb');
+var express = require('express'),
+	firebase = require('firebase'),
+ 	logfmt = require('logfmt'),
+	mongodb = require('mongodb'),
+	Handlebars = require('handlebars'),
+	exphbs = require('express3-handlebars'),
  	MongoClient = mongodb.MongoClient;
 
+// var template = '<div class="list">{{#each items}}<div class"item">{{log this}}{{name}} {{class}}</div>{{/each}}</div>';
+// var t = Handlebars.compile(template);
+
+// Handlebars.registerHelper('log', function(something) {
+// 	console.log(something);
+// });
+
+// var html = t(
+// );
+
+// console.log(html);
 
 var app = express();
 var MONGO_URL=process.env.MONGOHQ_URL;
@@ -15,12 +28,30 @@ var MONGO_URL=process.env.MONGOHQ_URL;
 app.configure(function(){
 	app.use(logfmt.requestLogger());
 	app.use(express.json());
-	app.use("/", express.static(__dirname+"/"));
+
+	app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
+	app.set('view engine', '.hbs');
+
+	app.use("/", express.static(__dirname+"/public"));
 	// add other things to serve here
 });
 
 app.get('/', function(req, res){
-	res.render('index.html'); // first page to load
+	var context;
+
+	mongodb.Db.connect(MONGO_URL, function(err, db){
+		var collection = db.collection('alumni');
+
+		collection.find({}).toArray(function(err, items) {
+			console.log(items);
+			//res.json(items);
+			
+
+			context = { people: items};
+			res.render('home', context ); // first page to load
+		});
+
+	});
 });
 
 app.post('/request', function(req, res){

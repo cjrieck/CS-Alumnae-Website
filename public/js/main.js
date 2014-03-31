@@ -58,7 +58,7 @@
 
 		$.each(userData, function(item, value){
 			console.log(value);
-			var picture = value["pictureUrls"][0];
+			var picture = value["pictureUrls"]["values"][0];
 			$("#"+value["id"]).attr("src", picture);
 			// $(".profile-picture").attr("id", idNumber);
 			// console.log("populated profiles");

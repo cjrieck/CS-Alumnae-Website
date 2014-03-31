@@ -53,12 +53,12 @@
 		});
 	};
 	function populateProfiles (userData){
-		console.log(userData);
+		// console.log(userData);
 		var idNumber = 0;
 
 		$.each(userData, function(item, value){
 			// console.log(value);
-			var picture = value["pictureUrls"];
+			var picture = value["pictureUrls"]["values"][0];
 			console.log(picture);
 
 			$("#"+value["id"]).attr("src", picture);

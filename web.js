@@ -48,7 +48,8 @@ app.get('/', function(req, res){
 			
 
 			context = {people: items};
-			console.log("CONTEXT: "+context);
+			console.log("CONTEXT: "+items);
+
 
 			res.render('home', context ); // first page to load
 		});
@@ -57,7 +58,7 @@ app.get('/', function(req, res){
 });
 
 app.post('/request', function(req, res){
-	console.log(req.body);
+	// console.log(req.body);
 	res.header("Access-Control-Allow-Origin", "*");
 	res.send("OK");
 	mongodb.Db.connect(MONGO_URL, function(err, db){
@@ -65,7 +66,7 @@ app.post('/request', function(req, res){
 		var exists = false;
 		var that = this;
 
-		console.log("REQUEST BODY ID: "+req.body["id"]);
+		// console.log("REQUEST BODY ID: "+req.body["id"]);
 
 		collection.find({id: req.body["id"]}).toArray(function(err, items) {
 			if (err) {
@@ -73,12 +74,12 @@ app.post('/request', function(req, res){
 				return;
 			} 
 			if (items.length > 0) {
-				console.log("RESPONSE ITEMS: "+items);
+				// console.log("RESPONSE ITEMS: "+items);
 				this.exists = true;
 			}
 
 			else {
-				console.log('Inserting new documents');
+				// console.log('Inserting new documents');
 
 				collection.insert([req.body], function(err, docs){
 
@@ -86,7 +87,7 @@ app.post('/request', function(req, res){
 						return console.error(err);
 					}
 
-					console.log('just inserted ' + docs.length + ' new documents!');
+					// console.log('just inserted ' + docs.length + ' new documents!');
 					
 					db.close();
 				});
@@ -94,8 +95,8 @@ app.post('/request', function(req, res){
 			// db.close();
 		});
 
-		console.log("THIS: "+this.exists);
-		console.log("NOT THIS: "+exists);
+		// console.log("THIS: "+this.exists);
+		// console.log("NOT THIS: "+exists);
 		
 		// if (!this.exists) {
 		// 	console.log('Inserting new documents');
@@ -127,7 +128,7 @@ app.get('/map-pins', function(req, res){
 		var collection = db.collection('alumni');
 
 		collection.find({}).toArray(function(err, items) {
-			console.log(items);
+			// console.log(items);
 			res.json(items);
 		});
 

@@ -47,7 +47,7 @@ app.get('/', function(req, res){
 			//res.json(items);
 			
 
-			context = { people: items};
+			context = {people: items};
 			res.render('home', context ); // first page to load
 		});
 

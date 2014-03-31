@@ -54,12 +54,15 @@
 	};
 	function populateProfiles (userData){
 		console.log(userData);
+		var idNumber = 0;
 
 		$.each(userData, function(item, value){
 			console.log(value);
 			var picture = value["pictureUrl"];
-			$(".profile-picture").attr("src",picture);
+			$("#"+value["id"]).attr("src", picture);
+			// $(".profile-picture").attr("id", idNumber);
 			// console.log("populated profiles");
+			idNumber++;
 		});
 		
 

@@ -53,11 +53,13 @@
 		});
 	};
 	function populateProfiles (userData){
+		console.log(userData);
+
 		$.each(userData, function(item, value){
 			console.log(item+": "+value);
 			var picture = item["pictureUrl"];
 			$(".profile-picture").attr("src",picture);
-			console.log("populated profiles")
+			console.log("populated profiles");
 		});
 		
 

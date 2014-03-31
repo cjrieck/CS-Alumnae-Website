@@ -57,7 +57,7 @@
 
 		$.each(userData, function(item, value){
 			console.log(item+": "+value);
-			var picture = item["pictureUrl"];
+			var picture = value["pictureUrl"];
 			$(".profile-picture").attr("src",picture);
 			console.log("populated profiles");
 		});
@@ -77,9 +77,8 @@
 	    	complete: function(){},
 			success: function(data){
 				// console.log(data[0]);
-
 				getLocations(data);
-				populateProfiles(data);
+				// populateProfiles(data);
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				console.log("bad: " + textStatus + ": " + errorThrown);

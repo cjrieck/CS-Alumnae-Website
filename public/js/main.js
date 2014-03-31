@@ -53,10 +53,13 @@
 		});
 	};
 	function populateProfiles (userData){
-		console.log(userData[0]);
-		var picture = userData[0]["pictureUrl"];
-		$(".profile-picture").attr("src",picture);
-		console.log("populated profiles")
+		$.each(userData, function(item){
+			// console.log(userData[0]);
+			var picture = item["pictureUrl"];
+			$(".profile-picture").attr("src",picture);
+			console.log("populated profiles")
+		});
+		
 
 	};
 
@@ -72,6 +75,7 @@
 	    	complete: function(){},
 			success: function(data){
 				// console.log(data[0]);
+
 				getLocations(data);
 				populateProfiles(data);
 			},

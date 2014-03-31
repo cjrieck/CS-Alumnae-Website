@@ -28,7 +28,7 @@
 	};
 
 	function onLinkedInAuth() {
-		IN.API.Profile("me").fields("id", "first-name", "last-name", "location", "positions","picture-url").result( function(me) {
+		IN.API.Profile("me").fields("id", "first-name", "last-name", "location", "positions", "picture-url").result( function(me) {
 			//var id=me.values[0].id;
 			//console.log(me.values[0].lastName);
 			//var fName=me.values[0].firstName
@@ -56,10 +56,10 @@
 		console.log(userData);
 
 		$.each(userData, function(item, value){
-			console.log(item+": "+value);
+			console.log(value);
 			var picture = value["pictureUrl"];
 			$(".profile-picture").attr("src",picture);
-			console.log("populated profiles");
+			// console.log("populated profiles");
 		});
 		
 
@@ -78,7 +78,7 @@
 			success: function(data){
 				// console.log(data[0]);
 				getLocations(data);
-				// populateProfiles(data);
+				populateProfiles(data);
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				console.log("bad: " + textStatus + ": " + errorThrown);

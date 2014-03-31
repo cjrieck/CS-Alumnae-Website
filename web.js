@@ -48,6 +48,8 @@ app.get('/', function(req, res){
 			
 
 			context = {people: items};
+			console.log(context);
+			
 			res.render('home', context ); // first page to load
 		});
 

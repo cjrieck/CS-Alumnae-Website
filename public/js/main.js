@@ -53,9 +53,9 @@
 		});
 	};
 	function populateProfiles (userData){
-		$.each(userData, function(item){
+		$.each(userData, function(item, value){
 			// console.log(userData[0]);
-			var picture = item["pictureUrl"];
+			var picture = value["pictureUrl"];
 			$(".profile-picture").attr("src",picture);
 			console.log("populated profiles")
 		});

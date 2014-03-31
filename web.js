@@ -43,13 +43,13 @@ app.get('/', function(req, res){
 		var collection = db.collection('alumni');
 
 		collection.find({}).toArray(function(err, items) {
-			console.log(items);
+			// console.log(items);
 			//res.json(items);
 			
 
 			context = {people: items};
-			console.log(context);
-			
+			console.log("CONTEXT: "+context);
+
 			res.render('home', context ); // first page to load
 		});
 

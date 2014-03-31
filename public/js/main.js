@@ -54,8 +54,8 @@
 	};
 	function populateProfiles (userData){
 		$.each(userData, function(item, value){
-			// console.log(userData[0]);
-			var picture = value["pictureUrl"];
+			console.log(item+": "+value);
+			var picture = item["pictureUrl"];
 			$(".profile-picture").attr("src",picture);
 			console.log("populated profiles")
 		});

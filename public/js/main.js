@@ -28,7 +28,7 @@
 	};
 
 	function onLinkedInAuth() {
-		IN.API.Profile("me").fields("id", "first-name", "last-name", "location", "positions", "picture-url").result( function(me) {
+		IN.API.Profile("me").fields("id", "first-name", "last-name", "location", "positions", "picture-url", "/people/~/picture-urls::(original)").result( function(me) {
 			//var id=me.values[0].id;
 			//console.log(me.values[0].lastName);
 			//var fName=me.values[0].firstName

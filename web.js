@@ -129,12 +129,12 @@ app.get('/map-pins', function(req, res){
 
 		collection.find({}).toArray(function(err, items) {
 			// console.log(items);
-			// res.json(items);
-			context = {people: items};
-			console.log("CONTEXT: "+items);
+			res.json(items);
+			// context = {people: items};
+			// console.log("CONTEXT: "+items);
 
 
-			res.render('home', context ); // first page to load
+			// res.render('home', context ); // first page to load
 		});
 
 	});

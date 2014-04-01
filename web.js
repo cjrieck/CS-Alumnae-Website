@@ -45,7 +45,7 @@ app.get('/', function(req, res){
 		collection.find({}).toArray(function(err, items) {
 			// console.log(items);
 			//res.json(items);
-			
+
 
 			context = {people: items};
 			console.log("CONTEXT: "+items);
@@ -72,7 +72,7 @@ app.post('/request', function(req, res){
 			if (err) {
 				db.close();
 				return;
-			} 
+			}
 			if (items.length > 0) {
 				// console.log("RESPONSE ITEMS: "+items);
 				this.exists = true;
@@ -88,7 +88,7 @@ app.post('/request', function(req, res){
 					}
 
 					// console.log('just inserted ' + docs.length + ' new documents!');
-					
+
 					db.close();
 				});
 			}
@@ -97,7 +97,7 @@ app.post('/request', function(req, res){
 
 		// console.log("THIS: "+this.exists);
 		// console.log("NOT THIS: "+exists);
-		
+
 		// if (!this.exists) {
 		// 	console.log('Inserting new documents');
 
@@ -108,7 +108,7 @@ app.post('/request', function(req, res){
 		// 		}
 
 		// 		console.log('just inserted ' + docs.length + ' new documents!');
-				
+
 		// 		db.close();
 		// 	});
 
@@ -118,6 +118,22 @@ app.post('/request', function(req, res){
 		// 	db.close();
 		// }
 	});
+});
+
+app.get('/users/:id', function(req, res) {
+		mongodb.Db.connect(MONGO_URL, function(err, db){
+			var collection = db.collection('alumni');
+
+			collection.find({id: req.params.id}).toArray(function(err, items) {
+				if (err) {
+					res.send(404);
+					res.end();
+				} else {
+					res.json(items);
+				}
+			});
+
+		});
 });
 
 app.get('/map-pins', function(req, res){

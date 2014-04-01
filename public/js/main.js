@@ -1,7 +1,7 @@
 
-    // $(function() {
-    // 	initialize();
-    // });
+$(function() {
+	initialize();
+
 
     var geocoder, map,
     	mapOptions = {
@@ -29,10 +29,7 @@
 
 	function onLinkedInAuth() {
 		IN.API.Profile("me").fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)").result( function(me) {
-			//var id=me.values[0].id;
-			//console.log(me.values[0].lastName);
-			//var fName=me.values[0].firstName
-			//var lName=me.values[0].lastName
+
 			$.ajax({
 				type: 'POST',
 				url: '/request',
@@ -53,21 +50,14 @@
 		});
 	};
 	function populateProfiles (userData){
-		// console.log(userData);
-		var idNumber = 0;
 
 		$.each(userData, function(item, value){
-			// console.log(value);
 			var picture = value["pictureUrls"]["values"][0];
 			console.log(picture);
 
 			$("#"+value["id"]).attr("src", picture);
-			// $(".profile-picture").attr("id", idNumber);
-			// console.log("populated profiles");
-			idNumber++;
 		});
 		
-
 	};
 
     function initialize() {
@@ -92,3 +82,4 @@
 	};
 
     google.maps.event.addDomListener(window, 'load', initialize);
+});

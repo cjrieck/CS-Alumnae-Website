@@ -50,8 +50,7 @@ app.get('/', function(req, res){
 			context = {people: items};
 			console.log("CONTEXT: "+items);
 
-
-			res.render('home', context ); // first page to load
+			res.render('home', context); // first page to load
 		});
 
 	});
@@ -156,6 +155,23 @@ app.get('/map-pins', function(req, res){
 	});
 });
 
+app.get('/search/:name', function(req, res){
+	mongodb.Db.connect(MONGO_URL, function(err, db){
+			var collection = db.collection('alumni');
+
+			// only search for first name as of now
+			collection.find({firstName: req.params.name}).toArray(function(err, items) {
+				if (err) {
+					res.send(404);
+					res.end();
+				} else {
+					var context = {people: items};
+					console.log(items);
+					res.render('home', context); // first page to load				}
+				};
+			});
+		});
+});
 
 var port = Number(process.env.PORT || 5000);
 app.listen(port, function() {

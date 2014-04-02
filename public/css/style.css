@@ -59,6 +59,8 @@ html {
  body { 
  	font-family: Montserrat;
 
+
+
  	height: 100%; 
  	margin: 0; 
  	padding: 0 
@@ -85,9 +87,18 @@ html {
 	height: 100%;
 }
 
+.list {
+	width: 1100px;
+	min-width: 900px;
+
+	margin: 0 auto;
+}
+
 .item {
-	height: 200px;
-	width: 300px;
+	height: 140px;
+
+	width: 25%;
+	min-width: 20%;
 
 	border-radius: 3px;
 	box-shadow: 0 0 5px #000;
@@ -99,7 +110,7 @@ html {
 }
 
 .profile-info {
-	width: 50%;
+	width: 49%;
 	height: 100%;
 	display: block;
 	padding: 5px;
@@ -122,10 +133,24 @@ html {
 .fName {
 	
 	font-weight: 400;
-	font-size: 40px;
+	font-size: 20px;
 	margin-bottom: 10px;
 }
 
-.position {
+.position, .location {
 
+	font-size: 10px;
+}
+
+.location {
+	padding-top: 3px;
+}
+
+.input-field {
+	width: 300px;
+	margin: 25px auto;
+}
+
+#searchBar {
+	/*margin: 0 auto;*/
 }

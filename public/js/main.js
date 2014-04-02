@@ -1,6 +1,27 @@
-
 $(function() {
 	// initialize();
+
+	$('#submit').click(function(){
+		$('.list').empty();
+		var searchCriteria = $('#searchBar').val();
+		console.log(searchCriteria);
+
+		$.ajax({
+			type: 'GET',
+			url: '/search/'+searchCriteria,
+			success: function(data) {
+				if (data.length > 0) {
+					// console.log(data);
+					
+					// populateProfiles(data);
+				}
+			},
+			error: function() {
+
+			}
+
+		});
+	});
 
 
     var geocoder, map,

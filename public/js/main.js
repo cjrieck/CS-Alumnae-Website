@@ -36,7 +36,7 @@ $(function() {
 	};
 
 	function getLinkedInData(callback) {
-		IN.API.Profile("me").fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)").result( function(me) {
+		IN.API.Profile("me").fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)", "headline").result( function(me) {
 			callback(me.values[0]);
 		});
 	}
@@ -66,6 +66,7 @@ $(function() {
 		});
 
 	};
+
 	function testData() {
 		var data = [{
 			id: 'adfasdfadf',

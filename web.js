@@ -5,6 +5,7 @@ var express = require('express'),
 	mongodb = require('mongodb'),
 	Handlebars = require('handlebars'),
 	exphbs = require('express3-handlebars'),
+	_ = require('lodash'),
  	MongoClient = mongodb.MongoClient;
 
 // var template = '<div class="list">{{#each items}}<div class"item">{{log this}}{{name}} {{class}}</div>{{/each}}</div>';
@@ -20,7 +21,7 @@ var express = require('express'),
 // console.log(html);
 
 var app = express();
-var MONGO_URL=process.env.MONGOHQ_URL;
+var MONGO_URL=process.env.MONGOHQ_URL || 'mongodb://localhost:27017/alumni';
 
 
 //app.use(express.static(path.join(__dirname, 'public')));
@@ -43,13 +44,12 @@ app.get('/', function(req, res){
 		var collection = db.collection('alumni');
 
 		collection.find({}).toArray(function(err, items) {
-			// console.log(items);
-			//res.json(items);
-
 
 			context = {people: items};
 			console.log("CONTEXT: "+items);
 
+
+			// res.render('person', _.extend(context, {layout: false}));
 			res.render('home', context); // first page to load
 		});
 
@@ -94,28 +94,6 @@ app.post('/request', function(req, res){
 			// db.close();
 		});
 
-		// console.log("THIS: "+this.exists);
-		// console.log("NOT THIS: "+exists);
-
-		// if (!this.exists) {
-		// 	console.log('Inserting new documents');
-
-		// 	collection.insert([req.body], function(err, docs){
-
-		// 		if (err) {
-		// 			return console.error(err);
-		// 		}
-
-		// 		console.log('just inserted ' + docs.length + ' new documents!');
-
-		// 		db.close();
-		// 	});
-
-		// } else {
-		// 	// if already exist, upsert()
-
-		// 	db.close();
-		// }
 	});
 });
 
@@ -123,11 +101,19 @@ app.get('/users/:id', function(req, res) {
 		mongodb.Db.connect(MONGO_URL, function(err, db){
 			var collection = db.collection('alumni');
 
-			collection.find({id: req.params.id}).toArray(function(err, items) {
+
+			collection.find({}).toArray(function(err, items) {
+			// collection.find({id: req.params.id}).toArray(function(err, items) {
 				if (err) {
 					res.send(404);
 					res.end();
 				} else {
+
+					// var context = {people: items};
+					// console.log("CONTEXT: "+items);
+					
+					// res.render('person', _.extend(context, {layout: false}));
+					
 					res.json(items);
 				}
 			});
@@ -136,17 +122,39 @@ app.get('/users/:id', function(req, res) {
 });
 
 app.get('/map-pins', function(req, res){
-	// var entry = req.body;
-	// console.log("REQUEST: " + req.body);
-	// console.log("RESPONSE: " + res.body);
+	
 	mongodb.Db.connect(MONGO_URL, function(err, db){
 		var collection = db.collection('alumni');
 
 		collection.find({}).toArray(function(err, items) {
 			// console.log(items);
 			res.json(items);
-			// context = {people: items};
+
+			// var context = {people: items};
 			// console.log("CONTEXT: "+items);
+
+			// res.render('person', _.extend(context, {layout: false}));
+
+
+			// res.render('home', context ); // first page to load
+		});
+
+	});
+});
+
+app.get('/all', function(req, res){
+	
+	mongodb.Db.connect(MONGO_URL, function(err, db){
+		var collection = db.collection('alumni');
+
+		collection.find({}).toArray(function(err, items) {
+			// console.log(items);
+			// res.json(items);
+
+			var context = {people: items};
+			console.log("CONTEXT: "+items);
+
+			res.render('person', _.extend(context, {layout: false}));
 
 
 			// res.render('home', context ); // first page to load
@@ -167,7 +175,8 @@ app.get('/search/:name', function(req, res){
 				} else {
 					var context = {people: items};
 					console.log(items);
-					res.render('home', context); // first page to load				}
+					// res.json(context);
+					res.render('person', _.extend(context, {layout: false}));
 				};
 			});
 		});

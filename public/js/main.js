@@ -1,19 +1,50 @@
 $(function() {
-	// initialize();
 
-	$('#submit').click(function(){
-		$('.list').empty();
-		var searchCriteria = $('#searchBar').val();
-		console.log(searchCriteria);
+	// gets all user data in the form of rendered html
+	function getAllUsers() {
+		$.ajax({
+			type: 'GET',
+			url: '/all',
+			success: function(data){
+				console.log(data);
 
+				$('.result').html(data);
+
+				// getLocations(data);
+				// populateProfiles(data);
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				console.log("bad: " + textStatus + ": " + errorThrown);
+			}
+		});
+	}
+
+	// gets all user data in the form of JSON
+	function getData() {
+		$.ajax({
+			type: 'GET',
+			url: '/map-pins',
+			success: function(data){
+				console.log(data);
+
+				getLocations(data);
+				populateProfiles(data);
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				console.log("bad: " + textStatus + ": " + errorThrown);
+			}
+		});
+	}
+
+	// gets user data based on a search criteria and sent back as
+	// rendered html
+	function searchRequest(searchCriteria) {
 		$.ajax({
 			type: 'GET',
 			url: '/search/'+searchCriteria,
 			success: function(data) {
 				if (data.length > 0) {
-					// console.log(data);
-					
-					// populateProfiles(data);
+					$('.results').html(data);
 				}
 			},
 			error: function() {
@@ -21,6 +52,30 @@ $(function() {
 			}
 
 		});
+	}
+
+	function postData(data) {
+		$.ajax({
+			type: 'POST',
+			url: '/request',
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=utf-8",
+			success: function(){
+				console.log("success");
+				getData();
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				console.log("bad: " + textStatus + ": " + errorThrown);
+			}
+		});
+	};
+
+	$('#submit').click(function(){
+		$('.list').empty();
+		var searchCriteria = $('#searchBar').val();
+
+		searchRequest(searchCriteria);
+
 	});
 
 
@@ -50,6 +105,17 @@ $(function() {
 		};
 	};
 
+	function populateProfiles (userData){
+
+		$.each(userData, function(item, value){
+			var picture = value["pictureUrls"]["values"][0];
+			console.log(picture);
+
+			$("#"+value["id"]).attr("src", picture);
+		});
+
+	};
+
 	function onLinkedInAuth() {
 		getLinkedInData(function(data) {
 			postData(data);
@@ -61,32 +127,6 @@ $(function() {
 			callback(me.values[0]);
 		});
 	}
-
-	function postData(data) {
-		$.ajax({
-			type: 'POST',
-			url: '/request',
-			data: JSON.stringify(data),
-			contentType: "application/json; charset=utf-8",
-			success: function(){
-				console.log("success");
-				getPins();
-			},
-			error: function(jqXHR, textStatus, errorThrown){
-				console.log("bad: " + textStatus + ": " + errorThrown);
-			}
-		});
-	};
-	function populateProfiles (userData){
-
-		$.each(userData, function(item, value){
-			var picture = value["pictureUrls"]["values"][0];
-			console.log(picture);
-
-			$("#"+value["id"]).attr("src", picture);
-		});
-
-	};
 
 	function testData() {
 		var data = [{
@@ -100,34 +140,26 @@ $(function() {
 		postData(data[0]);
 	}
 
-	function getPins() {
-		$.ajax({
-			type: 'GET',
-				url: '/map-pins',
-				success: function(data){
-				getLocations(data);
-				populateProfiles(data);
-			},
-			error: function(jqXHR, textStatus, errorThrown){
-				console.log("bad: " + textStatus + ": " + errorThrown);
-			}
-		});
-	}
-
 	function initialize() {
-  	geocoder = new google.maps.Geocoder();
-  	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		if (IN.User.isAuthorized()) {
+	  	geocoder = new google.maps.Geocoder();
+	  	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+		// if (IN.User.isAuthorized()) {
 			getLinkedInData(function(userData) {
 				console.log(userData);
+
 				$.ajax({
 					type: 'GET',
 					url: '/users/' + userData.id,
 					success: function(data) {
+						console.log(data);
+
 						if (data.length === 0) {
+							
 							postData(userData);
+						
 						} else {
-							getPins();
+							getAllUsers(); // get all user data 
+							getData();
 						}
 					},
 					error: function(jqXHR, status) {
@@ -136,7 +168,7 @@ $(function() {
 					}
 				});
 			});
-		}
+		// }
 		// testData();
 	};
 

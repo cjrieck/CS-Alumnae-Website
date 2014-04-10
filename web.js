@@ -113,7 +113,7 @@ app.get('/users/:id', function(req, res) {
 					// console.log("CONTEXT: "+items);
 					
 					// res.render('person', _.extend(context, {layout: false}));
-					
+					console.log(items);
 					res.json(items);
 				}
 			});

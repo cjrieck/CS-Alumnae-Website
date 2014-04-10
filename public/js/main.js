@@ -6,6 +6,7 @@ $(function() {
 			type: 'GET',
 			url: '/all',
 			success: function(data){
+				console.log("GET ALL USER DATA");
 				console.log(data);
 
 				$('.result').html(data);
@@ -55,13 +56,14 @@ $(function() {
 	}
 
 	function postData(data) {
+		console.log("in POST DATA");
 		$.ajax({
 			type: 'POST',
 			url: '/request',
 			data: JSON.stringify(data),
 			contentType: "application/json; charset=utf-8",
 			success: function(){
-				console.log("success");
+				console.log("success IN POST DATA");
 				getData();
 			},
 			error: function(jqXHR, textStatus, errorThrown){
@@ -116,17 +118,20 @@ $(function() {
 
 	};
 
-	function onLinkedInAuth() {
-		getLinkedInData(function(data) {
-			postData(data);
-		});
-	};
-
 	function getLinkedInData(callback) {
 		IN.API.Profile("me").fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)", "headline").result( function(me) {
 			callback(me.values[0]);
 		});
 	}
+
+	function onLinkedInAuth() {
+		console.log("before getLinkedInData");
+		getLinkedInData(function(data) {
+			console.log("in onLinkedInAuth");
+			postData(data);
+		});
+	
+	};
 
 	function testData() {
 		var data = [{
@@ -143,9 +148,13 @@ $(function() {
 	function initialize() {
 	  	geocoder = new google.maps.Geocoder();
 	  	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		// if (IN.User.isAuthorized()) {
+		if (IN.User.isAuthorized()) {
 			getLinkedInData(function(userData) {
+				
+				console.log("INITIALIZE CODE:");
 				console.log(userData);
+
+				postData(userData);
 
 				$.ajax({
 					type: 'GET',
@@ -153,14 +162,17 @@ $(function() {
 					success: function(data) {
 						console.log(data);
 
-						if (data.length === 0) {
+						// if (data.length === 0) {
 							
-							postData(userData);
+						// 	postData(userData);
 						
-						} else {
-							getAllUsers(); // get all user data 
-							getData();
-						}
+						// // } else {
+						// // 	getAllUsers(); // get all user data 
+						// // 	getData();
+						// // }
+						// }
+						getAllUsers();
+						getData();
 					},
 					error: function(jqXHR, status) {
 						console.log(jqXHR);
@@ -168,7 +180,7 @@ $(function() {
 					}
 				});
 			});
-		// }
+		}
 		// testData();
 	};
 

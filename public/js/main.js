@@ -11,8 +11,10 @@ $(function() {
 
 				$('.result').html(data);
 
-				// getLocations(data);
 				// populateProfiles(data);
+
+				getLocations(data);
+				populateProfiles(data);
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				console.log("bad: " + textStatus + ": " + errorThrown);
@@ -113,7 +115,7 @@ $(function() {
 			var picture = value["pictureUrls"]["values"][0];
 			console.log(picture);
 
-			$("#"+value["id"]).attr("src", picture);
+			$("#"+value["id"].toString()).attr("src", picture);
 		});
 
 	};
@@ -148,6 +150,9 @@ $(function() {
 	function initialize() {
 	  	geocoder = new google.maps.Geocoder();
 	  	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+	  	// getAllUsers();
+
 		if (IN.User.isAuthorized()) {
 			getLinkedInData(function(userData) {
 				

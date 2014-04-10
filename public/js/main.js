@@ -11,8 +11,6 @@ $(function() {
 
 				$('.result').html(data);
 
-				// populateProfiles(data);
-
 				getLocations(data);
 				populateProfiles(data);
 			},
@@ -51,7 +49,7 @@ $(function() {
 				}
 			},
 			error: function() {
-
+				alert("No users of that criteria");
 			}
 
 		});
@@ -111,12 +109,14 @@ $(function() {
 
 	function populateProfiles (userData){
 
-		$.each(userData, function(item, value){
-			var picture = value["pictureUrls"]["values"][0];
-			console.log(picture);
+		if ($.isPlainObject(userData)){
+			$.each(userData, function(item, value){
+				var picture = value["pictureUrls"]["values"][0];
+				console.log(picture);
 
-			$("#"+value["id"].toString()).attr("src", picture);
-		});
+				$("#"+value.id).attr("src", picture);
+			});
+		}
 
 	};
 
@@ -167,15 +167,6 @@ $(function() {
 					success: function(data) {
 						console.log(data);
 
-						// if (data.length === 0) {
-							
-						// 	postData(userData);
-						
-						// // } else {
-						// // 	getAllUsers(); // get all user data 
-						// // 	getData();
-						// // }
-						// }
 						getAllUsers();
 						getData();
 					},

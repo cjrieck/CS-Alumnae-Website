@@ -169,30 +169,56 @@ app.get('/all', function(req, res){
 
 			res.render('person', _.extend(context, {layout: false}));
 
-
 			// res.render('home', context ); // first page to load
 		});
-
+		// db.close();	
 	});
 });
 
 app.get('/search/:name', function(req, res){
-	mongodb.Db.connect(MONGO_URL, function(err, db){
-			var collection = db.collection('alumni');
+	console.log(req.params.name + ": " + req.params.name.length);
 
-			// only search for first name as of now
-			collection.find({firstName: req.params.name}).toArray(function(err, items) {
-				if (err) {
-					res.send(404);
-					res.end();
-				} else {
-					var context = {people: items};
-					console.log(items);
-					// res.json(context);
-					res.render('person', _.extend(context, {layout: false}));
-				};
-			});
+	// if nothing passed in then return all of the values
+	// if (req.params.name.length === 0) {
+	// 	mongodb.Db.connect(MONGO_URL, function(err, db){
+	// 		var collection = db.collection('alumni');
+
+	// 		// only search for first name as of now
+	// 		collection.find({}).toArray(function(err, items) {
+	// 			if (err) {
+	// 				console.log(err);
+	// 				res.send(404);
+	// 				res.end();
+	// 			} else {
+	// 				var context = {people: items};
+	// 				console.log(items);
+	// 				// res.json(context);
+	// 				res.render('person', _.extend(context, {layout: false}));
+	// 			};
+	// 		});
+	// 		db.close();
+	// 	});
+	// } else { 
+	mongodb.Db.connect(MONGO_URL, function(err, db){
+		var collection = db.collection('alumni');
+
+		// only search for first name as of now
+		collection.find({firstName: req.params.name}).toArray(function(err, items) {
+			if (err) {
+				console.log(err);
+				res.send(err);
+				res.end();
+			} else {
+				var context = {people: items};
+				console.log(items);
+				// res.json(context);
+				res.render('person', _.extend(context, {layout: false}));
+			};
 		});
+		// db.close();
+	});
+	// }
+	
 });
 
 var port = Number(process.env.PORT || 5000);

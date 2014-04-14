@@ -58,17 +58,22 @@ $(function() {
 	// gets user data based on a search criteria and sent back as
 	// rendered html
 	function searchRequest(searchCriteria) {
+
 		$.ajax({
 			type: 'GET',
 			url: '/search/'+searchCriteria,
 			success: function(data) {
+				console.log("SEARCH SUCCESS");
 				if (data.length > 0) {
 					$('.results').html(data);
 				}
 			},
-			error: function() {
-				alert("No users of that criteria");
+			error: function(jqXHR, textStatus, errorThrown){
+				console.log("bad: " + textStatus + ": " + errorThrown);
 			}
+			// error: function() {
+			// 	alert("No users of that criteria");
+			// }
 
 		});
 	}
@@ -91,11 +96,19 @@ $(function() {
 		});
 	};
 
+	// when the search button is clicked
 	$('#submit').click(function(){
-		$('.list').empty();
+		
 		var searchCriteria = $('#searchBar').val();
+		// console.log("CRITERIA: "+searchCriteria.length);
 
-		searchRequest(searchCriteria);
+		if (searchCriteria.length > 0) {
+			$('.list').empty();
+			searchRequest(searchCriteria);
+		}
+		else {
+			console.log("don't search");
+		}
 
 	});
 

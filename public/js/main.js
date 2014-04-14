@@ -1,5 +1,23 @@
 $(function() {
 
+	function removeAllUsers() {
+		$.ajax({
+			type: 'POST',
+			url: '/remove',
+			success: function(data){
+				console.log('removed all data');
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus +': '+errorThrown);
+			}
+		});
+	}
+
+	// STRICTLY FOR TESTING
+  	// --------------------
+  	// removeAllUsers();
+  	// --------------------
+
 	// gets all user data in the form of rendered html
 	function getAllUsers() {
 		$.ajax({
@@ -64,6 +82,7 @@ $(function() {
 			contentType: "application/json; charset=utf-8",
 			success: function(){
 				console.log("success IN POST DATA");
+
 				getData();
 			},
 			error: function(jqXHR, textStatus, errorThrown){
@@ -151,9 +170,14 @@ $(function() {
 	  	geocoder = new google.maps.Geocoder();
 	  	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
+	  	console.log("INITIALIZE CODE:");
+		
+		getAllUsers();
+		getData();
+
 	  	// getAllUsers();
 
-		if (IN.User.isAuthorized()) {
+		// if (IN.User.isAuthorized()) {
 			getLinkedInData(function(userData) {
 				
 				console.log("INITIALIZE CODE:");
@@ -161,22 +185,26 @@ $(function() {
 
 				postData(userData);
 
-				$.ajax({
-					type: 'GET',
-					url: '/users/' + userData.id,
-					success: function(data) {
-						console.log(data);
+				getAllUsers();
+				getData();
 
-						getAllUsers();
-						getData();
-					},
-					error: function(jqXHR, status) {
-						console.log(jqXHR);
-						console.log(status);
-					}
-				});
+				// ajax call should be a POST
+				// $.ajax({
+				// 	type: 'GET',
+				// 	url: '/users/' + userData.id,
+				// 	success: function(data) {
+				// 		console.log(data);
+
+				// 		getAllUsers();
+				// 		getData();
+				// 	},
+				// 	error: function(jqXHR, status) {
+				// 		console.log(jqXHR);
+				// 		console.log(status);
+				// 	}
+				// });
 			});
-		}
+		// }
 		// testData();
 	};
 

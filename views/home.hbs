@@ -8,9 +8,11 @@
 
 
 <div class="results">
-	{{#if people}}
-		{{#each people}}
-			{{> person}}
-		{{/each}}
-	{{/if}}
+	<div class="list">
+		{{#if people}}
+			{{#each people}}
+				{{> person}}
+			{{/each}}
+		{{/if}}
+	</div>
 </div>

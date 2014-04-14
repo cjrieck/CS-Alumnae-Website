@@ -97,6 +97,19 @@ app.post('/request', function(req, res){
 	});
 });
 
+app.post('/remove', function(req, res){
+	mongodb.Db.connect(MONGO_URL, function(err, db){
+		if (err) {
+			console.log(err);
+		}
+		else{
+			var collection = db.collection('alumni');
+			collection.remove({});
+			res.send("REMOVED");
+		}
+	});
+});
+
 app.get('/users/:id', function(req, res) {
 		mongodb.Db.connect(MONGO_URL, function(err, db){
 			var collection = db.collection('alumni');

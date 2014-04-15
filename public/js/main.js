@@ -96,6 +96,7 @@ $(function() {
 			url: '/search/'+searchCriteria,
 			success: function(data) {
 				console.log("SEARCH SUCCESS");
+				console.log(data)
 				if (data.length > 0) {
 					$('.results').html(data);
 				}

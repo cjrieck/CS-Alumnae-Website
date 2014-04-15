@@ -45,8 +45,10 @@ app.get('/', function(req, res){
 
 		collection.find({}).toArray(function(err, items) {
 
-			context = {people: items};
-			console.log("CONTEXT: "+items);
+			context = {people: items[0]["values"]};
+
+			console.log("INITIAL CONTEXT");
+			console.log(items[0]["values"]);
 
 
 			// res.render('person', _.extend(context, {layout: false}));
@@ -142,7 +144,7 @@ app.get('/map-pins', function(req, res){
 
 		collection.find({}).toArray(function(err, items) {
 			// console.log(items);
-			res.json(items);
+			res.json(items[0]["values"]);
 
 			// var context = {people: items};
 			// console.log("CONTEXT: "+items);
@@ -165,8 +167,9 @@ app.get('/all', function(req, res){
 			// console.log(items);
 			// res.json(items);
 
-			var context = {people: items};
-			console.log("CONTEXT: "+items);
+			var context = {people: items[0]["values"]};
+			console.log('ALL CONTEXT: ');
+			console.log(items);
 
 			res.render('person', _.extend(context, {layout: false}));
 
@@ -204,19 +207,37 @@ app.get('/search/:name', function(req, res){
 		var collection = db.collection('alumni');
 
 		// only search for first name as of now
-		collection.find({firstName: req.params.name}).toArray(function(err, items) {
+		// collection.find({firstName: req.params.name, 
+		// 				lastName: req.params.name
+		// 				 }).toArray(function(err, items) {
+		// collection.find({"values": {$elemMatch: {
+		// 		"firstName": req.params.name,
+		// 		"lastName": req.params.name
+		// 		//"position": {$elemMatch {"company": req.params.name}},
+		// 		//"location": {$elemMatch {"name" req.params.name}}
+		// 		}}}).toArray(function(err, items) {
+		collection.find({"values": {$elemMatch: {
+				$or: [
+				{"firstName": {$regex: req.params.name, $options: 'i'}},
+				{"lastName": {$regex: req.params.name, $options: 'i'}},
+				{"positions": {$elemMatch: {"values": 
+							{$elemMatch: {"company": 
+							{$elemMatch: {"name": {$regex: req.params.name, $options: 'i'}}}}}}}}
+				]
+				}}}).toArray(function(err,items) {
 			if (err) {
 				console.log(err);
 				res.send(err);
 				res.end();
-			} else {
-				var context = {people: items};
-				console.log(items);
-				// res.json(context);
-				res.render('person', _.extend(context, {layout: false}));
+			} else {	
+				if (items.length > 0) {
+					var context = {people: items[0]["values"]};
+					res.render('person', _.extend(context, {layout: false}));
+				}
 			};
+			db.close();
 		});
-		// db.close();
+		//db.close();
 	});
 	// }
 	

@@ -75,6 +75,7 @@ app.post('/request', function(req, res){
 			if (items.length > 0) {
 				// console.log("RESPONSE ITEMS: "+items);
 				this.exists = true;
+				res.send("Already exists");
 			}
 
 			else {
@@ -88,7 +89,7 @@ app.post('/request', function(req, res){
 
 					// console.log('just inserted ' + docs.length + ' new documents!');
 
-					db.close();
+					// db.close();
 				});
 			}
 			// db.close();

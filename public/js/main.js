@@ -103,6 +103,10 @@ $(function() {
 		// console.log("CRITERIA: "+searchCriteria.length);
 
 		if (searchCriteria.length > 0) {
+			$('.item').animate({
+				opacity: 0
+			}, 1000);
+
 			$('.list').empty();
 			searchRequest(searchCriteria);
 		}
@@ -121,10 +125,21 @@ $(function() {
 
     function getLocations(userData) {
     	for (var i = 0; i < userData.length; i++) {
-				if (!userData[i].location) {
-					break;
-				}
-				geocoder.geocode( {"address": userData[i]["location"]["name"]}, function(results, status) {
+    		
+    		var location;
+
+			if (!userData[i].location) {
+				break;
+			}
+
+			// checks to see if user is in Greater Boston Area
+			if (userData[i]["location"]["name"].indexOf("Boston") != -1) {
+				location = "Boston, MA";
+			} else {
+				location = userData[i]["location"]["name"];
+			}
+
+			geocoder.geocode( {"address": location}, function(results, status) {
 				// console.log(results);
 			    if (status == google.maps.GeocoderStatus.OK) {
 			      map.setCenter(results[0].geometry.location);
@@ -152,18 +167,29 @@ $(function() {
 
 	};
 
-	function getLinkedInData(callback) {
-		IN.API.Profile("me").fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)", "headline").result( function(me) {
-			callback(me.values[0]);
-		});
-	}
+	// function getLinkedInData(callback) {
+	// 	IN.API.Profile("me").fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)", "headline").result( function(me) {
+	// 		callback(me.values[0]);
+	// 	});
+	// }
 
 	function onLinkedInAuth() {
-		console.log("before getLinkedInData");
-		getLinkedInData(function(data) {
-			console.log("in onLinkedInAuth");
-			postData(data);
-		});
+		// console.log("before getLinkedInData");
+		// getLinkedInData(function(data) {
+		// 	console.log("in onLinkedInAuth");
+		// 	postData(data);
+		// });
+		console.log("onLinkedInAuth");
+
+		// if (!IN.User.isAuthorized()) {
+			IN.API.Profile("me")
+				.fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)", "headline")
+				.result( function(me) {
+				// callback(me.values[0]);
+				console.log(me);
+				postData(me);
+			});
+		// };
 	
 	};
 
@@ -191,15 +217,15 @@ $(function() {
 	  	// getAllUsers();
 
 		// if (IN.User.isAuthorized()) {
-			getLinkedInData(function(userData) {
+			// getLinkedInData(function(userData) {
 				
-				console.log("INITIALIZE CODE:");
-				console.log(userData);
+				// console.log("INITIALIZE CODE:");
+				// console.log(userData);
 
-				postData(userData);
+				// postData(userData);
 
-				getAllUsers();
-				getData();
+				// getAllUsers();
+				// getData();
 
 				// ajax call should be a POST
 				// $.ajax({
@@ -216,10 +242,10 @@ $(function() {
 				// 		console.log(status);
 				// 	}
 				// });
-			});
-		// }
+			// });
+		}
 		// testData();
-	};
+	// };
 
     google.maps.event.addDomListener(window, 'load', initialize);
 });

@@ -100,7 +100,7 @@ html {
 	width: 25%;
 	min-width: 20%;
 
-	border-radius: 3px;
+	border-radius: 5px;
 	box-shadow: 0 0 5px #000;
 	margin-left: 10px;
 
@@ -146,11 +146,65 @@ html {
 	padding-top: 3px;
 }
 
+.IN-widget {
+	width: 100px;
+}
+
 .input-field {
-	width: 300px;
+	width: 400px;
 	margin: 25px auto;
 }
 
+
+
 #searchBar {
-	/*margin: 0 auto;*/
+	border-radius: 5px;
+	border: 3px solid;
+	border-color: #d8d8d8;
+
+	width: 200px;
+	height: 30px;
+
+	/*display: block;*/
+
+	font-family: 'Open Sans';
+	font-weight: 400;
+	font-size: 19px;
+
+	padding: 0px 5px;
+
+	transition: border-color 0.5s ease;
+	-webkit-transition: border-color 0.5s ease;
+	-ms-transition: border-color 0.5s ease;
+    -moz-transition: border-color 0.5s ease;
+	o-transition: border-color 0.5s ease;
+}
+
+#searchBar:active, #searchBar:focus {
+	outline: none;
+	border-color: #2ecc71;
+}
+
+#submit {
+
+	width: 75px;
+	height: 30px;
+
+	border-radius: 5px;
+
+	color: #7f8c8d;
+	background-color: #d8d8d8;
+	border: none;
+
+	transition: background-color 0.3s ease;
+	-webkit-transition: background-color 0.3s ease;
+	-ms-transition: background-color 0.3s ease;
+    -moz-transition: background-color 0.3s ease;
+	o-transition: background-color 0.3s ease;
+}
+
+#submit:hover {
+	outline: none;
+	color: #fff;
+	background-color: #2ecc71;
 }

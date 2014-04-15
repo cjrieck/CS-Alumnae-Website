@@ -1,5 +1,37 @@
 $(function() {
 
+	$.getScript('http://platform.linkedin.com/in.js?async=true', function()
+	{
+		IN.init({
+			onLoad: onLinkedInLoad(),
+			api_key: '77lw834nbnef0f',
+			authorize: true
+		});
+	});
+
+	function onLinkedInLoad() {
+		console.log("ON LOAD")
+		IN.Event.on(IN, "auth", function() {onLinkedInLogin();});
+	}
+
+	function onLinkedInLogin() {
+		console.log("ON LOGIN");
+
+		if (IN.User.isAuthorized()) {
+			IN.API.Profile("me")
+			.fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)", "headline")
+			.result( function(me) {
+				// callback(me.values[0]);
+				console.log(me);
+				postData(me);
+			})
+			.error(function(err) {
+	    		alert(err);
+		    });
+		};
+
+	}
+
 	function removeAllUsers() {
 		$.ajax({
 			type: 'POST',
@@ -188,7 +220,10 @@ $(function() {
 				// callback(me.values[0]);
 				console.log(me);
 				postData(me);
-			});
+			})
+				.error(function(err) {
+		    		alert(err);
+		    });
 		// };
 	
 	};

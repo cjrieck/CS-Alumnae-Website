@@ -238,9 +238,7 @@ $(function() {
 	  	console.log("INITIALIZE CODE:");
 		
 		getAllUsers();
-		// getData();
 
-	  	
 		}
 		// testData();
 	// };

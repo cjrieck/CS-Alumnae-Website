@@ -18,12 +18,14 @@ $(function() {
 		console.log("ON LOGIN");
 
 		if (IN.User.isAuthorized()) {
+			console.log("NOT AUTHORIZED");
+			
 			IN.API.Profile("me")
 			.fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)", "headline")
 			.result( function(me) {
 				// callback(me.values[0]);
 				console.log(me);
-				postData(me);
+				postData(me["values"][0]);
 			})
 			.error(function(err) {
 	    		alert(err);
@@ -32,37 +34,20 @@ $(function() {
 
 	}
 
-	function removeAllUsers() {
-		$.ajax({
-			type: 'POST',
-			url: '/remove',
-			success: function(data){
-				console.log('removed all data');
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				console.log(textStatus +': '+errorThrown);
-			}
-		});
-	}
-
-	// STRICTLY FOR TESTING
-  	// --------------------
-  	// removeAllUsers();
-  	// --------------------
-
 	// gets all user data in the form of rendered html
 	function getAllUsers() {
 		$.ajax({
 			type: 'GET',
 			url: '/all',
 			success: function(data){
+
 				console.log("GET ALL USER DATA");
 				console.log(data);
 
-				$('.result').html(data);
-
-				getLocations(data);
-				populateProfiles(data);
+				$('.list').html(data);
+				
+				getData();
+				
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				console.log("bad: " + textStatus + ": " + errorThrown);
@@ -76,10 +61,12 @@ $(function() {
 			type: 'GET',
 			url: '/map-pins',
 			success: function(data){
-				console.log(data);
+				if (data.length > 0){
+					console.log(data);
 
-				getLocations(data);
-				populateProfiles(data);
+					getLocations(data);
+					populateProfiles(data);
+				};
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				console.log("bad: " + textStatus + ": " + errorThrown);
@@ -96,7 +83,7 @@ $(function() {
 			url: '/search/'+searchCriteria,
 			success: function(data) {
 				console.log("SEARCH SUCCESS");
-				console.log(data)
+				console.log(data);
 				if (data.length > 0) {
 					$('.results').html(data);
 				}
@@ -121,7 +108,8 @@ $(function() {
 			success: function(){
 				console.log("success IN POST DATA");
 
-				getData();
+				getAllUsers();
+				
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				console.log("bad: " + textStatus + ": " + errorThrown);
@@ -198,6 +186,8 @@ $(function() {
 			});
 		}
 
+		// location.reload();
+
 	};
 
 	// function getLinkedInData(callback) {
@@ -220,7 +210,7 @@ $(function() {
 				.result( function(me) {
 				// callback(me.values[0]);
 				console.log(me);
-				postData(me);
+				postData(me["values"][0]);
 			})
 				.error(function(err) {
 		    		alert(err);
@@ -248,37 +238,9 @@ $(function() {
 	  	console.log("INITIALIZE CODE:");
 		
 		getAllUsers();
-		getData();
+		// getData();
 
-	  	// getAllUsers();
-
-		// if (IN.User.isAuthorized()) {
-			// getLinkedInData(function(userData) {
-				
-				// console.log("INITIALIZE CODE:");
-				// console.log(userData);
-
-				// postData(userData);
-
-				// getAllUsers();
-				// getData();
-
-				// ajax call should be a POST
-				// $.ajax({
-				// 	type: 'GET',
-				// 	url: '/users/' + userData.id,
-				// 	success: function(data) {
-				// 		console.log(data);
-
-				// 		getAllUsers();
-				// 		getData();
-				// 	},
-				// 	error: function(jqXHR, status) {
-				// 		console.log(jqXHR);
-				// 		console.log(status);
-				// 	}
-				// });
-			// });
+	  	
 		}
 		// testData();
 	// };

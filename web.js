@@ -45,10 +45,10 @@ app.get('/', function(req, res){
 
 		collection.find({}).toArray(function(err, items) {
 
-			context = {people: items[0]["values"]};
+			context = {people: items};
 
 			console.log("INITIAL CONTEXT");
-			console.log(items[0]["values"]);
+			console.log(items);
 
 
 			// res.render('person', _.extend(context, {layout: false}));
@@ -60,16 +60,21 @@ app.get('/', function(req, res){
 
 app.post('/request', function(req, res){
 	// console.log(req.body);
-	res.header("Access-Control-Allow-Origin", "*");
-	res.send("OK");
+	// res.header("Access-Control-Allow-Origin", "*");
+	// res.send("OK");
 	mongodb.Db.connect(MONGO_URL, function(err, db){
 		var collection = db.collection('alumni');
 		var exists = false;
 		var that = this;
 
 		// console.log("REQUEST BODY ID: "+req.body["id"]);
-
+		console.log("FINDING ITEMS");
+			
 		collection.find({id: req.body["id"]}).toArray(function(err, items) {
+
+			console.log("FOUND: ");
+			console.log(items);
+
 			if (err) {
 				db.close();
 				return;
@@ -81,7 +86,8 @@ app.post('/request', function(req, res){
 			}
 
 			else {
-				// console.log('Inserting new documents');
+				console.log('Inserting new documents');
+				console.log(req.body);
 
 				collection.insert([req.body], function(err, docs){
 
@@ -89,7 +95,7 @@ app.post('/request', function(req, res){
 						return console.error(err);
 					}
 
-					// console.log('just inserted ' + docs.length + ' new documents!');
+					res.send('just inserted ' + docs.length + ' new documents!');
 
 					// db.close();
 				});
@@ -98,6 +104,7 @@ app.post('/request', function(req, res){
 		});
 
 	});
+	console.log("DONE IN POST");
 });
 
 app.post('/remove', function(req, res){
@@ -144,7 +151,7 @@ app.get('/map-pins', function(req, res){
 
 		collection.find({}).toArray(function(err, items) {
 			// console.log(items);
-			res.json(items[0]["values"]);
+			res.json(items);
 
 			// var context = {people: items};
 			// console.log("CONTEXT: "+items);
@@ -167,7 +174,7 @@ app.get('/all', function(req, res){
 			// console.log(items);
 			// res.json(items);
 
-			var context = {people: items[0]["values"]};
+			var context = {people: items};
 			console.log('ALL CONTEXT: ');
 			console.log(items);
 
@@ -222,7 +229,8 @@ app.get('/search/:name', function(req, res){
 				{"lastName": {$regex: req.params.name, $options: 'i'}},
 				{"positions": {$elemMatch: {"values": 
 							{$elemMatch: {"company": 
-							{$elemMatch: {"name": {$regex: req.params.name, $options: 'i'}}}}}}}}
+							{$elemMatch: {"name": {$regex: req.params.name, $options: 'i'}}}}}}}},
+				{"location": {$elemMatch: {"name": {$regex: req.params.name, $options: 'i'}}}}
 				]
 				}}}).toArray(function(err,items) {
 			if (err) {
@@ -231,7 +239,7 @@ app.get('/search/:name', function(req, res){
 				res.end();
 			} else {	
 				if (items.length > 0) {
-					var context = {people: items[0]["values"]};
+					var context = {people: items};
 					res.render('person', _.extend(context, {layout: false}));
 				}
 			};

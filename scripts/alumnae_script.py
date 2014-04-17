@@ -6,8 +6,8 @@ from pymongo import MongoClient
 
 def main():
 
-	client = MongoClient('mongodb://localhost:27017/')
-	db = client['unregistered']
+	client = MongoClient('mongodb://facsem:buffalotexas@troup.mongohq.com:10007/app22602359')
+	db = client['app22602359']
 
 	collection = db['unregistered']
 
@@ -40,7 +40,7 @@ def main():
 					jsonString[titleArray[col_idx-1].encode('ascii')] = str(sheet_ranges[cellNum].value)
 
 		collection.insert(jsonString)
-		# jsonString = str(jsonString)
+		
 
 
 

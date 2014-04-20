@@ -14,5 +14,18 @@
 				{{> person}}
 			{{/each}}
 		{{/if}}
+
+		{{#if u_people}}
+			{{#each u_people}}
+				{{> u_person}}
+			{{/each}}
+		{{/if}}
 	</div>
+	{{!-- <div class="unregistered">
+		{{#if u_people}}
+			{{#each u_people}}
+				{{> u_person}}
+			{{/each}}
+		{{/if}}
+	</div> --}}
 </div>

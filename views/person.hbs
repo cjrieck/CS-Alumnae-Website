@@ -1,9 +1,17 @@
 {{!-- Create a partial used whenever searching for a person --}}
 
 <div class="list">
-	{{#each people}}
-		{{> person}}
-	{{/each}}
+	{{#if people}}
+		{{#each people}}
+			{{> person}}
+		{{/each}}
+	{{/if}}
+
+	{{#if u_people}}
+		{{#each u_people}}
+			{{> u_person}}
+		{{/each}}
+	{{/if}}
 </div>
 
 {{!-- <div class="item">

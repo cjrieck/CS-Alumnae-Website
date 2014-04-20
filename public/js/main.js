@@ -53,6 +53,29 @@ $(function() {
 				console.log("bad: " + textStatus + ": " + errorThrown);
 			}
 		});
+
+		getUnregisteredUsers();
+
+	}
+
+	function getUnregisteredUsers() {
+		$.ajax({
+			type: 'GET',
+			url: '/unregistered',
+			success: function(data){
+
+				console.log("GET ALL UNREGISTERED USER DATA");
+				console.log(data);
+
+				$('.list').append(data);
+				
+				// getData();
+				
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				console.log("bad: " + textStatus + ": " + errorThrown);
+			}
+		});
 	}
 
 	// gets all user data in the form of JSON

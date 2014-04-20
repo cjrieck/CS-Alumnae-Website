@@ -173,7 +173,6 @@ app.get('/all', function(req, res){
 		collection.find({}).toArray(function(err, items) {
 			// console.log(items);
 			// res.json(items);
-
 			var context = {people: items};
 			console.log('ALL CONTEXT: ');
 			console.log(items);
@@ -183,6 +182,66 @@ app.get('/all', function(req, res){
 			// res.render('home', context ); // first page to load
 		});
 		// db.close();	
+	});
+});
+
+app.get('/unregistered', function(req, res){
+
+	if (MONGO_URL === 'mongodb://localhost:27017/alumni') {
+		MONGO_URL = 'mongodb://localhost:27017/unregistered'
+	};
+
+	mongodb.Db.connect(MONGO_URL, function(err, db){
+		var collection = db.collection('unregistered');
+
+		// console.log("COLLECTION BEING USED: ")
+		// console.log(collection);
+
+		collection.find({}).toArray(function(err, unregistered_items){
+			var that = this;
+			
+			if (MONGO_URL === 'mongodb://localhost:27017/unregistered') {
+				MONGO_URL = 'mongodb://localhost:27017/alumni';
+			};
+
+			mongodb.Db.connect(MONGO_URL, function(err, db){
+
+				var registered_alumni = db.collection('alumni');
+				
+				console.log(unregistered_items);
+
+				registered_alumni.find({}).toArray(function(err, registered_items){
+
+					if (err) {
+						res.send(err);
+
+					} else {
+
+						for (var i = 0; i < registered_items.length; i++) {
+							for (var a = 0; a < unregistered_items.length; a++){
+								if (registered_items[i]["firstName"] === unregistered_items[a]["name_first"] && 
+									registered_items[i]["lastName"] === unregistered_items[a]["name_last"]) {
+
+									console.log("REMOVED USER");
+									console.log(unregistered_items.splice(a, 1));
+
+									unregistered_items = unregistered_items.splice(a, 1);
+								};
+							};
+						};		
+					} // end else
+
+				});
+			});
+
+			var context = {u_people: unregistered_items};
+			// console.log("UNREGISTERED PEOPLE");
+			// console.log(unregistered_items);
+
+			MONGO_URL = 'mongodb://localhost:27017/alumni'
+
+			res.render('person', _.extend(context, {layout: false}));
+		});
 	});
 });
 

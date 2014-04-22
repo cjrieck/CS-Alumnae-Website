@@ -188,6 +188,7 @@ app.get('/all', function(req, res){
 // clean up results
 app.get('/unregistered', function(req, res){
 
+	// localhost usage only
 	if (MONGO_URL === 'mongodb://localhost:27017/alumni') {
 		MONGO_URL = 'mongodb://localhost:27017/unregistered'
 	};
@@ -201,6 +202,7 @@ app.get('/unregistered', function(req, res){
 		collection.find({}).toArray(function(err, unregistered_items){
 			var that = this;
 			
+			// for localhost
 			if (MONGO_URL === 'mongodb://localhost:27017/unregistered') {
 				MONGO_URL = 'mongodb://localhost:27017/alumni';
 			};
@@ -209,7 +211,7 @@ app.get('/unregistered', function(req, res){
 
 				var registered_alumni = db.collection('alumni');
 				
-				console.log(unregistered_items);
+				// console.log(unregistered_items);
 
 				registered_alumni.find({}).toArray(function(err, registered_items){
 
@@ -287,6 +289,8 @@ app.get('/search/:name', function(req, res){
 		// 		//"position": {$elemMatch {"company": req.params.name}},
 		// 		//"location": {$elemMatch {"name" req.params.name}}
 		// 		}}}).toArray(function(err, items) {
+
+		// smart search query
 		collection.find({"values": {$elemMatch: {
 				$or: [
 				{"firstName": {$regex: req.params.name, $options: 'i'}},

@@ -185,6 +185,7 @@ app.get('/all', function(req, res){
 	});
 });
 
+// clean up results
 app.get('/unregistered', function(req, res){
 
 	if (MONGO_URL === 'mongodb://localhost:27017/alumni') {
@@ -217,14 +218,22 @@ app.get('/unregistered', function(req, res){
 
 					} else {
 
+						// iterate through array of users signed in through LinkedIn
 						for (var i = 0; i < registered_items.length; i++) {
+
+							// iterate through array of users not signed in
 							for (var a = 0; a < unregistered_items.length; a++){
+
+								// if the first and last name of an entry in the registered array
+								// and unregistered array match then they are registered and we want to
+								// remove them from the unregistered array before we send the response back
 								if (registered_items[i]["firstName"] === unregistered_items[a]["name_first"] && 
 									registered_items[i]["lastName"] === unregistered_items[a]["name_last"]) {
 
 									console.log("REMOVED USER");
 									console.log(unregistered_items.splice(a, 1));
 
+									// deletes an item in the array in place and returns new array
 									unregistered_items = unregistered_items.splice(a, 1);
 								};
 							};
@@ -235,10 +244,6 @@ app.get('/unregistered', function(req, res){
 			});
 
 			var context = {u_people: unregistered_items};
-			// console.log("UNREGISTERED PEOPLE");
-			// console.log(unregistered_items);
-
-			MONGO_URL = 'mongodb://localhost:27017/alumni'
 
 			res.render('person', _.extend(context, {layout: false}));
 		});

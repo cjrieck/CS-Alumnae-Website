@@ -45,6 +45,7 @@ $(function() {
 				console.log(data);
 
 				$('.list').html(data);
+				getUnregisteredUsers();
 				
 				getData();
 				
@@ -53,8 +54,6 @@ $(function() {
 				console.log("bad: " + textStatus + ": " + errorThrown);
 			}
 		});
-
-		getUnregisteredUsers();
 
 	}
 

@@ -36,7 +36,7 @@ Array.prototype.unique = function() {
         }
     }
     return arr; 
-}
+};
 
 var app = express();
 var MONGO_URL=process.env.MONGOHQ_URL || 'mongodb://localhost:27017/alumni';

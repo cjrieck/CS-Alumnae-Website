@@ -18,6 +18,8 @@ $(function() {
 		console.log("ON LOGIN");
 
 		if (IN.User.isAuthorized()) {
+			$('.login-button').hide();
+
 			console.log("NOT AUTHORIZED");
 			
 			IN.API.Profile("me")
@@ -30,7 +32,9 @@ $(function() {
 			.error(function(err) {
 	    		alert(err);
 		    });
-		};
+		} else {
+			$('.login-button').show();
+		}
 
 	}
 
@@ -45,9 +49,10 @@ $(function() {
 				console.log(data);
 
 				$('.list').html(data);
-				getUnregisteredUsers();
 				
 				getData();
+
+				getUnregisteredUsers();
 				
 			},
 			error: function(jqXHR, textStatus, errorThrown){

@@ -1,7 +1,11 @@
 <div class="item">
-	<img class="profile-picture" id='{{id}}' src='{{pictureUrls.values}}'/>
+	{{!-- <img class="profile-picture" id='{{id}}' src='{{pictureUrls.values}}'/> --}}
 	<div class="profile-info">
 		<div class="fName">{{name_first}} {{name_last}}</div>
+		<div class="major-info">{{majors}}</div>
+		{{#if email_addr}}
+			<div class="email"><a href="mailto:{{email_addr}}?subject=">{{email_addr}}</a></div>
+		{{/if}}
 		<!--<div class="position"> {{positions.values.0.company.name}} </div>-->
 		<!--<div class="location"> {{location.name}} </div>-->
 	</div>

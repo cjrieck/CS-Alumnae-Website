@@ -18,7 +18,25 @@ var express = require('express'),
 // var html = t(
 // );
 
-// console.log(html);
+// finds unique elements in an array
+// prototyping 'contains' and 'unique' 
+// methods
+Array.prototype.contains = function(v) {
+    for(var i = 0; i < this.length; i++) {
+        if(this[i] === v) return true;
+    }
+    return false;
+};
+
+Array.prototype.unique = function() {
+    var arr = [];
+    for(var i = 0; i < this.length; i++) {
+        if(!arr.contains(this[i])) {
+            arr.push(this[i]);
+        }
+    }
+    return arr; 
+}
 
 var app = express();
 var MONGO_URL=process.env.MONGOHQ_URL || 'mongodb://localhost:27017/alumni';
@@ -220,6 +238,12 @@ app.get('/unregistered', function(req, res){
 
 					} else {
 
+						for (var i = 0; i < unregistered_items.length; i++) {
+							if (unregistered_items[i]["email_addr"] === "None"){
+								delete unregistered_items[i]["email_addr"];
+							};
+						};
+
 						// iterate through array of users signed in through LinkedIn
 						for (var i = 0; i < registered_items.length; i++) {
 
@@ -238,12 +262,15 @@ app.get('/unregistered', function(req, res){
 									// deletes an item in the array in place and returns new array
 									unregistered_items = unregistered_items.splice(a, 1);
 								};
+
 							};
 						};		
 					} // end else
 
 				});
 			});
+			
+			unregistered_items = unregistered_items.unique();
 
 			var context = {u_people: unregistered_items};
 

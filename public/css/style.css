@@ -133,6 +133,9 @@ html {
 
 	margin-left: 20px;
 	margin-bottom: 20px;
+
+	/* change later? */
+	overflow: scroll;
 }
 
 .profile-info {

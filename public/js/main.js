@@ -46,7 +46,7 @@ $(function() {
 			success: function(data){
 
 				console.log("GET ALL USER DATA");
-				console.log(data);
+				// console.log(data);
 
 				$('.list').html(data);
 				
@@ -69,9 +69,10 @@ $(function() {
 			success: function(data){
 
 				console.log("GET ALL UNREGISTERED USER DATA");
-				console.log(data);
+				// console.log(data);
 
 				$('.list').append(data);
+				// $('.list').html(data);
 				
 				// getData();
 				

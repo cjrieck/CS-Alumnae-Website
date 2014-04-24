@@ -271,7 +271,7 @@ app.get('/unregistered', function(req, res){
 			});
 			
 			unregistered_items = unregistered_items.unique();
-
+			console.log(unregistered_items);
 			var context = {u_people: unregistered_items};
 
 			res.render('person', _.extend(context, {layout: false}));
@@ -318,31 +318,49 @@ app.get('/search/:name', function(req, res){
 		// 		}}}).toArray(function(err, items) {
 
 		// smart search query
-		collection.find({"values": {$elemMatch: {
+		//var unregistered;
+
+		collection.find({
 				$or: [
-				{"firstName": {$regex: req.params.name, $options: 'i'}},
-				{"lastName": {$regex: req.params.name, $options: 'i'}},
-				{"positions": {$elemMatch: {"values": 
-							{$elemMatch: {"company": 
-							{$elemMatch: {"name": {$regex: req.params.name, $options: 'i'}}}}}}}},
-				{"location": {$elemMatch: {"name": {$regex: req.params.name, $options: 'i'}}}}
-				]
-				}}}).toArray(function(err,items) {
-			if (err) {
-				console.log(err);
-				res.send(err);
-				res.end();
-			} else {	
-				if (items.length > 0) {
-					var context = {people: items};
-					res.render('person', _.extend(context, {layout: false}));
-				}
-			};
-			db.close();
-		});
-		//db.close();
-	});
-	// }
+					{"firstName": {$regex: req.params.name, $options: 'i'}},
+					{"lastName":  {$regex: req.params.name, $options: 'i'}},
+					{"positions": {$elemMatch: {"values": 
+								  {$elemMatch: {"company": 
+								  {$elemMatch: {"name": {$regex: req.params.name, $options: 'i'}}}}}}}},
+					{"location": {$elemMatch:  {"name": {$regex: req.params.name, $options: 'i'}}}}
+				]}).toArray(function(err,items) {
+
+					var unregistered_collection = db.collection('unregistered');
+
+					unregistered_collection.find({
+						$or: [
+							{"name_first": {$regex: req.params.name, $options: 'i'}},
+							{"name_last": {$regex: req.params.name, $options: 'i'}}
+						]}).toArray(function(err, unregistered_items) {
+							
+							if (err) {
+								console.log(err);
+								res.send(err);
+								res.end();
+							}
+							
+							else {
+								console.log(unregistered_items);
+							
+								if ((items && items.length > 0) || (unregistered_items && unregistered_items.length > 0)) {
+									var context = {people: items, u_people: unregistered_items};
+									res.render('person', _.extend(context, {layout: false}));
+								}
+							}; // end else
+
+						db.close();
+
+					}); // end second callback
+			
+				}); // end first callback
+				
+	}); // end connection
+	
 	
 });
 

@@ -1,3 +1,5 @@
 node_modules/*
 *.log
 *.psd
+PSD\ Files/*
+AI\ Files/*

@@ -146,6 +146,10 @@ html {
 	padding-right: 0px;
 }
 
+.profile-info-u {
+	width: 100%;
+}
+
 .profile-picture, .profile-info {
 	float: left;
 }
@@ -165,6 +169,10 @@ html {
 	font-weight: 400;
 	font-size: 20px;
 	margin-bottom: 10px;
+}
+
+.fName-u {
+	width: 100%;
 }
 
 .position, .location {

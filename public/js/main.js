@@ -1,5 +1,6 @@
 $(function() {
 
+	// asyn retrieval of LinkedIn API
 	$.getScript('http://platform.linkedin.com/in.js?async=true', function()
 	{
 		IN.init({
@@ -10,30 +11,26 @@ $(function() {
 	});
 
 	function onLinkedInLoad() {
-		console.log("ON LOAD")
-		IN.Event.on(IN, "auth", function() {onLinkedInLogin();});
+		IN.Event.on(IN, "auth", function() {onLinkedInLogin();}); // on authorization, perform onLinkedInLogin
 	}
 
 	function onLinkedInLogin() {
-		console.log("ON LOGIN");
 
-		if (IN.User.isAuthorized()) {
-			$('.login-button').hide();
-
-			console.log("NOT AUTHORIZED");
+		if (IN.User.isAuthorized()) { // if user is authorized... 
+			$('.login-button').hide(); // hide login button
 			
+			// get users profile and send result to postData()
 			IN.API.Profile("me")
 			.fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)", "headline")
 			.result( function(me) {
-				// callback(me.values[0]);
 				console.log(me);
-				postData(me["values"][0]);
+				postData(me["values"][0]); // will attempt to insert results into DB
 			})
 			.error(function(err) {
 	    		alert(err);
 		    });
 		} else {
-			$('.login-button').show();
+			$('.login-button').show(); // if not authorized, show login button
 		}
 
 	}
@@ -45,13 +42,9 @@ $(function() {
 			url: '/all',
 			success: function(data){
 
-				console.log("GET ALL USER DATA");
-				// console.log(data);
-
-				$('.list').html(data);
+				$('.list').html(data); // clears and replaces html with the rendered html received
 				
 				getData();
-
 				getUnregisteredUsers();
 				
 			},
@@ -62,19 +55,16 @@ $(function() {
 
 	}
 
+	// will get all entries in the DB 'unregistered'
+	// and put them onto the screen beneath the registered
+	// users
 	function getUnregisteredUsers() {
 		$.ajax({
 			type: 'GET',
 			url: '/unregistered',
 			success: function(data){
 
-				console.log("GET ALL UNREGISTERED USER DATA");
-				// console.log(data);
-
-				$('.list').append(data);
-				// $('.list').html(data);
-				
-				// getData();
+				$('.list').append(data); // append new html to previous html
 				
 			},
 			error: function(jqXHR, textStatus, errorThrown){
@@ -84,16 +74,17 @@ $(function() {
 	}
 
 	// gets all user data in the form of JSON
+	// and then use that to populate the map with
+	// pins and individual tiles with info
 	function getData() {
 		$.ajax({
 			type: 'GET',
 			url: '/map-pins',
 			success: function(data){
 				if (data.length > 0){
-					console.log(data);
 
-					getLocations(data);
-					populateProfiles(data);
+					getLocations(data); // put map pins onto Google Map
+					populateProfiles(data); // put picture and general info on persons card
 				};
 			},
 			error: function(jqXHR, textStatus, errorThrown){
@@ -110,34 +101,29 @@ $(function() {
 			type: 'GET',
 			url: '/search/'+searchCriteria,
 			success: function(data) {
-				console.log("SEARCH SUCCESS");
-				console.log(data);
 				if (data.length > 0) {
-					$('.results').html(data);
+					$('.results').html(data); // if returned something, fill html with results from search
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				console.log("bad: " + textStatus + ": " + errorThrown);
 			}
-			// error: function() {
-			// 	alert("No users of that criteria");
-			// }
-
 		});
 	}
 
+	// takes in JSON data (LinkedIn results) and sends that to node server
+	// to be inserted into DB
 	function postData(data) {
 		console.log("in POST DATA");
 		$.ajax({
 			type: 'POST',
 			url: '/request',
-			data: JSON.stringify(data),
+			data: JSON.stringify(data), // sends back JSON string
 			contentType: "application/json; charset=utf-8",
 			success: function(){
-				console.log("success IN POST DATA");
-
-				getAllUsers();
 				
+				getAllUsers(); // refresh page with new user
+
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				console.log("bad: " + textStatus + ": " + errorThrown);
@@ -145,11 +131,9 @@ $(function() {
 		});
 	};
 
-	// when the search button is clicked
-	$('#submit').click(function(){
-		
-		var searchCriteria = $('#searchBar').val();
-		// console.log("CRITERIA: "+searchCriteria.length);
+	// will perform search in DB given the string in the input field
+	function performSearch() {
+		var searchCriteria = $('#searchBar').val(); // get value of search field
 
 		if (searchCriteria.length > 0) {
 			$('.item').animate({
@@ -159,37 +143,49 @@ $(function() {
 			$('.list').empty();
 			searchRequest(searchCriteria);
 		}
-		else {
-			console.log("don't search");
-		}
+	}
 
+	// when the search button is clicked
+	$('#submit').click(function(){
+		performSearch();
 	});
 
+	// when enter is hit
+	$('#searchBar').keypress(function(e){
+		if (e.which === 13) {
+			performSearch();
+		}
+	});
 
+	// maps setup
     var geocoder, map,
     	mapOptions = {
 		  center: new google.maps.LatLng(41.96727,-71.18495),
 		  zoom: 3
 		}
 
+	// will pin pins onto the map based on user location given by the LinkedIn API
     function getLocations(userData) {
     	for (var i = 0; i < userData.length; i++) {
     		
     		var location;
 
+    		// if no location data, break
 			if (!userData[i].location) {
 				break;
 			}
 
 			// checks to see if user is in Greater Boston Area
+			// if they are then set the location to "Boston, MA"
 			if (userData[i]["location"]["name"].indexOf("Boston") != -1) {
 				location = "Boston, MA";
 			} else {
+				// otherwise, use the location data from LinkedIn
 				location = userData[i]["location"]["name"];
 			}
 
+			// pins the locations onto the map (from Google documentation)
 			geocoder.geocode( {"address": location}, function(results, status) {
-				// console.log(results);
 			    if (status == google.maps.GeocoderStatus.OK) {
 			      map.setCenter(results[0].geometry.location);
 			      var marker = new google.maps.Marker({
@@ -203,50 +199,22 @@ $(function() {
 		};
 	};
 
+	// populates individual cards
 	function populateProfiles (userData){
 
+		// checks if data passed in is a JSON object
 		if ($.isPlainObject(userData)){
+
+			// for each item, fill the picture src with value in JSON
 			$.each(userData, function(item, value){
 				var picture = value["pictureUrls"]["values"][0];
-				console.log(picture);
 
 				$("#"+value.id).attr("src", picture);
 			});
 		}
-
-		// location.reload();
-
 	};
 
-	// function getLinkedInData(callback) {
-	// 	IN.API.Profile("me").fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)", "headline").result( function(me) {
-	// 		callback(me.values[0]);
-	// 	});
-	// }
-
-	function onLinkedInAuth() {
-		// console.log("before getLinkedInData");
-		// getLinkedInData(function(data) {
-		// 	console.log("in onLinkedInAuth");
-		// 	postData(data);
-		// });
-		console.log("onLinkedInAuth");
-
-		// if (!IN.User.isAuthorized()) {
-			IN.API.Profile("me")
-				.fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)", "headline")
-				.result( function(me) {
-				// callback(me.values[0]);
-				console.log(me);
-				postData(me["values"][0]);
-			})
-				.error(function(err) {
-		    		alert(err);
-		    });
-		// };
-	
-	};
-
+	// STRICTLY FOR TESTING
 	function testData() {
 		var data = [{
 			id: 'adfasdfadf',
@@ -268,8 +236,6 @@ $(function() {
 		getAllUsers();
 
 		}
-		// testData();
-	// };
 
     google.maps.event.addDomListener(window, 'load', initialize);
 });

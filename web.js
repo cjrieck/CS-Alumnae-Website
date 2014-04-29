@@ -8,16 +8,6 @@ var express = require('express'),
 	_ = require('lodash'),
  	MongoClient = mongodb.MongoClient;
 
-// var template = '<div class="list">{{#each items}}<div class"item">{{log this}}{{name}} {{class}}</div>{{/each}}</div>';
-// var t = Handlebars.compile(template);
-
-// Handlebars.registerHelper('log', function(something) {
-// 	console.log(something);
-// });
-
-// var html = t(
-// );
-
 // finds unique elements in an array
 // prototyping 'contains' and 'unique' 
 // methods
@@ -40,9 +30,6 @@ Array.prototype.unique = function() {
 
 var app = express();
 var MONGO_URL=process.env.MONGOHQ_URL || 'mongodb://localhost:27017/alumni';
-
-
-//app.use(express.static(path.join(__dirname, 'public')));
 
 app.configure(function(){
 	app.use(logfmt.requestLogger());
@@ -68,8 +55,6 @@ app.get('/', function(req, res){
 			console.log("INITIAL CONTEXT");
 			console.log(items);
 
-
-			// res.render('person', _.extend(context, {layout: false}));
 			res.render('home', context); // first page to load
 		});
 
@@ -77,15 +62,12 @@ app.get('/', function(req, res){
 });
 
 app.post('/request', function(req, res){
-	// console.log(req.body);
-	// res.header("Access-Control-Allow-Origin", "*");
-	// res.send("OK");
+	
 	mongodb.Db.connect(MONGO_URL, function(err, db){
 		var collection = db.collection('alumni');
 		var exists = false;
 		var that = this;
 
-		// console.log("REQUEST BODY ID: "+req.body["id"]);
 		console.log("FINDING ITEMS");
 			
 		collection.find({id: req.body["id"]}).toArray(function(err, items) {
@@ -98,7 +80,6 @@ app.post('/request', function(req, res){
 				return;
 			}
 			if (items.length > 0) {
-				// console.log("RESPONSE ITEMS: "+items);
 				this.exists = true;
 				res.send("Already exists");
 			}
@@ -115,14 +96,11 @@ app.post('/request', function(req, res){
 
 					res.send('just inserted ' + docs.length + ' new documents!');
 
-					// db.close();
 				});
 			}
-			// db.close();
 		});
 
 	});
-	console.log("DONE IN POST");
 });
 
 app.post('/remove', function(req, res){
@@ -142,18 +120,11 @@ app.get('/users/:id', function(req, res) {
 		mongodb.Db.connect(MONGO_URL, function(err, db){
 			var collection = db.collection('alumni');
 
-
 			collection.find({}).toArray(function(err, items) {
-			// collection.find({id: req.params.id}).toArray(function(err, items) {
 				if (err) {
 					res.send(404);
 					res.end();
 				} else {
-
-					// var context = {people: items};
-					// console.log("CONTEXT: "+items);
-					
-					// res.render('person', _.extend(context, {layout: false}));
 					console.log(items);
 					res.json(items);
 				}
@@ -168,16 +139,7 @@ app.get('/map-pins', function(req, res){
 		var collection = db.collection('alumni');
 
 		collection.find({}).toArray(function(err, items) {
-			// console.log(items);
 			res.json(items);
-
-			// var context = {people: items};
-			// console.log("CONTEXT: "+items);
-
-			// res.render('person', _.extend(context, {layout: false}));
-
-
-			// res.render('home', context ); // first page to load
 		});
 
 	});
@@ -189,17 +151,10 @@ app.get('/all', function(req, res){
 		var collection = db.collection('alumni');
 
 		collection.find({}).toArray(function(err, items) {
-			// console.log(items);
-			// res.json(items);
 			var context = {people: items};
-			console.log('ALL CONTEXT: ');
-			console.log(items);
 
 			res.render('person', _.extend(context, {layout: false}));
-
-			// res.render('home', context ); // first page to load
 		});
-		// db.close();	
 	});
 });
 
@@ -214,9 +169,6 @@ app.get('/unregistered', function(req, res){
 	mongodb.Db.connect(MONGO_URL, function(err, db){
 		var collection = db.collection('unregistered');
 
-		// console.log("COLLECTION BEING USED: ")
-		// console.log(collection);
-
 		collection.find({}).toArray(function(err, unregistered_items){
 			var that = this;
 			
@@ -228,8 +180,6 @@ app.get('/unregistered', function(req, res){
 			mongodb.Db.connect(MONGO_URL, function(err, db){
 
 				var registered_alumni = db.collection('alumni');
-				
-				// console.log(unregistered_items);
 
 				registered_alumni.find({}).toArray(function(err, registered_items){
 
@@ -282,43 +232,8 @@ app.get('/unregistered', function(req, res){
 app.get('/search/:name', function(req, res){
 	console.log(req.params.name + ": " + req.params.name.length);
 
-	// if nothing passed in then return all of the values
-	// if (req.params.name.length === 0) {
-	// 	mongodb.Db.connect(MONGO_URL, function(err, db){
-	// 		var collection = db.collection('alumni');
-
-	// 		// only search for first name as of now
-	// 		collection.find({}).toArray(function(err, items) {
-	// 			if (err) {
-	// 				console.log(err);
-	// 				res.send(404);
-	// 				res.end();
-	// 			} else {
-	// 				var context = {people: items};
-	// 				console.log(items);
-	// 				// res.json(context);
-	// 				res.render('person', _.extend(context, {layout: false}));
-	// 			};
-	// 		});
-	// 		db.close();
-	// 	});
-	// } else { 
 	mongodb.Db.connect(MONGO_URL, function(err, db){
 		var collection = db.collection('alumni');
-
-		// only search for first name as of now
-		// collection.find({firstName: req.params.name, 
-		// 				lastName: req.params.name
-		// 				 }).toArray(function(err, items) {
-		// collection.find({"values": {$elemMatch: {
-		// 		"firstName": req.params.name,
-		// 		"lastName": req.params.name
-		// 		//"position": {$elemMatch {"company": req.params.name}},
-		// 		//"location": {$elemMatch {"name" req.params.name}}
-		// 		}}}).toArray(function(err, items) {
-
-		// smart search query
-		//var unregistered;
 
 		collection.find({
 				$or: [

@@ -1,6 +1,5 @@
 // may not need firebase
 var express = require('express'),
-	firebase = require('firebase'),
  	logfmt = require('logfmt'),
 	mongodb = require('mongodb'),
 	Handlebars = require('handlebars'),
@@ -8,27 +7,9 @@ var express = require('express'),
 	_ = require('lodash'),
  	MongoClient = mongodb.MongoClient;
 
-// finds unique elements in an array
-// prototyping 'contains' and 'unique' 
-// methods
-Array.prototype.contains = function(v) {
-    for(var i = 0; i < this.length; i++) {
-        if(this[i] === v) return true;
-    }
-    return false;
-};
-
-Array.prototype.unique = function() {
-    var arr = [];
-    for(var i = 0; i < this.length; i++) {
-        if(!arr.contains(this[i])) {
-            arr.push(this[i]);
-        }
-    }
-    return arr; 
-};
-
 var app = express();
+
+// define MONGO DB path
 var MONGO_URL=process.env.MONGOHQ_URL || 'mongodb://localhost:27017/alumni';
 
 app.configure(function(){
@@ -61,6 +42,7 @@ app.get('/', function(req, res){
 	});
 });
 
+// inserts new users into the database
 app.post('/request', function(req, res){
 	
 	mongodb.Db.connect(MONGO_URL, function(err, db){
@@ -68,8 +50,7 @@ app.post('/request', function(req, res){
 		var exists = false;
 		var that = this;
 
-		console.log("FINDING ITEMS");
-			
+		// will try to query for a user with the same id as the one being passed in
 		collection.find({id: req.body["id"]}).toArray(function(err, items) {
 
 			console.log("FOUND: ");
@@ -79,15 +60,17 @@ app.post('/request', function(req, res){
 				db.close();
 				return;
 			}
+
+			// if the returned items has something in it, then
+			// that user already exists and we don't want to insert them again
 			if (items.length > 0) {
 				this.exists = true;
 				res.send("Already exists");
 			}
 
 			else {
-				console.log('Inserting new documents');
-				console.log(req.body);
 
+				// insert the entire object being passed in into the DB
 				collection.insert([req.body], function(err, docs){
 
 					if (err) {
@@ -103,6 +86,8 @@ app.post('/request', function(req, res){
 	});
 });
 
+// STRICTLY FOR TESTING
+// will clear alumni database
 app.post('/remove', function(req, res){
 	mongodb.Db.connect(MONGO_URL, function(err, db){
 		if (err) {
@@ -133,6 +118,7 @@ app.get('/users/:id', function(req, res) {
 		});
 });
 
+// gets everything in the database, alumni
 app.get('/map-pins', function(req, res){
 	
 	mongodb.Db.connect(MONGO_URL, function(err, db){
@@ -145,6 +131,7 @@ app.get('/map-pins', function(req, res){
 	});
 });
 
+// gets everthing in the database, alumni
 app.get('/all', function(req, res){
 	
 	mongodb.Db.connect(MONGO_URL, function(err, db){
@@ -188,6 +175,7 @@ app.get('/unregistered', function(req, res){
 
 					} else {
 
+						// cleaning up entries with no email addresses
 						for (var i = 0; i < unregistered_items.length; i++) {
 							if (unregistered_items[i]["email_addr"] === "None"){
 								delete unregistered_items[i]["email_addr"];
@@ -220,8 +208,6 @@ app.get('/unregistered', function(req, res){
 				});
 			});
 			
-			unregistered_items = unregistered_items.unique();
-			console.log(unregistered_items);
 			var context = {u_people: unregistered_items};
 
 			res.render('person', _.extend(context, {layout: false}));
@@ -229,12 +215,16 @@ app.get('/unregistered', function(req, res){
 	});
 });
 
+// search bar request
 app.get('/search/:name', function(req, res){
 	console.log(req.params.name + ": " + req.params.name.length);
 
 	mongodb.Db.connect(MONGO_URL, function(err, db){
 		var collection = db.collection('alumni');
 
+		// trying to make smart search.
+		// should be able to search by first or last name,
+		// position, or current location
 		collection.find({
 				$or: [
 					{"firstName": {$regex: req.params.name, $options: 'i'}},
@@ -247,6 +237,10 @@ app.get('/search/:name', function(req, res){
 
 					var unregistered_collection = db.collection('unregistered');
 
+					// we also need to search the unregistered users and find those that also match
+					// the inputted value
+					// here, we just look by first or last name because there is little information
+					// in the DB on them
 					unregistered_collection.find({
 						$or: [
 							{"name_first": {$regex: req.params.name, $options: 'i'}},

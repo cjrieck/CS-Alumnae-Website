@@ -23,6 +23,7 @@ app.configure(function(){
 	// add other things to serve here
 });
 
+// initial load, get all the data
 app.get('/', function(req, res){
 	var context;
 

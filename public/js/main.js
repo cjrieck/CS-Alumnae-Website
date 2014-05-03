@@ -1,6 +1,6 @@
 $(function() {
 
-	// asyn retrieval of LinkedIn API
+	// async retrieval of LinkedIn API
 	$.getScript('http://platform.linkedin.com/in.js?async=true', function()
 	{
 		IN.init({
@@ -37,6 +37,7 @@ $(function() {
 
 	// gets all user data in the form of rendered html
 	function getAllUsers() {
+
 		$.ajax({
 			type: 'GET',
 			url: '/all',
@@ -59,6 +60,7 @@ $(function() {
 	// and put them onto the screen beneath the registered
 	// users
 	function getUnregisteredUsers() {
+		
 		$.ajax({
 			type: 'GET',
 			url: '/unregistered',
@@ -114,7 +116,7 @@ $(function() {
 	// takes in JSON data (LinkedIn results) and sends that to node server
 	// to be inserted into DB
 	function postData(data) {
-		console.log("in POST DATA");
+		
 		$.ajax({
 			type: 'POST',
 			url: '/request',

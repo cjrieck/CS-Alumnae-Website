@@ -93,6 +93,9 @@ $(function() {
 			success: function(data){
 
 				$('.list').append(data); // append new html to previous html
+
+				// $('.item').css('opacity', '1');
+				// $.each('.item', function(index, value))
 				
 			},
 			error: function(jqXHR, textStatus, errorThrown){
@@ -130,7 +133,15 @@ $(function() {
 			url: '/search/'+searchCriteria,
 			success: function(data) {
 				if (data.length > 0) {
+
 					$('.results').html(data); // if returned something, fill html with results from search
+					$('.item').addClass("hidden");
+
+					$(document.body).on('appear', '.item', function(e, $affected) {
+				    	// add class called “appeared” for each appeared element
+						$(this).addClass("appeared");
+					});
+					$('.item').appear({force_process: true});
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown){

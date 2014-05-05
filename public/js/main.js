@@ -71,6 +71,14 @@ $(function() {
 
 				$('.list').html(data); // clears and replaces html with the rendered html received
 				
+				// $('.item').addClass("hidden");
+
+				// $(document.body).on('appear', '.item', function(e, $affected) {
+			 //    	// add class called “appeared” for each appeared element
+				// 	$(this).addClass("appeared");
+				// });
+				// $('.item').appear({force_process: true});
+
 				getData();
 				getUnregisteredUsers();
 				

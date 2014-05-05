@@ -190,6 +190,8 @@ html {
 	margin-left: 20px;
 	margin-bottom: 20px;
 
+	position: relative;
+
 	/* change later? */
 	/*overflow: scroll;*/
 }
@@ -218,7 +220,6 @@ html {
 	display: block;
 	padding: 5px;
 	padding-right: 0px;
-	/*position: absolute;*/
 }
 
 .spacing {
@@ -233,7 +234,7 @@ html {
 	position: absolute;
 	border-radius: 500px;
 	margin: 0px 82px;
-	top: 765px;
+	bottom: 20px;
 }
 
 .profile-info-u {

@@ -159,7 +159,7 @@ $(function() {
 
 	// will perform search in DB given the string in the input field
 	function performSearch() {
-		var searchCriteria = $('#searchBar').val(); // get value of search field
+		var searchCriteria = $('#searchBar').val() || $('#nav-searchBar').val(); // get value of search field
 
 		if (searchCriteria.length > 0) {
 			$('.item').animate({
@@ -177,7 +177,7 @@ $(function() {
 	});
 
 	// when enter is hit
-	$('#searchBar').keypress(function(e){
+	$('#searchBar, #nav-searchBar').keypress(function(e){
 		if (e.which === 13) {
 			performSearch();
 		}

@@ -59,8 +59,6 @@ html {
  body { 
  	font-family: Montserrat;
 
-
-
  	height: 100%; 
  	margin: 0; 
  	padding: 0 
@@ -71,7 +69,6 @@ html {
 	height: 50px;
 	width: 100%;
 	background-color: rgba(236, 240, 241, 0.9);
-	/*background-color: black;*/
 	position: fixed;
 	z-index: 1;
 
@@ -80,7 +77,9 @@ html {
 
 .nav-banner {
 	height: 100%;
-	width: 50%;
+	width: 49%;
+	display: inline-block;
+	/*margin-right: 0px;*/
 	background-image: url(../img/nav-banner.png);
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -90,6 +89,37 @@ html {
 	width: 50%;
 	height: 100%;
 	float: right;
+}
+
+#nav-searchBar {
+	right: 20px;
+	position: absolute;
+
+	margin-top: 6px;
+
+	width: 200px;
+	height: 30px;
+
+	border-radius: 5px;
+	border: 3px solid;
+	border-color: #d8d8d8;
+
+	font-family: 'Open Sans';
+	font-weight: 400;
+	font-size: 19px;
+
+	padding: 0px 5px;
+
+	transition: border-color 0.5s ease;
+	-webkit-transition: border-color 0.5s ease;
+	-ms-transition: border-color 0.5s ease;
+    -moz-transition: border-color 0.5s ease;
+	o-transition: border-color 0.5s ease;
+}
+
+#nav-searchBar:active, #nav-searchBar:focus {
+	outline: none;
+	border-color: #2ecc71;
 }
 
 #map-canvas {

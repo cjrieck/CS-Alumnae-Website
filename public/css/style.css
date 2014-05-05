@@ -182,8 +182,9 @@ html {
 	width: 22.5%;
 	min-width: 20%;
 
-	border-radius: 2px;
-	box-shadow: 0 0 5px #d8d8d8;
+	border-radius: 3px;
+	border: 1px solid #95a5a6;
+	box-shadow: 0 0 6px #d8d8d8;
 
 	float: left;
 
@@ -194,6 +195,7 @@ html {
 
 	/* change later? */
 	/*overflow: scroll;*/
+	overflow: hidden;
 }
 
 .item.hidden {
@@ -219,7 +221,9 @@ html {
 	height: 75%;
 	display: block;
 	padding: 5px;
+	/*margin-left: 5px;*/
 	padding-right: 0px;
+	background-color: #ecf0f1;
 }
 
 .spacing {
@@ -274,8 +278,6 @@ html {
 
 	width: 200px;
 	height: 30px;
-
-	/*display: block;*/
 
 	font-family: 'Open Sans';
 	font-weight: 400;

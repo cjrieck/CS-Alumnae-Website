@@ -185,7 +185,7 @@ $(function() {
 		if (searchCriteria.length > 0) {
 			$('.item').animate({
 				opacity: 0
-			}, 500, function(){
+			}, 600, function(){
 				$('.list').empty();
 				searchRequest(searchCriteria);
 			});

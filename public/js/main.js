@@ -14,6 +14,8 @@ $(function() {
 		});
 	});
 
+	// controls when nav bar is displayed.
+	// will display once past top of results div
 	$(window).on('scroll', function(){
 		if (timer) {
 			clearTimeout(timer);
@@ -164,10 +166,11 @@ $(function() {
 		if (searchCriteria.length > 0) {
 			$('.item').animate({
 				opacity: 0
-			}, 1000);
+			}, 500, function(){
+				$('.list').empty();
+				searchRequest(searchCriteria);
+			});
 
-			$('.list').empty();
-			searchRequest(searchCriteria);
 		}
 	}
 

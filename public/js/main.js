@@ -1,5 +1,9 @@
 $(function() {
 
+	var timer; // for throttling scroll event
+
+	var cardsDiv = $('.results').offset().top; // get top of cards div
+
 	// async retrieval of LinkedIn API
 	$.getScript('http://platform.linkedin.com/in.js?async=true', function()
 	{
@@ -9,6 +13,26 @@ $(function() {
 			authorize: true
 		});
 	});
+
+	$(window).on('scroll', function(){
+		if (timer) {
+			clearTimeout(timer);
+		} 
+
+		timer = setTimeout(function(){
+			var currPos = $(window).scrollTop();
+
+			if (currPos < cardsDiv) {
+				$('.nav').stop().animate({top: '-100%'}, 500);
+			}
+
+			if (currPos >= cardsDiv) {
+				$('.nav').stop().animate({top: '0%'}, 500);
+			}
+
+		}, 50);
+	});
+
 
 	function onLinkedInLoad() {
 		IN.Event.on(IN, "auth", function() {onLinkedInLogin();}); // on authorization, perform onLinkedInLogin

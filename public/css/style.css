@@ -198,6 +198,10 @@ html {
 	overflow: hidden;
 }
 
+.item-u {
+	height: 150px;
+}
+
 .item.hidden {
 	-webkit-transition: all 400ms ease;
     -moz-transition: all 400ms ease;
@@ -220,9 +224,10 @@ html {
 	width: 100%;
 	height: 75%;
 	display: block;
-	padding: 5px;
+	/*padding: 5px;*/
 	/*margin-left: 5px;*/
-	padding-right: 0px;
+	/*padding-right: 0px;*/
+	/*margin-top: 20px;*/
 	background-color: #ecf0f1;
 }
 
@@ -230,33 +235,42 @@ html {
 	width: 100%;
 	height: 25%;
 
-	border-top: 1px solid #d8d8d8;
+	border-bottom: 1px solid #d8d8d8;
 }
 
 .profile-picture {
-	height: 90px;
+	height: 110px;
 	position: absolute;
-	border-radius: 500px;
-	margin: 0px 82px;
-	bottom: 20px;
+	border-radius: 50%;
+	/*margin: 0px 82px;*/
+	left: 30%;
+	top: 20px;
 }
 
 .profile-info-u {
+	text-align: center;
 	width: 100%;
+}
+
+.info-wrapper {
+	margin-top: 60px;
 }
 
 .fName {
 	font-weight: 400;
 	font-size: 30px;
 	margin-bottom: 10px;
+
+	text-align: center;
 }
 
 .fName-u {
+	padding-top: 10px;
 	width: 100%;
 }
 
 .position, .location {
-
+	text-align: center;
 	font-size: 15px;
 }
 

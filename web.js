@@ -245,7 +245,7 @@ app.get('/search/:name', function(req, res){
 					unregistered_collection.find({
 						$or: [
 							{"name_first": {$regex: req.params.name, $options: 'i'}},
-							{"name_last": {$regex: req.params.name, $options: 'i'}}
+							{"name_last":  {$regex: req.params.name, $options: 'i'}}
 						]}).toArray(function(err, unregistered_items) {
 							
 							if (err) {

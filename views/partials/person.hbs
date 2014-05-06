@@ -1,10 +1,12 @@
 <div class="item">
-	<div class="profile-info">
-		<div class="fName">{{firstName}} {{lastName}}</div>
-		<!--<div class="position"> {{positions.values.0.company.name}} </div>-->
-		<div class="position"> {{headline}} </div>
-		<div class="location"> {{location.name}} </div>
-	</div>
 	<div class="spacing"></div>
+	<div class="profile-info">
+		<div class="info-wrapper">
+			<div class="fName">{{firstName}} {{lastName}}</div>
+			<!--<div class="position"> {{positions.values.0.company.name}} </div>-->
+			<div class="position"> {{headline}} </div>
+			<div class="location"> {{location.name}} </div>
+		</div>
+	</div>
 	<img class="profile-picture" id='{{id}}' src='{{pictureUrls.values}}'/>
 </div>

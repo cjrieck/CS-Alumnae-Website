@@ -148,12 +148,12 @@ $(function() {
 					$('.results').html(data); // if returned something, fill html with results from search
 					$('.item').addClass("hidden");
 
-					$(document.body).on('appear', '.item', function(e, $affected) {
-				    	// add class called “appeared” for each appeared element
-						$(this).addClass("appeared");
-						console.log("appearing");
-					});
-					$('.item').appear({force_process: true});
+					// $(document.body).on('appear', '.item', function(e, $affected) {
+				 //    	// add class called “appeared” for each appeared element
+					// 	$(this).addClass("appeared");
+					// 	console.log("appearing");
+					// });
+					// $('.item').appear({force_process: true});
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown){
@@ -161,6 +161,13 @@ $(function() {
 			}
 		});
 	}
+
+	$(document.body).on('appear', '.item', function(e, $affected) {
+    	// add class called “appeared” for each appeared element
+		$(this).addClass("appeared");
+		console.log("appearing");
+	});
+	$('.item').appear({force_process: true});
 
 	// takes in JSON data (LinkedIn results) and sends that to node server
 	// to be inserted into DB

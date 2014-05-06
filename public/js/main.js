@@ -151,6 +151,7 @@ $(function() {
 					$(document.body).on('appear', '.item', function(e, $affected) {
 				    	// add class called “appeared” for each appeared element
 						$(this).addClass("appeared");
+						console.log("appearing");
 					});
 					$('.item').appear({force_process: true});
 				}

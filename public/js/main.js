@@ -104,7 +104,7 @@ $(function() {
 			success: function(data){
 
 				$('.list').append(data); // append new html to previous html
-
+				// if ($('.email').) {};
 				// $('.item').css('opacity', '1');
 				// $.each('.item', function(index, value))
 				

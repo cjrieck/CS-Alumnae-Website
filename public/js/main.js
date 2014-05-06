@@ -162,10 +162,10 @@ $(function() {
 		});
 	}
 
+	// still requires some performance for smooth interaction
 	$(document.body).on('appear', '.item', function(e, $affected) {
     	// add class called “appeared” for each appeared element
 		$(this).addClass("appeared");
-		console.log("appearing");
 	});
 	$('.item').appear({force_process: true});
 
@@ -294,8 +294,6 @@ $(function() {
 	function initialize() {
 	  	geocoder = new google.maps.Geocoder();
 	  	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-
-	  	console.log("INITIALIZE CODE:");
 		
 		getAllUsers();
 

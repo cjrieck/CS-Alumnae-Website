@@ -2,6 +2,9 @@ $(function() {
 
 	var timer; // for throttling scroll event
 
+	var navSearchActive = false;
+	var mainSearchActive = false;
+
 	var cardsDiv = $('.results').offset().top; // get top of cards div
 
 	// async retrieval of LinkedIn API
@@ -180,6 +183,7 @@ $(function() {
 
 	// will perform search in DB given the string in the input field
 	function performSearch() {
+
 		var searchCriteria = $('#searchBar').val() || $('#nav-searchBar').val(); // get value of search field
 
 		if (searchCriteria.length > 0) {
@@ -188,13 +192,17 @@ $(function() {
 			}, 600, function(){
 				$('.list').empty();
 				searchRequest(searchCriteria);
+				$('#searchBar, #nav-searchBar').val('');
 			});
 
+		} else {
+			getAllUsers();
 		}
 	}
 
 	// when the search button is clicked
 	$('#submit').click(function(){
+		mainSearchActive = true;
 		performSearch();
 	});
 

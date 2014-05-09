@@ -38,6 +38,32 @@ $(function() {
 		}, 50);
 	});
 
+	$('.item').click(function(){
+		console.log("click item");
+
+		if ($('.bottom').length > 0) {
+			$('.bottom, .arrow-up').remove();
+		}
+
+		$(this).after('<div class="arrow-up"></div><div class="bottom"></div>');
+
+		$('.arrow-up').css('margin-left', $(this).offset().left + $(this).width()/5);
+
+		$('.bottom').animate({
+			height: "toggle"
+		}, 500);
+	});
+
+	$(document).mouseup(function(e){
+		var divToHide = $('.bottom');
+
+		if(!divToHide.is(e.target)
+		&& divToHide.has(e.target).length === 0) {
+			$('.bottom, .arrow-up').animate({
+				height: "toggle"
+			}, 500);
+		}
+	});
 
 	function onLinkedInLoad() {
 		IN.Event.on(IN, "auth", function() {onLinkedInLogin();}); // on authorization, perform onLinkedInLogin

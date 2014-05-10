@@ -34,8 +34,8 @@ app.get('/', function(req, res){
 
 			context = {people: items};
 
-			console.log("INITIAL CONTEXT");
-			console.log(items);
+			// console.log("INITIAL CONTEXT");
+			// console.log(items);
 
 			res.render('home', context); // first page to load
 		});
@@ -54,8 +54,8 @@ app.post('/request', function(req, res){
 		// will try to query for a user with the same id as the one being passed in
 		collection.find({id: req.body["id"]}).toArray(function(err, items) {
 
-			console.log("FOUND: ");
-			console.log(items);
+			// console.log("FOUND: ");
+			// console.log(items);
 
 			if (err) {
 				db.close();
@@ -92,7 +92,7 @@ app.post('/request', function(req, res){
 app.post('/remove', function(req, res){
 	mongodb.Db.connect(MONGO_URL, function(err, db){
 		if (err) {
-			console.log(err);
+			res.send(err);
 		}
 		else{
 			var collection = db.collection('alumni');
@@ -111,7 +111,7 @@ app.get('/users/:id', function(req, res) {
 					res.send(404);
 					res.end();
 				} else {
-					console.log(items);
+					// console.log(items);
 					res.json(items);
 				}
 			});
@@ -195,8 +195,8 @@ app.get('/unregistered', function(req, res){
 								if (registered_items[i]["firstName"] === unregistered_items[a]["name_first"] && 
 									registered_items[i]["lastName"] === unregistered_items[a]["name_last"]) {
 
-									console.log("REMOVED USER");
-									console.log(unregistered_items.splice(a, 1));
+									// console.log("REMOVED USER");
+									// console.log(unregistered_items.splice(a, 1));
 
 									// deletes an item in the array in place and returns new array
 									unregistered_items = unregistered_items.splice(a, 1);
@@ -249,7 +249,7 @@ app.get('/search/:name', function(req, res){
 						]}).toArray(function(err, unregistered_items) {
 							
 							if (err) {
-								console.log(err);
+								// console.log(err);
 								res.send(err);
 								res.end();
 							}

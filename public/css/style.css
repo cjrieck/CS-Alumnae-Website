@@ -45,11 +45,8 @@ table {
 
 /* ----------- Begin Website Styling ----------- */
 
-
-
 * {
 	box-sizing: boder-box;
-
 }
 
 html { 
@@ -79,7 +76,6 @@ html {
 	height: 100%;
 	width: 49%;
 	display: inline-block;
-	/*margin-right: 0px;*/
 	background-image: url(../img/nav-banner.png);
 	background-repeat: no-repeat;
 	background-size: contain;

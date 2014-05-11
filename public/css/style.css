@@ -122,8 +122,37 @@ html {
 .signin-button {
 	height: 100%;
 	width: 70px;
-	background-color: blue;
+	/*background-color: blue;*/
 	float: right;
+
+	background-color: rgba(236, 240, 241, 1);
+	background-repeat: repeat-x;
+
+	border-right: 1px solid #d8d8d8;
+	border-left: 1px solid #d8d8d8;
+
+	transition: background 0.5s ease;
+	-webkit-transition: background 0.5s ease;
+	-ms-transition: background 0.5s ease;
+    -moz-transition: background 0.5s ease;
+	o-transition: background 0.5s ease;
+}
+
+.signin-button:hover {
+	/* Safari 4-5, Chrome 1-9 */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d8d8d8), to(#f7f7f7));
+
+	/* Safari 5.1, Chrome 10+ */
+	background: -webkit-linear-gradient(bottom, #d8d8d8, #f7f7f7);
+
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(bottom, #d8d8d8, #f7f7f7);
+
+	/* IE 10 */
+	background: -ms-linear-gradient(bottom, #d8d8d8, #f7f7f7);
+
+	/* Opera 11.10+ */
+	background: -o-linear-gradient(bottom, #d8d8d8, #f7f7f7);
 }
 
 #map-canvas {

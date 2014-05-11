@@ -122,8 +122,11 @@ html {
 .signin-button {
 	height: 100%;
 	width: 70px;
-	/*background-color: blue;*/
 	float: right;
+
+	text-align: center;
+
+	/*padding-top: 5px;*/
 
 	background-color: rgba(236, 240, 241, 1);
 	background-repeat: repeat-x;
@@ -153,6 +156,12 @@ html {
 
 	/* Opera 11.10+ */
 	background: -o-linear-gradient(bottom, #d8d8d8, #f7f7f7);
+}
+
+.signin-text {
+	width: 100%;
+
+	padding: 30% 0px;
 }
 
 #map-canvas {

@@ -32,7 +32,7 @@ $(function() {
 				$('.nav').stop().animate({
 					opacity: '1.0',
 					height: '60px'
-				}, 250);
+				}, 300);
 
 				$('.nav-search').hide("slow");
 			}
@@ -42,11 +42,11 @@ $(function() {
 				$('.nav').stop().animate({
 					opacity: '0.94',
 					height: '50px'
-				}, 250);
+				}, 300);
 
 				$('.nav-search').show("slow");
 			}
-		}, 10);
+		}, 100);
 	});
 
 	$('.item').click(function(){

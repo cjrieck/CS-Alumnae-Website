@@ -27,15 +27,26 @@ $(function() {
 		timer = setTimeout(function(){
 			var currPos = $(window).scrollTop();
 
+			// if above results div
 			if (currPos < cardsDiv) {
-				$('.nav').stop().animate({top: '-100%'}, 500);
+				$('.nav').stop().animate({
+					opacity: '1.0',
+					height: '60px'
+				}, 250);
+
+				$('.nav-search').hide("slow");
 			}
 
+			// if screen at top of results div
 			if (currPos >= cardsDiv) {
-				$('.nav').stop().animate({top: '0%'}, 500);
-			}
+				$('.nav').stop().animate({
+					opacity: '0.94',
+					height: '50px'
+				}, 250);
 
-		}, 50);
+				$('.nav-search').show("slow");
+			}
+		}, 10);
 	});
 
 	$('.item').click(function(){

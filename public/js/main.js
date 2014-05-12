@@ -20,7 +20,21 @@ $(function() {
 	$('.signin-button').on("click", function(){
 		if (!IN.User.isAuthorized()){
 			onLinkedInLogin();
-		};
+		} else {
+
+			// display alert that user already registered
+			$('.alert').stop().animate({
+				top: "0%"
+			}, 300, function(){
+				// displays alert for 2 seconds before
+				// animating back up
+				setTimeout(function () {
+			        $('.alert').stop().animate({
+			        	top: '-100%'
+			        }, 300);
+			    }, 2000);
+			});
+		}
 	});
 
 	// controls when nav bar is displayed.
@@ -53,10 +67,6 @@ $(function() {
 				$('.nav-banner').stop().animate({
 					'background-position-y': '0'
 				}, 300);
-
-				// $('.signing-text').stop().animate({
-				// 	'padding': '20%' 
-				// }, 300);
 
 				$('.nav').stop().animate({
 					opacity: '0.94',

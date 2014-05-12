@@ -68,32 +68,38 @@ $(function() {
 		}, 100);
 	});
 
-	$('.item').click(function(){
-		console.log("click item");
 
-		if ($('.bottom').length > 0) {
-			$('.bottom, .arrow-up').remove();
-		}
+	// code for animating timeline div down with arrow pointing to item
+	// clicked on
+	// ---------------------------------------------------------------------------------
+	// $('.item').click(function(){
+	// 	console.log("click item");
 
-		$(this).after('<div class="arrow-up"></div><div class="bottom"></div>');
+	// 	if ($('.bottom').length > 0) {
+	// 		$('.bottom, .arrow-up').remove();
+	// 	}
 
-		$('.arrow-up').css('margin-left', $(this).offset().left + $(this).width()/5);
+	// 	$(this).after('<div class="arrow-up"></div><div class="bottom"></div>');
 
-		$('.bottom').animate({
-			height: "toggle"
-		}, 500);
-	});
+	// 	$('.arrow-up').css('margin-left', $(this).offset().left + $(this).width()/5);
 
-	$(document).mouseup(function(e){
-		var divToHide = $('.bottom');
+	// 	$('.bottom').animate({
+	// 		height: "toggle"
+	// 	}, 500);
+	// });
 
-		if(!divToHide.is(e.target)
-		&& divToHide.has(e.target).length === 0) {
-			$('.bottom, .arrow-up').animate({
-				height: "toggle"
-			}, 500);
-		}
-	});
+	// $(document).mouseup(function(e){
+	// 	var divToHide = $('.bottom');
+
+	// 	if(!divToHide.is(e.target)
+	// 	&& divToHide.has(e.target).length === 0) {
+	// 		$('.bottom, .arrow-up').animate({
+	// 			height: "toggle"
+	// 		}, 500);
+	// 	}
+	// });
+	// ---------------------------------------------------------------------------------
+	
 
 	function onLinkedInLoad() {
 		IN.Event.on(IN, "auth", function() {onLinkedInLogin();}); // on authorization, perform onLinkedInLogin

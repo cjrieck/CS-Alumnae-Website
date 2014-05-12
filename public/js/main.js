@@ -29,6 +29,10 @@ $(function() {
 
 			// if above results div
 			if (currPos < cardsDiv) {
+				$('.nav-banner').stop().animate({
+					'background-position-y': '5px'
+				}, 300);
+
 				$('.nav').stop().animate({
 					opacity: '1.0',
 					height: '60px'
@@ -39,6 +43,14 @@ $(function() {
 
 			// if screen at top of results div
 			if (currPos >= cardsDiv) {
+				$('.nav-banner').stop().animate({
+					'background-position-y': '0'
+				}, 300);
+
+				// $('.signing-text').stop().animate({
+				// 	'padding': '20%' 
+				// }, 300);
+
 				$('.nav').stop().animate({
 					opacity: '0.94',
 					height: '50px'

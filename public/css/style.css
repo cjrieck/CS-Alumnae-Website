@@ -78,7 +78,8 @@ html {
 	display: inline-block;
 	background-image: url(../img/nav-banner.png);
 	background-repeat: no-repeat;
-	background-size: contain;
+	background-size: auto 50px;
+	background-position: 0px 5px;
 }
 
 .nav-search {

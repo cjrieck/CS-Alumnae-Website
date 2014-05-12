@@ -65,6 +65,20 @@ table {
 	100% {padding: 25% 0px;}
 }
 
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Open Sans'),url(//brick.a.ssl.fastly.net/fonts/opensans/400.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans Bold';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Open Sans Bold'),url(//brick.a.ssl.fastly.net/fonts/opensans/700.woff) format('woff');
+}
+
 * {
 	box-sizing: boder-box;
 }
@@ -73,7 +87,8 @@ html {
 	height: 100%;
 	background-color: #ecf0f1;
 }
- body { 
+
+body { 
  	font-family: Montserrat;
 
  	height: 100%; 
@@ -93,6 +108,12 @@ html {
 }
 
 .alert-text {
+	width: 300px;
+
+	font-family: 'Open Sans Bold';
+	font-size: 30px;
+	margin: 13px auto;
+	/*font-size: 700;*/
 	color: #fff;
 }
 
@@ -157,11 +178,12 @@ html {
 
 .signin-button {
 	height: 100%;
-	width: 70px;
+	width: 100px;
 	float: right;
 
-	text-align: center;
+	/*margin-right: 50px;*/
 
+	text-align: center;
 	/*padding-top: 5px;*/
 
 	background-color: rgba(236, 240, 241, 1);
@@ -169,43 +191,26 @@ html {
 
 	border-right: 1px solid #d8d8d8;
 	border-left: 1px solid #d8d8d8;
-
-	transition: background 0.5s ease;
-	-webkit-transition: background 0.5s ease;
-	-ms-transition: background 0.5s ease;
-    -moz-transition: background 0.5s ease;
-	o-transition: background 0.5s ease;
-
-	transition: opacity 0.5s ease;
-	-webkit-transition: opacity 0.5s ease;
-	-ms-transition: opacity 0.5s ease;
-    -moz-transition: opacity 0.5s ease;
-	o-transition: opacity 0.5s ease;
 }
 
-.signin-button:hover {
-	/* Safari 4-5, Chrome 1-9 */
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d8d8d8), to(#f7f7f7));
+.signin-button, .signin-text {
+	-webkit-transition: color 1s ease;
+	-ms-transition: color 1s ease;
+    -moz-transition: color 1s ease;
+	o-transition: color 1s ease;
+	transition: color 1s ease;
+}
 
-	/* Safari 5.1, Chrome 10+ */
-	background: -webkit-linear-gradient(bottom, #d8d8d8, #f7f7f7);
-
-	/* Firefox 3.6+ */
-	background: -moz-linear-gradient(bottom, #d8d8d8, #f7f7f7);
-
-	/* IE 10 */
-	background: -ms-linear-gradient(bottom, #d8d8d8, #f7f7f7);
-
-	/* Opera 11.10+ */
-	background: -o-linear-gradient(bottom, #d8d8d8, #f7f7f7);
-
-	opacity: 0.8;
+.signin-button:hover, .signin-text:hover {
+	color: #2ecc71;
 }
 
 .signin-text {
 	width: 100%;
 
-	padding: 30% 0px;
+	font-size: 20px;
+
+	padding: 19% 0px;
 
 	cursor: default;
 
@@ -213,39 +218,16 @@ html {
 	-moz-transition: padding 0.5s linear;
 	-o-transition: padding 0.5s linear;
 	transition: padding 0.5s linear;
-
-	/*animation-name: ADJUST-PADDING;
-	animation-duration: 0.5s;
-	animation-iteration-count: 1;
-	animation-timing-function: ease;*/
-/*
-	-webkit-animation: ADJUST-PADDING 0.5s backwards;
-	-moz-animation:    ADJUST-PADDING 0.5s backwards;
-	-o-animation:      ADJUST-PADDING 0.5s backwards;
-	animation:         ADJUST-PADDING 0.5s backwards;*/
 }
 
 .signin-text.scrolled {
-/*	-webkit-animation: ADJUST-PADDING 0.5s;
-	-moz-animation:    ADJUST-PADDING 0.5s;
-	-o-animation:      ADJUST-PADDING 0.5s;
-	animation:         ADJUST-PADDING 0.5s;
-*/
-	padding: 25% 0px;
+
+	padding: 16% 0px;
 
 	-webkit-transition: padding 0.5s linear;
 	-moz-transition: padding 0.5s linear;
 	-o-transition: padding 0.5s linear;
 	transition: padding 0.5s linear;
-
-	animation-name: padding-adjust;
-	animation-duration: 1s;
-	animation-timing-function: ease;
-	animation-iteration-count: 1;	
-	animation-direction: normal;
-	animation-delay: 0;
-	animation-play-state: running;
-	animation-fill-mode: forwards;
 }
 
 #map-canvas {

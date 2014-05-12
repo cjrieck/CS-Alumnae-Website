@@ -45,6 +45,26 @@ table {
 
 /* ----------- Begin Website Styling ----------- */
 
+@-webkit-keyframes NAME-YOUR-ANIMATION {
+	0%   {padding: 30% 0px;}
+	100% {padding: 25% 0px;}
+}
+
+@-moz-keyframes NAME-YOUR-ANIMATION {
+	0%   {padding: 30% 0px;}
+	100% {padding: 25% 0px;}
+}
+
+@-o-keyframes NAME-YOUR-ANIMATION {
+	0%   {padding: 30% 0px;}
+	100% {padding: 25% 0px;}
+}
+
+@keyframes ADJUST-PADDING {
+	0%   {padding: 30% 0px;}
+	100% {padding: 25% 0px;}
+}
+
 * {
 	box-sizing: boder-box;
 }
@@ -163,6 +183,13 @@ html {
 	width: 100%;
 
 	padding: 30% 0px;
+}
+
+.signin-text.scrolled {
+	-webkit-animation: ADJUST-PADDING 0.5s infinite;
+	-moz-animation:    ADJUST-PADDING 0.5s infinite;
+	-o-animation:      ADJUST-PADDING 0.5s infinite;
+	animation:         ADJUST-PADDING 0.5s infinite;
 }
 
 #map-canvas {

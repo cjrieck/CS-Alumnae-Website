@@ -45,17 +45,17 @@ table {
 
 /* ----------- Begin Website Styling ----------- */
 
-@-webkit-keyframes NAME-YOUR-ANIMATION {
+@-webkit-keyframes ADJUST-PADDING {
+	0%   {padding: 30% 0px;}
+	100% {padding: 0% 0px;}
+}
+
+@-moz-keyframes ADJUST-PADDING {
 	0%   {padding: 30% 0px;}
 	100% {padding: 25% 0px;}
 }
 
-@-moz-keyframes NAME-YOUR-ANIMATION {
-	0%   {padding: 30% 0px;}
-	100% {padding: 25% 0px;}
-}
-
-@-o-keyframes NAME-YOUR-ANIMATION {
+@-o-keyframes ADJUST-PADDING {
 	0%   {padding: 30% 0px;}
 	100% {padding: 25% 0px;}
 }
@@ -183,13 +183,30 @@ html {
 	width: 100%;
 
 	padding: 30% 0px;
+
+	cursor: default;
+
+	/*animation-name: ADJUST-PADDING;
+	animation-duration: 0.5s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease;*/
+/*
+	-webkit-animation: ADJUST-PADDING 0.5s backwards;
+	-moz-animation:    ADJUST-PADDING 0.5s backwards;
+	-o-animation:      ADJUST-PADDING 0.5s backwards;
+	animation:         ADJUST-PADDING 0.5s backwards;*/
 }
 
 .signin-text.scrolled {
-	-webkit-animation: ADJUST-PADDING 0.5s infinite;
-	-moz-animation:    ADJUST-PADDING 0.5s infinite;
-	-o-animation:      ADJUST-PADDING 0.5s infinite;
-	animation:         ADJUST-PADDING 0.5s infinite;
+/*	-webkit-animation: ADJUST-PADDING 0.5s;
+	-moz-animation:    ADJUST-PADDING 0.5s;
+	-o-animation:      ADJUST-PADDING 0.5s;
+	animation:         ADJUST-PADDING 0.5s;
+*/
+	animation-name: ADJUST-PADDING;
+	animation-duration: 0.5s;
+	animation-iteration-count: 10;
+	animation-timing-function: ease;
 }
 
 #map-canvas {

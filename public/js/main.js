@@ -17,6 +17,12 @@ $(function() {
 		});
 	});
 
+	$('.signin-button').on("click", function(){
+		if (!IN.User.isAuthorized()){
+			onLinkedInLogin();
+		};
+	});
+
 	// controls when nav bar is displayed.
 	// will display once past top of results div
 	$(window).on('scroll', function(){
@@ -280,6 +286,10 @@ $(function() {
 
 	// will pin pins onto the map based on user location given by the LinkedIn API
     function getLocations(userData) {
+
+    	var infowindow = new google.maps.InfoWindow();
+		// var service = new google.maps.places.PlacesService(map);
+
     	for (var i = 0; i < userData.length; i++) {
     		
     		var location;
@@ -298,17 +308,28 @@ $(function() {
 				location = userData[i]["location"]["name"];
 			}
 
+			var name = userData[i]["firstName"] + " " + userData[i]["lastName"];
+
 			// pins the locations onto the map (from Google documentation)
 			geocoder.geocode( {"address": location}, function(results, status) {
 			    if (status == google.maps.GeocoderStatus.OK) {
 			      map.setCenter(results[0].geometry.location);
+
+			      // set up maps pin
 			      var marker = new google.maps.Marker({
 			          map: map,
+			          animation: google.maps.Animation.DROP,
 			          position: results[0].geometry.location
 			      });
 			    } else {
 			      console.log('Geocode was not successful for the following reason: ' + status);
 			    }
+
+			    // brings up name of person associated with pin
+			    google.maps.event.addListener(marker, 'click', function() {
+					infowindow.setContent(name);
+					infowindow.open(map, this);
+				});
 			});
 		};
 	};

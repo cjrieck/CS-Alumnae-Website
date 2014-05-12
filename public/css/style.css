@@ -45,22 +45,22 @@ table {
 
 /* ----------- Begin Website Styling ----------- */
 
-@-webkit-keyframes ADJUST-PADDING {
+@-webkit-keyframes padding-adjust {
 	0%   {padding: 30% 0px;}
 	100% {padding: 0% 0px;}
 }
 
-@-moz-keyframes ADJUST-PADDING {
+@-moz-keyframes padding-adjust {
 	0%   {padding: 30% 0px;}
 	100% {padding: 25% 0px;}
 }
 
-@-o-keyframes ADJUST-PADDING {
+@-o-keyframes padding-adjust {
 	0%   {padding: 30% 0px;}
 	100% {padding: 25% 0px;}
 }
 
-@keyframes ADJUST-PADDING {
+@keyframes padding-adjust {
 	0%   {padding: 30% 0px;}
 	100% {padding: 25% 0px;}
 }
@@ -160,6 +160,12 @@ html {
 	-ms-transition: background 0.5s ease;
     -moz-transition: background 0.5s ease;
 	o-transition: background 0.5s ease;
+
+	transition: opacity 0.5s ease;
+	-webkit-transition: opacity 0.5s ease;
+	-ms-transition: opacity 0.5s ease;
+    -moz-transition: opacity 0.5s ease;
+	o-transition: opacity 0.5s ease;
 }
 
 .signin-button:hover {
@@ -177,6 +183,8 @@ html {
 
 	/* Opera 11.10+ */
 	background: -o-linear-gradient(bottom, #d8d8d8, #f7f7f7);
+
+	opacity: 0.8;
 }
 
 .signin-text {
@@ -185,6 +193,11 @@ html {
 	padding: 30% 0px;
 
 	cursor: default;
+
+	-webkit-transition: padding 0.5s linear;
+	-moz-transition: padding 0.5s linear;
+	-o-transition: padding 0.5s linear;
+	transition: padding 0.5s linear;
 
 	/*animation-name: ADJUST-PADDING;
 	animation-duration: 0.5s;
@@ -203,10 +216,21 @@ html {
 	-o-animation:      ADJUST-PADDING 0.5s;
 	animation:         ADJUST-PADDING 0.5s;
 */
-	animation-name: ADJUST-PADDING;
-	animation-duration: 0.5s;
-	animation-iteration-count: 10;
+	padding: 25% 0px;
+
+	-webkit-transition: padding 0.5s linear;
+	-moz-transition: padding 0.5s linear;
+	-o-transition: padding 0.5s linear;
+	transition: padding 0.5s linear;
+
+	animation-name: padding-adjust;
+	animation-duration: 1s;
 	animation-timing-function: ease;
+	animation-iteration-count: 1;	
+	animation-direction: normal;
+	animation-delay: 0;
+	animation-play-state: running;
+	animation-fill-mode: forwards;
 }
 
 #map-canvas {

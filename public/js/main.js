@@ -45,6 +45,7 @@ $(function() {
 				}, 300);
 
 				$('.nav-search').hide("slow");
+				$('.signin-text').removeClass('scrolled');
 			}
 
 			// if screen at top of results div

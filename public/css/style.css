@@ -105,6 +105,16 @@ body {
 	position: fixed;
 	z-index: 2;
 	background-color: #e74c3c;
+
+	-webkit-transition: top 0.3s ease;
+	transition: top 0.3s ease;
+}
+
+.alert.active {
+	top: 0;
+
+	-webkit-transition: top 0.3s ease;
+	transition: top 0.3s ease;
 }
 
 .alert-text {

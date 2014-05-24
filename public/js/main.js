@@ -22,18 +22,11 @@ $(function() {
 			onLinkedInLogin();
 		} else {
 
-			// display alert that user already registered
-			$('.alert').stop().animate({
-				top: "0%"
-			}, 300, function(){
-				// displays alert for 2 seconds before
-				// animating back up
-				setTimeout(function () {
-			        $('.alert').stop().animate({
-			        	top: '-100%'
-			        }, 300);
-			    }, 2000);
-			});
+			$('.alert').addClass('active');
+
+			setTimeout(function(){
+		    	$('.alert').removeClass("active");
+			}, 2000);
 		}
 	});
 
@@ -233,22 +226,19 @@ $(function() {
 			contentType: "application/json; charset=utf-8",
 			success: function(res){
 				if (res === "Already exists") {
-					console.log("in DB")
+					console.log("in DB");
 				} else if (res === "invalid") {
+					console.log("Invalid user");
+
 					$('.alert').children('.alert-text').html("Not a Wheaton CS Alumnae/i");
-					$('.alert').stop().animate({
-						top: "0%"
-					}, 300, function(){
-						// displays alert for 2 seconds before
-						// animating back up
-						setTimeout(function () {
-					        $('.alert').stop().animate({
-					        	top: '-100%'
-					        }, 300);
-					    }, 2000, function(){
-					    	$('.alert').children('.alert-text').html("Already Registered");
-					    });
-					});
+					
+					$('.alert').addClass("active");
+
+					setTimeout(function(){
+						$('.alert').removeClass("active");
+						// $('.alert').children('.alert-text').html("Already Registered").delay(1000);
+					}, 2000);
+
 				} else {
 					getAllUsers(); // refresh page with new user				
 				}

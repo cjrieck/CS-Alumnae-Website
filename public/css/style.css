@@ -107,18 +107,18 @@ body {
 	background-color: #e74c3c;
 
 	-webkit-transition: top 0.3s ease;
-	-moz-transition: top 0.3s ease;
-	-o-transition: top 0.3s ease;
-	transition: top 0.3s ease;
+	-moz-transition:    top 0.3s ease;
+	-o-transition:      top 0.3s ease;
+	transition:         top 0.3s ease;
 }
 
 .alert.active {
 	top: 0;
 
 	-webkit-transition: top 0.3s ease;
-	-moz-transition: top 0.3s ease;
-	-o-transition: top 0.3s ease;
-	transition: top 0.3s ease;
+	-moz-transition:    top 0.3s ease;
+	-o-transition:      top 0.3s ease;
+	transition:         top 0.3s ease;
 }
 
 .alert-text {
@@ -139,19 +139,28 @@ body {
 
 	box-shadow: 0px 3px 5px #d8d8d8;
 
-	-webkit-transition: height 0.2s ease;
-	-moz-transition: height 0.2s ease;
-	-o-transition: height 0.2s ease;
-	transition: height 0.2s ease;
+	-webkit-transition: height 0.2s ease,
+						opacity 0.2s ease;
+	-moz-transition:    height 0.2s ease,
+						opacity 0.2s ease;
+	-o-transition:      height 0.2s ease,
+						opacity 0.2s ease;
+	transition:         height 0.2s ease,
+						opacity 0.2s ease;
 }
 
 .nav.scrolled {
 	height: 50px;
+	opacity: 0.94;
 
-	-webkit-transition: height 0.2s ease;
-	-moz-transition: height 0.2s ease;
-	-o-transition: height 0.2s ease;
-	transition: height 0.2s ease;
+	-webkit-transition: height 0.2s ease,
+						opacity 0.2s ease;
+	-moz-transition:    height 0.2s ease,
+						opacity 0.2s ease;
+	-o-transition:      height 0.2s ease,
+						opacity 0.2s ease;
+	transition:         height 0.2s ease,
+						opacity 0.2s ease;
 }
 
 .nav-banner {
@@ -164,18 +173,18 @@ body {
 	background-position: 0px 5px;
 
 	-webkit-transition: background-position:  0.2s ease;
-	-moz-transition: background-position 0.2s ease;
-	-o-transition: background-position 0.2s ease;
-	transition: background-position 0.2s ease;
+	-moz-transition:    background-position 0.2s ease;
+	-o-transition:      background-position 0.2s ease;
+	transition:         background-position 0.2s ease;
 }
 
 .nav-banner.scrolled {
 	background-position: 0;
 
 	-webkit-transition: background-position:  0.2s ease;
-	-moz-transition: background-position 0.2s ease;
-	-o-transition: background-position 0.2s ease;
-	transition: background-position 0.2s ease;
+	-moz-transition:    background-position 0.2s ease;
+	-o-transition:      background-position 0.2s ease;
+	transition:         background-position 0.2s ease;
 }
 
 .nav-search {
@@ -185,9 +194,9 @@ body {
 	opacity: 0;
 
 	-webkit-transition: opacity 0.2s ease;
-	-moz-transition: opacity 0.2s ease;
-	-o-transition: opacity 0.2s ease;
-	transition: opacity 0.2s ease;
+	-moz-transition:    opacity 0.2s ease;
+	-o-transition:      opacity 0.2s ease;
+	transition:         opacity 0.2s ease;
 }
 
 .nav-search.active {
@@ -195,9 +204,9 @@ body {
 	height: 100%;
 
 	-webkit-transition: opacity 0.2s ease;
-	-moz-transition: opacity 0.2s ease;
-	-o-transition: opacity 0.2s ease;
-	transition: opacity 0.2s ease;
+	-moz-transition:    opacity 0.2s ease;
+	-o-transition:      opacity 0.2s ease;
+	transition:         opacity 0.2s ease;
 }
 
 #nav-searchBar {
@@ -221,14 +230,14 @@ body {
 
 	-webkit-transition: border-color 0.5s ease,
 						width 0.2s ease;
-	-ms-transition: border-color 0.5s ease,
-					width 0.2s ease;
-    -moz-transition: border-color 0.5s ease,
-					width 0.2s ease;
-	-o-transition: border-color 0.5s ease,
-					width 0.2s ease;
-	transition: border-color 0.5s ease,
-				width 0.2s ease;
+	-ms-transition:     border-color 0.5s ease,
+					    width 0.2s ease;
+    -moz-transition:    border-color 0.5s ease,
+					    width 0.2s ease;
+	-o-transition:      border-color 0.5s ease,
+					    width 0.2s ease;
+	transition:         border-color 0.5s ease,
+				        width 0.2s ease;
 }
 
 #nav-searchBar:active, #nav-searchBar:focus {
@@ -253,10 +262,9 @@ body {
 
 .signin-button, .signin-text {
 	-webkit-transition: color 1s ease;
-	-ms-transition: color 1s ease;
-    -moz-transition: color 1s ease;
-	o-transition: color 1s ease;
-	transition: color 1s ease;
+    -moz-transition:    color 1s ease;
+	o-transition:       color 1s ease;
+	transition:         color 1s ease;
 }
 
 .signin-button:hover, .signin-text:hover {
@@ -273,9 +281,9 @@ body {
 	cursor: default;
 
 	-webkit-transition: padding 0.5s linear;
-	-moz-transition: padding 0.5s linear;
-	-o-transition: padding 0.5s linear;
-	transition: padding 0.5s linear;
+	-moz-transition:    padding 0.5s linear;
+	-o-transition:      padding 0.5s linear;
+	transition:         padding 0.5s linear;
 }
 
 .signin-text.scrolled {
@@ -283,9 +291,9 @@ body {
 	padding: 16% 0px;
 
 	-webkit-transition: padding 0.5s linear;
-	-moz-transition: padding 0.5s linear;
-	-o-transition: padding 0.5s linear;
-	transition: padding 0.5s linear;
+	-moz-transition:    padding 0.5s linear;
+	-o-transition:      padding 0.5s linear;
+	transition:         padding 0.5s linear;
 }
 
 #map-canvas {
@@ -374,18 +382,18 @@ body {
     -o-transition: all 400ms ease;
     transition: all 400ms ease;
 
-    -webkit-transform:  translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
-    -moz-transform: translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
-    -o-transform: translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
-    transform: translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
+    -webkit-transform: translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
+    -moz-transform:    translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
+    -o-transform:      translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
+    transform:         translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
     opacity: 0;
 }
 
 .item.appeared{
     -webkit-transform: translate3d(0px, 0px, 0px) rotateX(0)  scale(1, 1);
-    -moz-transform:  translate3d(0px, 0px, 0px) rotateX(0)  scale(1, 1);
-    -o-transform:  translate3d(0px, 0px, 0px) rotateX(0)  scale(1, 1);
-    transform: translate3d(0px, 0px, 0px) rotateX(0)  scale(1, 1);
+    -moz-transform:    translate3d(0px, 0px, 0px) rotateX(0)  scale(1, 1);
+    -o-transform:      translate3d(0px, 0px, 0px) rotateX(0)  scale(1, 1);
+    transform:         translate3d(0px, 0px, 0px) rotateX(0)  scale(1, 1);
     opacity: 1;
 }
 
@@ -487,11 +495,10 @@ body {
 
 	padding: 0px 5px;
 
-	transition: all 0.5s ease;
 	-webkit-transition: all 0.5s ease;
-	-ms-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-	-o-transition: all 0.5s ease;
+    -moz-transition:    all 0.5s ease;
+	-o-transition:      all 0.5s ease;
+	transition:         all 0.5s ease;
 }
 
 #searchBar:active, #searchBar:focus {
@@ -511,11 +518,10 @@ body {
 	background-color: #d8d8d8;
 	border: none;
 
-	transition: background-color 0.3s ease;
 	-webkit-transition: background-color 0.3s ease;
-	-ms-transition: background-color 0.3s ease;
-    -moz-transition: background-color 0.3s ease;
-	-o-transition: background-color 0.3s ease;
+    -moz-transition:    background-color 0.3s ease;
+	-o-transition:      background-color 0.3s ease;
+	transition:         background-color 0.3s ease;
 }
 
 #submit:hover {

@@ -192,7 +192,7 @@ $(function() {
 				if (data.length > 0) {
 
 					$('.results').html(data); // if returned something, fill html with results from search
-					$('.item').addClass("hidden");
+					// $('.item').addClass("hidden");
 
 					// $(document.body).on('appear', '.item', function(e, $affected) {
 				 //    	// add class called “appeared” for each appeared element
@@ -209,11 +209,12 @@ $(function() {
 	}
 
 	// still requires some performance for smooth interaction
-	$(document.body).on('appear', '.item', function(e, $affected) {
-    	// add class called “appeared” for each appeared element
-		$(this).addClass("appeared");
-	});
-	$('.item').appear({force_process: true});
+	// $(document.body).on('appear', '.item', function(e, $affected) {
+ //    	// add class called “appeared” for each appeared element
+	// 	$(this).addClass("appeared");
+	// });
+
+	// $('.item').appear({force_process: true});
 
 	// takes in JSON data (LinkedIn results) and sends that to node server
 	// to be inserted into DB
@@ -255,13 +256,19 @@ $(function() {
 		var searchCriteria = $('#searchBar').val() || $('#nav-searchBar').val(); // get value of search field
 
 		if (searchCriteria.length > 0) {
-			$('.item').animate({
-				opacity: 0
-			}, 600, function(){
-				$('.list').empty();
-				searchRequest(searchCriteria);
-				$('#searchBar, #nav-searchBar').val('');
-			});
+
+			$('.list').empty();
+			searchRequest(searchCriteria);
+			// $('#searchBar, #nav-searchBar').val('');
+
+			// fade out list of people
+			// $('.item').animate({
+			// 	opacity: 0
+			// }, 600, function(){
+			// 	$('.list').empty();
+			// 	searchRequest(searchCriteria);
+			// 	$('#searchBar, #nav-searchBar').val('');
+			// });
 
 		} else {
 			getAllUsers();
@@ -269,16 +276,20 @@ $(function() {
 	}
 
 	// when the search button is clicked
-	$('#submit').click(function(){
-		mainSearchActive = true;
-		performSearch();
-	});
+	// $('#submit').click(function(){
+	// 	mainSearchActive = true;
+	// 	performSearch();
+	// });
 
 	// when enter is hit
-	$('#searchBar, #nav-searchBar').keypress(function(e){
-		if (e.which === 13) {
-			performSearch();
-		}
+	// $('#searchBar, #nav-searchBar').keypress(function(e){
+	// 	if (e.which === 13) {
+	// 		performSearch();
+	// 	}
+	// });
+
+	$('#searchBar, #nav-searchBar').on('input', function(){
+		performSearch();
 	});
 
 	// maps setup

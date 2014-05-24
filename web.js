@@ -201,11 +201,11 @@ app.get('/unregistered', function(req, res){
 					} else {
 
 						// cleaning up entries with no email addresses
-						for (var i = 0; i < unregistered_items.length; i++) {
-							if (unregistered_items[i]["email_addr"] === "None"){
-								delete unregistered_items[i]["email_addr"];
-							};
-						};
+						// for (var i = 0; i < unregistered_items.length; i++) {
+						// 	if (unregistered_items[i]["email_addr"] === "None"){
+						// 		delete unregistered_items[i]["email_addr"];
+						// 	};
+						// };
 
 						// iterate through array of users signed in through LinkedIn
 						for (var i = 0; i < registered_items.length; i++) {
@@ -279,8 +279,9 @@ app.get('/search/:name', function(req, res){
 							}
 							
 							else {
-								console.log(unregistered_items);
-							
+								console.log("UNREGISTERED: "+unregistered_items);
+								console.log("REGISTERED: "+items);
+								
 								if ((items && items.length > 0) || (unregistered_items && unregistered_items.length > 0)) {
 									var context = {people: items, u_people: unregistered_items};
 									res.render('person', _.extend(context, {layout: false}));

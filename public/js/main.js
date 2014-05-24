@@ -311,15 +311,25 @@ $(function() {
 		  zoom: 3
 		}
 
+	function bindInfoWindow(marker, map, infowindow, html) {
+	    google.maps.event.addListener(marker, 'click', function() {
+	        infowindow.setContent(html);
+	        infowindow.open(map, marker);
+	    });
+	} 
+
 	// will pin pins onto the map based on user location given by the LinkedIn API
     function getLocations(userData) {
 
-    	var infowindow = new google.maps.InfoWindow();
 		// var service = new google.maps.places.PlacesService(map);
 
     	for (var i = 0; i < userData.length; i++) {
     		
+    		var that = this;
     		var location;
+    		var name;
+    		var marker;
+    		var infowindow;
 
     		// if no location data, break
 			if (!userData[i].location) {
@@ -335,28 +345,39 @@ $(function() {
 				location = userData[i]["location"]["name"];
 			}
 
-			var name = userData[i]["firstName"] + " " + userData[i]["lastName"];
+			name = userData[i]["firstName"] + " " + userData[i]["lastName"];
 
 			// pins the locations onto the map (from Google documentation)
 			geocoder.geocode( {"address": location}, function(results, status) {
 			    if (status == google.maps.GeocoderStatus.OK) {
 			      map.setCenter(results[0].geometry.location);
 
+			      // name = userData[i]["firstName"] + " " + userData[i]["lastName"];
+
 			      // set up maps pin
-			      var marker = new google.maps.Marker({
+			      marker = new google.maps.Marker({
 			          map: map,
 			          animation: google.maps.Animation.DROP,
 			          position: results[0].geometry.location
 			      });
-			    } else {
-			      console.log('Geocode was not successful for the following reason: ' + status);
-			    }
 
-			    // brings up name of person associated with pin
-			    google.maps.event.addListener(marker, 'click', function() {
-					infowindow.setContent(name);
-					infowindow.open(map, this);
-				});
+					infowindow = new google.maps.InfoWindow({
+						content: name
+					});
+
+					console.log(name);
+
+					bindInfoWindow(marker, map, infowindow, infowindow["content"]);
+
+			       // brings up name of person associated with pin
+				 //    google.maps.event.addListener(marker, 'click', function() {
+					// 	// infowindow.setContent(name);
+					// 	infowindow.open(map, this);
+					// });
+
+			    } else {
+			     	console.log('Geocode was not successful for the following reason: ' + status);
+			    }
 			});
 		};
 	};
@@ -395,7 +416,7 @@ $(function() {
 		
 		getAllUsers();
 
-		}
+	}
 
     google.maps.event.addDomListener(window, 'load', initialize);
 });

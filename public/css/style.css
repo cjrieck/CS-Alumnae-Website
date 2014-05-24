@@ -429,12 +429,26 @@ body {
 	border-bottom: 1px solid #d8d8d8;
 }
 
-.profile-picture {
-	height: 110px;
+.profile-picture, .profile-picture-border {
 	position: absolute;
 	border-radius: 50%;
+}
+
+.profile-picture {
+	height: 110px;
 	left: 30%;
 	top: 20px;
+}
+
+.profile-picture-border {
+	height: 120px;
+	width: 120px;
+	left: 27.5%;
+	top: 14px;
+
+	border: 1px solid #d8d8d8;
+
+	background-color: #ecf0f1;
 }
 
 .profile-info-u {

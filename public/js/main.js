@@ -49,34 +49,22 @@ $(function() {
 
 			// if above results div
 			if (currPos < cardsDiv) {
-				$('.nav-banner').stop().animate({
-					'background-position-y': '5px'
-				}, 300);
 
-				$('.nav').stop().animate({
-					opacity: '1.0',
-					height: '60px'
-				}, 300);
+				$('.nav, .nav-banner').removeClass("scrolled");
 
 				$('.nav-search').hide("slow");
 				$('.signin-text').removeClass('scrolled');
 			}
 
 			// if screen at top of results div
-			if (currPos >= cardsDiv) {
-				$('.nav-banner').stop().animate({
-					'background-position-y': '0'
-				}, 300);
-
-				$('.nav').stop().animate({
-					opacity: '0.94',
-					height: '50px'
-				}, 300);
+			if (currPos+60 >= cardsDiv) {
+				
+				$('.nav, .nav-banner').addClass("scrolled");
 
 				$('.nav-search').show("slow");
 				$('.signin-text').addClass('scrolled');
 			}
-		}, 100);
+		}, 10);
 	});
 
 

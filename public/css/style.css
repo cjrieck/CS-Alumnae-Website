@@ -113,12 +113,10 @@ body {
 	font-family: 'Open Sans Bold';
 	font-size: 30px;
 	margin: 13px auto;
-	/*font-size: 700;*/
 	color: #fff;
 }
 
 .nav {
-	/*top: -100%;*/
 	height: 60px;
 	width: 100%;
 	background-color: rgba(236, 240, 241, 1);
@@ -312,8 +310,10 @@ body {
     -moz-transition: all 400ms ease;
     -o-transition: all 400ms ease;
     transition: all 400ms ease;
+
     -webkit-transform:  translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
     -moz-transform: translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
+    -o-transform: translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
     transform: translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
     opacity: 0;
 }
@@ -321,6 +321,7 @@ body {
 .item.appeared{
     -webkit-transform: translate3d(0px, 0px, 0px) rotateX(0)  scale(1, 1);
     -moz-transform:  translate3d(0px, 0px, 0px) rotateX(0)  scale(1, 1);
+    -o-transform:  translate3d(0px, 0px, 0px) rotateX(0)  scale(1, 1);
     transform: translate3d(0px, 0px, 0px) rotateX(0)  scale(1, 1);
     opacity: 1;
 }
@@ -347,10 +348,6 @@ body {
 	width: 100%;
 	height: 75%;
 	display: block;
-	/*padding: 5px;*/
-	/*margin-left: 5px;*/
-	/*padding-right: 0px;*/
-	/*margin-top: 20px;*/
 	background-color: #ecf0f1;
 }
 
@@ -365,7 +362,6 @@ body {
 	height: 110px;
 	position: absolute;
 	border-radius: 50%;
-	/*margin: 0px 82px;*/
 	left: 30%;
 	top: 20px;
 }
@@ -426,7 +422,7 @@ body {
 	-webkit-transition: border-color 0.5s ease;
 	-ms-transition: border-color 0.5s ease;
     -moz-transition: border-color 0.5s ease;
-	o-transition: border-color 0.5s ease;
+	-o-transition: border-color 0.5s ease;
 }
 
 #searchBar:active, #searchBar:focus {
@@ -449,7 +445,7 @@ body {
 	-webkit-transition: background-color 0.3s ease;
 	-ms-transition: background-color 0.3s ease;
     -moz-transition: background-color 0.3s ease;
-	o-transition: background-color 0.3s ease;
+	-o-transition: background-color 0.3s ease;
 }
 
 #submit:hover {

@@ -45,7 +45,9 @@ $(function() {
 
 				$('.nav, .nav-banner').removeClass("scrolled");
 
-				$('.nav-search').hide("slow");
+				// $('.nav-search').hide("slow");
+				$('.nav-search').removeClass('active');
+
 				$('.signin-text').removeClass('scrolled');
 			}
 
@@ -54,7 +56,10 @@ $(function() {
 				
 				$('.nav, .nav-banner').addClass("scrolled");
 
-				$('.nav-search').show("slow");
+				// $('.nav-search').show("slow");
+
+				$('.nav-search').addClass('active');
+
 				$('.signin-text').addClass('scrolled');
 			}
 		}, 10);
@@ -100,7 +105,7 @@ $(function() {
 	function onLinkedInLogin() {
 
 		if (IN.User.isAuthorized()) { // if user is authorized... 
-			$('.login-button').hide(); // hide login button
+			$('.login-button, .signin-button').hide(); // hide login button
 
 			// get users profile and send result to postData()
 			IN.API.Profile("me")
@@ -191,7 +196,12 @@ $(function() {
 			success: function(data) {
 				if (data.length > 0) {
 
+					// check if being called from navBar search
+					// if it is then populate drop down menu underneath with results
+					// else...
 					$('.results').html(data); // if returned something, fill html with results from search
+					
+
 					// $('.item').addClass("hidden");
 
 					// $(document.body).on('appear', '.item', function(e, $affected) {
@@ -257,18 +267,11 @@ $(function() {
 
 		if (searchCriteria.length > 0) {
 
+			// check if being called from navBar search
+			// if it is then empty drop down menu underneath
+			// else...
 			$('.list').empty();
 			searchRequest(searchCriteria);
-			// $('#searchBar, #nav-searchBar').val('');
-
-			// fade out list of people
-			// $('.item').animate({
-			// 	opacity: 0
-			// }, 600, function(){
-			// 	$('.list').empty();
-			// 	searchRequest(searchCriteria);
-			// 	$('#searchBar, #nav-searchBar').val('');
-			// });
 
 		} else {
 			getAllUsers();
@@ -288,9 +291,15 @@ $(function() {
 	// 	}
 	// });
 
-	$('#searchBar, #nav-searchBar').on('input', function(){
+	$('#searchBar').on('input', function(){
+		$('.input-field').addClass("active");
 		performSearch();
 	});
+
+	$('#nav-searchBar').on('input', function(){
+		$('.input-field').addClass("active");
+		performNavBarSearch();
+	})
 
 	// maps setup
     var geocoder, map,

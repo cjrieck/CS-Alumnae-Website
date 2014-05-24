@@ -71,14 +71,38 @@ app.post('/request', function(req, res){
 
 			else {
 
-				// insert the entire object being passed in into the DB
-				collection.insert([req.body], function(err, docs){
+				var unregistered_collection = db.collection('unregistered');
+
+				// check if user trying to register is in the unregistered database
+				unregistered_collection.find({ $and: [ 
+														{name_first: req.body["firstName"]}, 
+														{name_last: req.body["lastName"]} 
+													] }).toArray(function(err, items){
 
 					if (err) {
 						return console.error(err);
 					}
 
-					res.send('just inserted ' + docs.length + ' new documents!');
+					if (items.length > 0) {
+						// insert the entire object being passed in into the DB
+						collection.insert([req.body], function(err, docs){
+
+							if (err) {
+								return console.error(err);
+							}
+
+							// remove that user from the unregistered database
+							unregistered_collection.remove({ $and: [ 
+														{name_first: req.body["firstName"]}, 
+														{name_last: req.body["lastName"]} 
+													] });
+
+							res.send('just inserted ' + docs.length + ' new documents!');
+
+						});
+					} else {
+						res.send("invalid");
+					}
 
 				});
 			}

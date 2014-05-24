@@ -108,8 +108,8 @@ body {
 }
 
 .alert-text {
-	width: 300px;
-
+	width: 500px;
+	text-align: center;
 	font-family: 'Open Sans Bold';
 	font-size: 30px;
 	margin: 13px auto;

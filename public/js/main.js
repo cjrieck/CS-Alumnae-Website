@@ -17,7 +17,7 @@ $(function() {
 		});
 	});
 
-	$('.signin-button').on("click", function(){
+	$('.signin-button').click(function(){
 		if (!IN.User.isAuthorized()){
 			onLinkedInLogin();
 		} else {
@@ -120,7 +120,7 @@ $(function() {
 
 		if (IN.User.isAuthorized()) { // if user is authorized... 
 			$('.login-button').hide(); // hide login button
-			
+
 			// get users profile and send result to postData()
 			IN.API.Profile("me")
 			.fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)", "headline")
@@ -146,14 +146,6 @@ $(function() {
 			success: function(data){
 
 				$('.list').html(data); // clears and replaces html with the rendered html received
-				
-				// $('.item').addClass("hidden");
-
-				// $(document.body).on('appear', '.item', function(e, $affected) {
-			 //    	// add class called “appeared” for each appeared element
-				// 	$(this).addClass("appeared");
-				// });
-				// $('.item').appear({force_process: true});
 
 				getData();
 				getUnregisteredUsers();
@@ -251,10 +243,27 @@ $(function() {
 			url: '/request',
 			data: JSON.stringify(data), // sends back JSON string
 			contentType: "application/json; charset=utf-8",
-			success: function(){
-				
-				getAllUsers(); // refresh page with new user
-
+			success: function(res){
+				if (res === "Already exists") {
+					console.log("in DB")
+				} else if (res === "invalid") {
+					$('.alert').children('.alert-text').html("Not a Wheaton CS Alumnae/i");
+					$('.alert').stop().animate({
+						top: "0%"
+					}, 300, function(){
+						// displays alert for 2 seconds before
+						// animating back up
+						setTimeout(function () {
+					        $('.alert').stop().animate({
+					        	top: '-100%'
+					        }, 300);
+					    }, 2000, function(){
+					    	$('.alert').children('.alert-text').html("Already Registered");
+					    });
+					});
+				} else {
+					getAllUsers(); // refresh page with new user				
+				}
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				console.log("bad: " + textStatus + ": " + errorThrown);

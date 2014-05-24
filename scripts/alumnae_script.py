@@ -11,8 +11,6 @@ def main():
 
 	collection = db['unregistered']
 
-	# print collection
-
 	wb = load_workbook(filename = r'/Users/Clayton/Desktop/Alumnae Spreadsheet/From AlumnaeOffice_Computer Science Majors.xlsx')
 
 	sheet_ranges = wb['Sheet1']
@@ -39,6 +37,7 @@ def main():
 				else:
 					jsonString[titleArray[col_idx-1].encode('ascii')] = str(sheet_ranges[cellNum].value)
 
+		# appends information to existing db
 		collection.insert(jsonString)
 		
 

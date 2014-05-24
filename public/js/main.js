@@ -46,7 +46,9 @@ $(function() {
 				$('.nav, .nav-banner').removeClass("scrolled");
 
 				// $('.nav-search').hide("slow");
-				$('.nav-search').removeClass('active');
+				if (!$('#nav-searchBar').is(':focus')) {
+					$('.nav-search').removeClass('active');
+				}
 
 				$('.signin-text').removeClass('scrolled');
 			}
@@ -298,7 +300,8 @@ $(function() {
 
 	$('#nav-searchBar').on('input', function(){
 		$('.input-field').addClass("active");
-		performNavBarSearch();
+		performSearch(); // do this for now until performNavBarSearch is implemented
+		// performNavBarSearch();
 	})
 
 	// maps setup

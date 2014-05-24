@@ -366,9 +366,7 @@ body {
 	margin-bottom: 20px;
 
 	position: relative;
-
-	/* change later? */
-	/*overflow: scroll;*/
+	
 	overflow: hidden;
 }
 
@@ -485,15 +483,7 @@ body {
 .input-field {
 	width: 225px;
 	margin: 15px auto;
-
-/*	-webkit-transition: margin: 0.2 ease;
-	transition: margin 0.2s ease;
-*/
 }
-
-/*.input-field.active {
-	margin: 15px auto;
-}*/
 
 #searchBar {
 	border-radius: 5px;
@@ -518,7 +508,6 @@ body {
 #searchBar:active, #searchBar:focus {
 	outline: none;
 	border-color: #2ecc71;
-	/*width: 400px;*/
 }
 
 #submit {

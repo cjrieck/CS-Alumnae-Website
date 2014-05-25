@@ -379,7 +379,7 @@ $(function() {
 
 					console.log(name);
 
-					bindInfoWindow(marker, map, infowindow, infowindow["content"]);
+					// bindInfoWindow(marker, map, infowindow, infowindow["content"]);
 
 			       // brings up name of person associated with pin
 				 //    google.maps.event.addListener(marker, 'click', function() {

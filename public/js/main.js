@@ -17,18 +17,18 @@ $(function() {
 		});
 	});
 
-	$('.signin-button').click(function(){
-		if (!IN.User.isAuthorized()){
-			onLinkedInLogin();
-		} else {
+	// $('.signin-button').click(function(){
+	// 	if (!IN.User.isAuthorized()){
+	// 		onLinkedInLogin();
+	// 	} else {
 
-			$('.alert').addClass('active');
+	// 		$('.alert').addClass('active');
 
-			setTimeout(function(){
-		    	$('.alert').removeClass("active");
-			}, 2000);
-		}
-	});
+	// 		setTimeout(function(){
+	// 	    	$('.alert').removeClass("active");
+	// 		}, 2000);
+	// 	}
+	// });
 
 	// controls when nav bar is displayed.
 	// will display once past top of results div
@@ -101,14 +101,21 @@ $(function() {
 	
 
 	function onLinkedInLoad() {
-		IN.Event.on(IN, "auth", function() {onLinkedInLogin();}); // on authorization, perform onLinkedInLogin
+		IN.Event.on(IN, "auth", function() {
+			// $('.signin-modal-wrapper').addClass("showing");
+			
+			onLinkedInLogin();
+		}); // on authorization, perform onLinkedInLogin		
+
+		// if (!IN.User.isAuthorized()) {
+		// 	$('.signin-modal-wrapper').addClass("showing");
+		// }
 	}
 
 	function onLinkedInLogin() {
-
+		// console.log(IN.User.isAuthorized());
 		if (IN.User.isAuthorized()) { // if user is authorized... 
 			$('.login-button, .signin-button').hide(); // hide login button
-
 			// get users profile and send result to postData()
 			IN.API.Profile("me")
 			.fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)", "headline")
@@ -120,6 +127,11 @@ $(function() {
 	    		alert(err);
 		    });
 		} else {
+
+			// setTimeout(function(){
+			// 	$('.signin-modal-wrapper').addClass("showing");
+			// }, 1000);
+
 			$('.login-button').show(); // if not authorized, show login button
 		}
 
@@ -239,7 +251,7 @@ $(function() {
 			contentType: "application/json; charset=utf-8",
 			success: function(res){
 				if (res === "Already exists") {
-					console.log("in DB");
+					// console.log("in DB");
 				} else if (res === "invalid") {
 					console.log("Invalid user");
 

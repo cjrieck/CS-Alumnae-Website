@@ -532,3 +532,26 @@ body {
 	color: #fff;
 	background-color: #2ecc71;
 }
+
+.signin-modal-wrapper {
+	height: 400px;
+	width: 350px;
+	display: block;
+
+	border-radius: 5px;
+
+	position: absolute;
+	top: -100%;
+	/*bottom: 1%;*/
+
+	-webkit-transition: top 0.4s ease;
+	transition: top 0.4s ease;
+}
+
+.signin-modal-wrapper.showing {
+	top: 1%;
+
+	-webkit-transition: top 0.4s ease;
+	transition: top 0.4s ease;
+}
+

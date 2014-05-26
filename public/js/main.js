@@ -120,7 +120,7 @@ $(function() {
 			IN.API.Profile("me")
 			.fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)", "headline")
 			.result( function(me) {
-				console.log(me);
+				// console.log(me);
 				postData(me["values"][0]); // will attempt to insert results into DB
 			})
 			.error(function(err) {
@@ -253,7 +253,7 @@ $(function() {
 				if (res === "Already exists") {
 					// console.log("in DB");
 				} else if (res === "invalid") {
-					console.log("Invalid user");
+					// console.log("Invalid user");
 
 					$('.alert').children('.alert-text').html("Not a Wheaton CS Alumnae/i");
 					
@@ -377,7 +377,7 @@ $(function() {
 						content: name
 					});
 
-					console.log(name);
+					// console.log(name);
 
 					// bindInfoWindow(marker, map, infowindow, infowindow["content"]);
 

@@ -7,6 +7,8 @@ $(function() {
 
 	var cardsDiv = $('.results').offset().top; // get top of cards div
 
+	console.log("LOADED");
+
 	// async retrieval of LinkedIn API
 	$.getScript('http://platform.linkedin.com/in.js?async=true', function()
 	{
@@ -71,32 +73,32 @@ $(function() {
 	// code for animating timeline div down with arrow pointing to item
 	// clicked on
 	// ---------------------------------------------------------------------------------
-	// $('.item').click(function(){
-	// 	console.log("click item");
+	$('.item').click(function(){
+		console.log("click item");
 
-	// 	if ($('.bottom').length > 0) {
-	// 		$('.bottom, .arrow-up').remove();
-	// 	}
+		if ($('.bottom').length > 0) {
+			$('.bottom, .arrow-up').remove();
+		}
 
-	// 	$(this).after('<div class="arrow-up"></div><div class="bottom"></div>');
+		$(this).after('<div class="arrow-up"></div><div class="bottom"></div>');
 
-	// 	$('.arrow-up').css('margin-left', $(this).offset().left + $(this).width()/5);
+		$('.arrow-up').css('margin-left', $(this).offset().left + $(this).width()/5);
 
-	// 	$('.bottom').animate({
-	// 		height: "toggle"
-	// 	}, 500);
-	// });
+		$('.bottom').animate({
+			height: "toggle"
+		}, 500);
+	});
 
-	// $(document).mouseup(function(e){
-	// 	var divToHide = $('.bottom');
+	$(document).mouseup(function(e){
+		var divToHide = $('.bottom');
 
-	// 	if(!divToHide.is(e.target)
-	// 	&& divToHide.has(e.target).length === 0) {
-	// 		$('.bottom, .arrow-up').animate({
-	// 			height: "toggle"
-	// 		}, 500);
-	// 	}
-	// });
+		if(!divToHide.is(e.target)
+		&& divToHide.has(e.target).length === 0) {
+			$('.bottom, .arrow-up').animate({
+				height: "toggle"
+			}, 500);
+		}
+	});
 	// ---------------------------------------------------------------------------------
 	
 

@@ -103,15 +103,9 @@ $(function() {
 	
 
 	function onLinkedInLoad() {
-		IN.Event.on(IN, "auth", function() {
-			// $('.signin-modal-wrapper').addClass("showing");
-			
+		IN.Event.on(IN, "auth", function() {			
 			onLinkedInLogin();
 		}); // on authorization, perform onLinkedInLogin		
-
-		// if (!IN.User.isAuthorized()) {
-		// 	$('.signin-modal-wrapper').addClass("showing");
-		// }
 	}
 
 	function onLinkedInLogin() {
@@ -122,17 +116,12 @@ $(function() {
 			IN.API.Profile("me")
 			.fields("id", "first-name", "last-name", "location", "positions", "picture-url", "picture-urls::(original)", "headline")
 			.result( function(me) {
-				// console.log(me);
 				postData(me["values"][0]); // will attempt to insert results into DB
 			})
 			.error(function(err) {
 	    		alert(err);
 		    });
 		} else {
-
-			// setTimeout(function(){
-			// 	$('.signin-modal-wrapper').addClass("showing");
-			// }, 1000);
 
 			$('.login-button').show(); // if not authorized, show login button
 		}
@@ -171,9 +160,6 @@ $(function() {
 			success: function(data){
 
 				$('.list').append(data); // append new html to previous html
-				// if ($('.email').) {};
-				// $('.item').css('opacity', '1');
-				// $.each('.item', function(index, value))
 				
 			},
 			error: function(jqXHR, textStatus, errorThrown){
@@ -294,19 +280,7 @@ $(function() {
 		}
 	}
 
-	// when the search button is clicked
-	// $('#submit').click(function(){
-	// 	mainSearchActive = true;
-	// 	performSearch();
-	// });
-
-	// when enter is hit
-	// $('#searchBar, #nav-searchBar').keypress(function(e){
-	// 	if (e.which === 13) {
-	// 		performSearch();
-	// 	}
-	// });
-
+	// whenever input field changes, query for users
 	$('#searchBar').on('input', function(){
 		$('.input-field').addClass("active");
 		performSearch();

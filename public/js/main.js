@@ -19,19 +19,6 @@ $(function() {
 		});
 	});
 
-	// $('.signin-button').click(function(){
-	// 	if (!IN.User.isAuthorized()){
-	// 		onLinkedInLogin();
-	// 	} else {
-
-	// 		$('.alert').addClass('active');
-
-	// 		setTimeout(function(){
-	// 	    	$('.alert').removeClass("active");
-	// 		}, 2000);
-	// 	}
-	// });
-
 	// controls when nav bar is displayed.
 	// will display once past top of results div
 	$(window).on('scroll', function(){
@@ -386,17 +373,17 @@ $(function() {
 	};
 
 	// STRICTLY FOR TESTING
-	function testData() {
-		var data = [{
-			id: 'adfasdfadf',
-			firstName: 'Clayton',
-			lastName: 'Rieck',
-			pictureUrls: {
-				values: ['http://momstown.ca/sites/national.momstown.espresso.furthermore.ca/files/thing1_thing2.jpg']
-			}
-		}];
-		postData(data[0]);
-	}
+	// function testData() {
+	// 	var data = [{
+	// 		id: 'adfasdfadf',
+	// 		firstName: 'Clayton',
+	// 		lastName: 'Rieck',
+	// 		pictureUrls: {
+	// 			values: ['http://momstown.ca/sites/national.momstown.espresso.furthermore.ca/files/thing1_thing2.jpg']
+	// 		}
+	// 	}];
+	// 	postData(data[0]);
+	// }
 
 	function initialize() {
 	  	geocoder = new google.maps.Geocoder();

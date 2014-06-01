@@ -298,13 +298,19 @@ $(function() {
 
 		// var service = new google.maps.places.PlacesService(map);
 
+		var location;
+		var name;
+		var marker;
+		var infowindow;
+
+
     	for (var i = 0; i < userData.length; i++) {
     		
-    		var that = this;
-    		var location;
-    		var name;
-    		var marker;
-    		var infowindow;
+    		var that;
+    		// var location;
+    		// var name;
+    		// var marker;
+    		// var infowindow;
 
     		// if no location data, break
 			if (!userData[i].location) {
@@ -322,31 +328,31 @@ $(function() {
 
 			name = userData[i]["firstName"] + " " + userData[i]["lastName"];
 
+			// console.log("FOR LOOP NAME: "+name);
+
+			infowindow = new google.maps.InfoWindow({"content": name});
+
+			console.log("FORLOOP: "+infowindow["content"]);
+
 			// pins the locations onto the map (from Google documentation)
 			geocoder.geocode( {"address": location}, function(results, status) {
 			    if (status == google.maps.GeocoderStatus.OK) {
-			      map.setCenter(results[0].geometry.location);
+					map.setCenter(results[0].geometry.location);
 
-			      // name = userData[i]["firstName"] + " " + userData[i]["lastName"];
-
-			      // set up maps pin
-			      marker = new google.maps.Marker({
-			          map: map,
-			          animation: google.maps.Animation.DROP,
-			          position: results[0].geometry.location
-			      });
-
-					infowindow = new google.maps.InfoWindow({
-						content: name
+					// set up maps pin
+					marker = new google.maps.Marker({
+						map: map,
+						animation: google.maps.Animation.DROP,
+						position: results[0].geometry.location
 					});
 
-					// console.log(name);
+					console.log(infowindow["content"]);
 
-					// bindInfoWindow(marker, map, infowindow, infowindow["content"]);
+					bindInfoWindow(marker, map, infowindow, infowindow["content"]);
 
-			       // brings up name of person associated with pin
-				 //    google.maps.event.addListener(marker, 'click', function() {
-					// 	// infowindow.setContent(name);
+					// brings up name of person associated with pin
+					//    google.maps.event.addListener(marker, 'click', function() {
+					// 	infowindow.setContent(name);
 					// 	infowindow.open(map, this);
 					// });
 

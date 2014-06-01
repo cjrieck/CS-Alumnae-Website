@@ -34,9 +34,6 @@ app.get('/', function(req, res){
 
 			context = {people: items};
 
-			// console.log("INITIAL CONTEXT");
-			// console.log(items);
-
 			res.render('home', context); // first page to load
 		});
 
@@ -181,13 +178,6 @@ app.get('/unregistered', function(req, res){
 						res.send(err);
 
 					} else {
-
-						// cleaning up entries with no email addresses
-						// for (var i = 0; i < unregistered_items.length; i++) {
-						// 	if (unregistered_items[i]["email_addr"] === "None"){
-						// 		delete unregistered_items[i]["email_addr"];
-						// 	};
-						// };
 
 						// iterate through array of users signed in through LinkedIn
 						for (var i = 0; i < registered_items.length; i++) {

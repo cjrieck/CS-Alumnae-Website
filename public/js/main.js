@@ -372,19 +372,6 @@ $(function() {
 		}
 	};
 
-	// STRICTLY FOR TESTING
-	// function testData() {
-	// 	var data = [{
-	// 		id: 'adfasdfadf',
-	// 		firstName: 'Clayton',
-	// 		lastName: 'Rieck',
-	// 		pictureUrls: {
-	// 			values: ['http://momstown.ca/sites/national.momstown.espresso.furthermore.ca/files/thing1_thing2.jpg']
-	// 		}
-	// 	}];
-	// 	postData(data[0]);
-	// }
-
 	function initialize() {
 	  	geocoder = new google.maps.Geocoder();
 	  	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);

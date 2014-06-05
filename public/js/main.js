@@ -295,22 +295,15 @@ $(function() {
 
 	// will pin pins onto the map based on user location given by the LinkedIn API
     function getLocations(userData) {
-
-		// var service = new google.maps.places.PlacesService(map);
-
+    	
 		var location;
 		var name;
 		var marker;
 		var infowindow;
 
-
     	for (var i = 0; i < userData.length; i++) {
     		
-    		var that;
-    		// var location;
-    		// var name;
-    		// var marker;
-    		// var infowindow;
+    		var geocoder = new google.maps.Geocoder();
 
     		// if no location data, break
 			if (!userData[i].location) {
@@ -328,16 +321,16 @@ $(function() {
 
 			name = userData[i]["firstName"] + " " + userData[i]["lastName"];
 
-			// console.log("FOR LOOP NAME: "+name);
-
 			infowindow = new google.maps.InfoWindow({"content": name});
 
-			console.log("FORLOOP: "+infowindow["content"]);
+			console.log("FOR LOOP: "+infowindow["content"]);
 
 			// pins the locations onto the map (from Google documentation)
 			geocoder.geocode( {"address": location}, function(results, status) {
 			    if (status == google.maps.GeocoderStatus.OK) {
 					map.setCenter(results[0].geometry.location);
+
+					console.log(results);
 
 					// set up maps pin
 					marker = new google.maps.Marker({
@@ -360,6 +353,7 @@ $(function() {
 			     	console.log('Geocode was not successful for the following reason: ' + status);
 			    }
 			});
+
 		};
 	};
 
@@ -379,7 +373,7 @@ $(function() {
 	};
 
 	function initialize() {
-	  	geocoder = new google.maps.Geocoder();
+	  	// geocoder = new google.maps.Geocoder();
 	  	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 		
 		getAllUsers();

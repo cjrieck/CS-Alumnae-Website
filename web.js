@@ -86,7 +86,10 @@ app.post('/request', function(req, res){
 							unregistered_collection.remove({ $and: [ 
 														{"name_first": req.body["firstName"]}, 
 														{"name_last": req.body["lastName"]} 
-													] });
+													] }, function(err, result){
+														if (err) {console.log(err)}
+														else {console.log(result)}
+													});
 
 							res.send('just inserted ' + docs.length + ' new documents!');
 

@@ -68,7 +68,7 @@ app.post('/request', function(req, res){
 				var unregistered_collection = db.collection('unregistered');
 
 				// check if user trying to register is in the unregistered database
-				unregistered_collection.find({ $and: [ {name_first: req.body["firstName"]}, {name_last: req.body["lastName"]} ] }).toArray(function(err, items) {
+				unregistered_collection.find({ "$and": [ {"name_first": req.body["firstName"]}, {"name_last": req.body["lastName"]} ] }).toArray(function(err, items) {
 
 					if (err) {
 						return console.error(err);

@@ -282,20 +282,6 @@ $(function() {
 		// performNavBarSearch();
 	})
 
-	// maps setup
-    var geocoder, map,
-    	mapOptions = {
-		  center: new google.maps.LatLng(41.96727,-71.18495),
-		  zoom: 3
-		}
-
-	function bindInfoWindow(marker, map, infowindow, html) {
-	    google.maps.event.addListener(marker, 'click', function() {
-	        infowindow.setContent(html);
-	        infowindow.open(map, marker);
-	    });
-	} 
-
 	// will pin pins onto the map based on user location given by the LinkedIn API
     function getLocations(userData) {
     	
@@ -320,19 +306,8 @@ $(function() {
 				location = userData[i]["location"]["name"];
 			}
 
-			var imageURL = userData[i]["pictureUrl"];
+			// var imageURL = userData[i]["pictureUrl"];
 
-			var myIcon = L.icon({
-				// iconUrl: imageURL,
-				// iconRetinaUrl: imageURL,
-				iconSize: [38, 95],
-				iconAnchor: [22, 94],
-				popupAnchor: [-3, -76],
-				// shadowUrl: 'my-icon-shadow.png',
-				// shadowRetinaUrl: 'my-icon-shadow@2x.png',
-				shadowSize: [68, 95],
-				shadowAnchor: [22, 94]
-			});
 			// var coordinate = [];
 			geocoder.query(location, function(err, data){
 				var coordinateLat = data["latlng"][0];

@@ -162,11 +162,13 @@ $(function() {
 			url: '/map-pins',
 			success: function(data){
 				if (data.length > 0){
-
-					getLocations(data, function(geoJSON){
-						console.log(geoJSON);
-						// myLayer.setGeoJSON(geoJSON);
-					}); // put map pins onto Google Map
+					getLocations(data);
+					// getLocations(data, function(geoJSON){
+					// 	console.log(geoJSON);
+					// 	markerLayer = L.mapbox.markerLayer(geoJSON).addTo(map)
+					// 	markerLayer.setGeoJSON(geoJSON);
+					// 	// myLayer.setGeoJSON(geoJSON);
+					// }); // put map pins onto Google Map
 					populateProfiles(data); // put picture and general info on persons card
 				};
 			},
@@ -295,27 +297,15 @@ $(function() {
 	} 
 
 	// will pin pins onto the map based on user location given by the LinkedIn API
-    function getLocations(userData, callback) {
+    function getLocations(userData) {
     	
     	var geocoder = L.mapbox.geocoder('cjrieck.iiokf7lj');
-    	var geoJSON = {
-    					type: 'FeatureCollection', 
-    				    features: []
-    				  };
 		var location;
 		var name;
-		// var infowindow;
 
     	for (var i = 0; i < userData.length; i++) {
-    		
 			name = userData[i]["firstName"] + " " + userData[i]["lastName"];
 
-    		// var geocoder = new google.maps.Geocoder();
-    		var marker = {
-    						type: 'Feature',
-    						properties: {title: name, 'marker-size': 'large'},
-    						geometry: {type: 'Point', coordinates: []}
-    					 };
     		// if no location data, break
 			if (!userData[i].location) {
 				break;
@@ -330,17 +320,38 @@ $(function() {
 				location = userData[i]["location"]["name"];
 			}
 
-			var coordinate = [];
+			var imageURL = userData[i]["pictureUrl"];
+
+			var myIcon = L.icon({
+				// iconUrl: imageURL,
+				// iconRetinaUrl: imageURL,
+				iconSize: [38, 95],
+				iconAnchor: [22, 94],
+				popupAnchor: [-3, -76],
+				// shadowUrl: 'my-icon-shadow.png',
+				// shadowRetinaUrl: 'my-icon-shadow@2x.png',
+				shadowSize: [68, 95],
+				shadowAnchor: [22, 94]
+			});
+			// var coordinate = [];
 			geocoder.query(location, function(err, data){
-				// console.log(data["latlng"]);
-				coordinate = data["latlng"];
-				marker["geometry"]["coordinates"] = coordinate;
-				console.log(marker["geometry"]["coordinates"]);
-				geoJSON["features"].push(marker);
+				var coordinateLat = data["latlng"][0];
+				var coordinateLon = data["latlng"][1];
+				var marker = L.marker(new L.LatLng(coordinateLat, coordinateLon), {
+				    title : name,
+				    // icon: myIcon
+				    icon: L.mapbox.marker.icon({
+				        'marker-size': 'large',
+				        'marker-symbol': 'college',
+				        'marker-color': '#005596'
+				    })
+				});
+
+				marker.addTo(map);
 			});
 
 		};
-		callback(geoJSON);
+		// callback(geoJSON);
 	};
 
 	// populates individual cards
@@ -359,11 +370,7 @@ $(function() {
 	};
 
 	function initialize() {
-	  	// geocoder = new google.maps.Geocoder();
-	  	// map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		
 		getAllUsers();
-
 	}
 
 	var map = L.mapbox.map('map', 'cjrieck.iiokf7lj');
@@ -373,18 +380,5 @@ $(function() {
 
 	map.on('error', function(err){
 		console.log(err);
-	});
-
-	var myLayer = L.mapbox.featureLayer().addTo(map);
-
-	myLayer.on('ready', function(){
-		map.fitBounds(myLayer.getBounds());
-	});
-
-	myLayer.on('mouseover', function(e) {
-	    e.layer.openPopup();
-	});
-	myLayer.on('mouseout', function(e) {
-	    e.layer.closePopup();
 	});
 });

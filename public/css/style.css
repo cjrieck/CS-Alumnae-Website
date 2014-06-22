@@ -172,7 +172,7 @@ body {
 	background-size: auto 50px;
 	background-position: 0px 5px;
 
-	-webkit-transition: background-position:  0.2s ease;
+	-webkit-transition: background-position 0.2s ease;
 	-moz-transition:    background-position 0.2s ease;
 	-o-transition:      background-position 0.2s ease;
 	transition:         background-position 0.2s ease;
@@ -181,7 +181,7 @@ body {
 .nav-banner.scrolled {
 	background-position: 0;
 
-	-webkit-transition: background-position:  0.2s ease;
+	-webkit-transition: background-position 0.2s ease;
 	-moz-transition:    background-position 0.2s ease;
 	-o-transition:      background-position 0.2s ease;
 	transition:         background-position 0.2s ease;
@@ -296,12 +296,12 @@ body {
 	transition:         padding 0.5s linear;
 }
 
-#map-canvas {
+#map-canvas, #map {
 	height: 100%;
 }
 
 #map-outer {
-	height: 350px;
+	height: 500px;
 }
 
 .banner-wrapper {

@@ -7,8 +7,6 @@ $(function() {
 
 	var cardsDiv = $('.results').offset().top; // get top of cards div
 
-	console.log("LOADED");
-
 	// async retrieval of LinkedIn API
 	$.getScript('http://platform.linkedin.com/in.js?async=true', function()
 	{
@@ -165,7 +163,10 @@ $(function() {
 			success: function(data){
 				if (data.length > 0){
 
-					getLocations(data); // put map pins onto Google Map
+					getLocations(data, function(geoJSON){
+						console.log(geoJSON);
+						// myLayer.setGeoJSON(geoJSON);
+					}); // put map pins onto Google Map
 					populateProfiles(data); // put picture and general info on persons card
 				};
 			},
@@ -294,24 +295,34 @@ $(function() {
 	} 
 
 	// will pin pins onto the map based on user location given by the LinkedIn API
-    function getLocations(userData) {
+    function getLocations(userData, callback) {
     	
+    	var geocoder = L.mapbox.geocoder('cjrieck.iiokf7lj');
+    	var geoJSON = {
+    					type: 'FeatureCollection', 
+    				    features: []
+    				  };
 		var location;
 		var name;
-		var marker;
-		var infowindow;
+		// var infowindow;
 
     	for (var i = 0; i < userData.length; i++) {
     		
-    		var geocoder = new google.maps.Geocoder();
+			name = userData[i]["firstName"] + " " + userData[i]["lastName"];
 
+    		// var geocoder = new google.maps.Geocoder();
+    		var marker = {
+    						type: 'Feature',
+    						properties: {title: name, 'marker-size': 'large'},
+    						geometry: {type: 'Point', coordinates: []}
+    					 };
     		// if no location data, break
 			if (!userData[i].location) {
 				break;
 			}
 
-			// checks to see if user is in Greater Boston Area
-			// if they are then set the location to "Boston, MA"
+			// // checks to see if user is in Greater Boston Area
+			// // if they are then set the location to "Boston, MA"
 			if (userData[i]["location"]["name"].indexOf("Boston") != -1) {
 				location = "Boston, MA";
 			} else {
@@ -319,42 +330,17 @@ $(function() {
 				location = userData[i]["location"]["name"];
 			}
 
-			name = userData[i]["firstName"] + " " + userData[i]["lastName"];
-
-			infowindow = new google.maps.InfoWindow({"content": name});
-
-			console.log("FOR LOOP: "+infowindow["content"]);
-
-			// pins the locations onto the map (from Google documentation)
-			geocoder.geocode( {"address": location}, function(results, status) {
-			    if (status == google.maps.GeocoderStatus.OK) {
-					map.setCenter(results[0].geometry.location);
-
-					console.log(results);
-
-					// set up maps pin
-					marker = new google.maps.Marker({
-						map: map,
-						animation: google.maps.Animation.DROP,
-						position: results[0].geometry.location
-					});
-
-					console.log(infowindow["content"]);
-
-					bindInfoWindow(marker, map, infowindow, infowindow["content"]);
-
-					// brings up name of person associated with pin
-					//    google.maps.event.addListener(marker, 'click', function() {
-					// 	infowindow.setContent(name);
-					// 	infowindow.open(map, this);
-					// });
-
-			    } else {
-			     	console.log('Geocode was not successful for the following reason: ' + status);
-			    }
+			var coordinate = [];
+			geocoder.query(location, function(err, data){
+				// console.log(data["latlng"]);
+				coordinate = data["latlng"];
+				marker["geometry"]["coordinates"] = coordinate;
+				console.log(marker["geometry"]["coordinates"]);
+				geoJSON["features"].push(marker);
 			});
 
 		};
+		callback(geoJSON);
 	};
 
 	// populates individual cards
@@ -374,11 +360,31 @@ $(function() {
 
 	function initialize() {
 	  	// geocoder = new google.maps.Geocoder();
-	  	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+	  	// map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 		
 		getAllUsers();
 
 	}
 
-    google.maps.event.addDomListener(window, 'load', initialize);
+	var map = L.mapbox.map('map', 'cjrieck.iiokf7lj');
+	map.on('ready', function(){
+		initialize();
+	});
+
+	map.on('error', function(err){
+		console.log(err);
+	});
+
+	var myLayer = L.mapbox.featureLayer().addTo(map);
+
+	myLayer.on('ready', function(){
+		map.fitBounds(myLayer.getBounds());
+	});
+
+	myLayer.on('mouseover', function(e) {
+	    e.layer.openPopup();
+	});
+	myLayer.on('mouseout', function(e) {
+	    e.layer.closePopup();
+	});
 });

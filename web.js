@@ -83,6 +83,7 @@ app.post('/request', function(req, res){
 							}
 
 							// remove that user from the unregistered database
+							// need to provide callback with remove()
 							unregistered_collection.remove({ $and: [ 
 														{"name_first": req.body["firstName"]}, 
 														{"name_last": req.body["lastName"]} 

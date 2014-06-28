@@ -350,6 +350,10 @@ body {
 	margin: 0 auto;
 }
 
+.profile-link {
+	text-decoration: none;
+}
+
 .item {
 	height: 300px;
 

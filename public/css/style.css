@@ -379,6 +379,7 @@ body {
 
 .item-u {
 	height: 150px;
+	position: relative;
 }
 
 .item.hidden {
@@ -400,6 +401,19 @@ body {
     -o-transform:      translate3d(0px, 0px, 0px) rotateX(0)  scale(1, 1);
     transform:         translate3d(0px, 0px, 0px) rotateX(0)  scale(1, 1);
     opacity: 1;
+}
+
+.ripple{ /*stylings for the circular overlay*/
+  position: absolute;
+  border-radius: 100%;
+  width: 0;
+  height: 0;
+  background: rgba(0,0,0, .05);
+  transition: all .3s ease-out;
+}
+
+.notransition{ /*used to reset the ripple without an animatiion*/
+  transition: none !important;
 }
 
 .arrow-up {

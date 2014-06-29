@@ -348,9 +348,11 @@ $(function() {
     $(document).on("click", ".item", function(e){
 		e.preventDefault();
 		var $clicked = $(this);
+		var clickedParent = $clicked.parent(".profile-link");
 		var href;
-		if ($clicked.parent(".profile-link").length > 0) {
-			href = $clicked.parent(".profile-link").href;
+		
+		if (clickedParent.length > 0) {
+			href = $clicked.parent(".profile-link")[0].href;
 		};
 		
 		//gets the clicked coordinates

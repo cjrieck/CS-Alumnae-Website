@@ -374,12 +374,16 @@ body {
 
 	position: relative;
 	
+	cursor: pointer;
 	overflow: hidden;
+	text-shadow: none;
+	transition: all .3s ease-out;
 }
 
 .item-u {
 	height: 150px;
-	position: relative;
+	cursor: default;
+	/*position: relative;*/
 }
 
 .item.hidden {
@@ -410,6 +414,7 @@ body {
   height: 0;
   background: rgba(0,0,0, .05);
   transition: all .3s ease-out;
+  z-index: 3;
 }
 
 .notransition{ /*used to reset the ripple without an animatiion*/

@@ -146,7 +146,7 @@ $(function() {
 
 				$('.list').append(data); // append new html to previous html
 				
-				addRippleEffect();
+				// addRippleEffect();
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				console.log("bad: " + textStatus + ": " + errorThrown);
@@ -344,14 +344,6 @@ $(function() {
 			});
 		}
 	};
-
-	function addRippleEffect() {
-		$(".item").each( function(){
-			// console.log(value);
-			var $this = $(this);
-			$this.prepend("<div class='ripple'></div>");
-	    });
-  	}
   
     $(document).on("click", ".item", function(e){
 		e.preventDefault();
@@ -376,7 +368,6 @@ $(function() {
 		$ripple.removeClass("notransition");
 
 		//animates the button and the ripple
-		//$clicked.addClass("hovered");
 		$ripple.css({ "width": width * 2, "height": width*2, "margin-left": -width, "margin-top": -width });
 
 		setTimeout(function(){
@@ -384,7 +375,6 @@ $(function() {
 			$ripple.addClass("notransition");
 			$ripple.attr("style", "");
 			$ripple[0].offsetHeight;
-			//$clicked.removeClass("hovered");
 			$ripple.removeClass("notransition");
 			
 			if (href) {

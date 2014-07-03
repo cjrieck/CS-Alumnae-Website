@@ -396,6 +396,16 @@ $(function() {
 		initialize();
 	});
 
+	map.featureLayer.on('ready', function(e) {
+	    document.getElementById('leaflet-marker-icon').onclick = clickButton;
+	});
+
+	function clickButton() {
+		map.featureLayer.eachLayer(function(marker){
+			marker.openPopup();
+		});
+	}
+
 	map.on('error', function(err){
 		console.log(err);
 	});

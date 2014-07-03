@@ -320,7 +320,8 @@ $(function() {
 				        'marker-size': 'large',
 				        'marker-symbol': 'college',
 				        'marker-color': '#005596'
-				    })
+				    }),
+				    clickable: true
 				});
 
 				marker.addTo(map);

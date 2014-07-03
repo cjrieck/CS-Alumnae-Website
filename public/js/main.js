@@ -313,41 +313,41 @@ $(function() {
 			geocoder.query(location, function(err, data){
 				var coordinateLat = data["latlng"][0];
 				var coordinateLon = data["latlng"][1];
-				var marker = L.mapbox.featureLayer({
-				    type: 'Feature',
-				    geometry: {
-				        type: 'Point',
-				        coordinates: [coordinateLat, coordinateLon]
-				    },
-				    properties: {
-				        title: 'Hello world!',
-				        'marker-size': 'large',
-				        'marker-symbol': 'college',
-				        'marker-color': '#f86767'
-				    }
-				}).addTo(map);
-
-				// var marker = L.marker(new L.LatLng(coordinateLat, coordinateLon), {
-				//     title : name,
-				//     // icon: myIcon
-				//     icon: L.mapbox.marker.icon({
+				// var marker = L.mapbox.featureLayer({
+				//     type: 'Feature',
+				//     geometry: {
+				//         type: 'Point',
+				//         coordinates: [coordinateLat, coordinateLon]
+				//     },
+				//     properties: {
+				//         title: 'Hello world!',
 				//         'marker-size': 'large',
 				//         'marker-symbol': 'college',
-				//         'marker-color': '#005596'
-				//     }),
-				//     clickable: true
-				// });
+				//         'marker-color': '#f86767'
+				//     }
+				// }).addTo(map);
 
-				// marker.addTo(map);
+				var marker = L.marker(new L.LatLng(coordinateLat, coordinateLon), {
+				    title : name,
+				    // icon: myIcon
+				    icon: L.mapbox.marker.icon({
+				        'marker-size': 'large',
+				        'marker-symbol': 'college',
+				        'marker-color': '#005596'
+				    }),
+				    clickable: true
+				});
+
+				marker.addTo(map);
 				// marker.click(function(e) {
 				// 	$(e.target).openPopup();
 				// });
 			});
 
 		};
-		marker.eachLayer(function(m) {
-		  m.openPopup();
-		});
+		// marker.eachLayer(function(m) {
+		//   m.openPopup();
+		// });
 		// callback(geoJSON);
 	};
 
